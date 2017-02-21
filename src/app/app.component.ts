@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    title = 'GFT Fights!';
+    title = 'JavaScript Katas Player!';
 
     constructor(private router: Router) {}
 
