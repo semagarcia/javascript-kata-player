@@ -1,0 +1,30 @@
+<md-toolbar color="primary">
+    <!--<span>Application Title</span>-->
+    <!--<md-icon>keyboard_return</md-icon>-->
+    <a md-mini-fab routerLink="/">
+        <md-icon>keyboard_return</md-icon>
+    </a>
+    <span style="margin-left:12px">{{ title }}</span>
+    <md-menu #appMenu="mdMenu">
+        <button md-menu-item>
+            <md-icon>fingerprint</md-icon>
+            <span>Login</span>
+        </button>
+        <button md-menu-item (click)="goHome()">
+            <md-icon>home</md-icon>
+            <span>Home</span>
+        </button>
+        <button md-menu-item>
+            <md-icon>notifications_off</md-icon>
+            <span>Disable alerts</span>
+        </button>
+    </md-menu>
+
+    <!-- This fills the remaining space of the current row -->
+    <span class="example-fill-remaining-space"></span>
+    <button md-icon-button [mdMenuTriggerFor]="appMenu">
+        <md-icon>more_vert</md-icon>
+    </button>
+</md-toolbar>
+
+<router-outlet></router-outlet>
