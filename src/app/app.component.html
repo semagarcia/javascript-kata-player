@@ -1,7 +1,5 @@
 <md-toolbar color="primary">
-    <!--<span>Application Title</span>-->
-    <!--<md-icon>keyboard_return</md-icon>-->
-    <a md-mini-fab routerLink="/">
+    <a md-mini-fab routerLink="/" [routerLinkActive]="['hidden']" [routerLinkActiveOptions]="{exact:true}">
         <md-icon>keyboard_return</md-icon>
     </a>
     <span style="margin-left:12px">{{ title }}</span>
