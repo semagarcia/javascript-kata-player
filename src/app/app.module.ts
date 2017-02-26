@@ -8,8 +8,11 @@ import { MaterialModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
 
+import { CodemirrorModule } from 'ng2-codemirror';
+
 import { HomeComponent } from './home/home.component';
 import { IndividualComponent } from './individual/individual.component';
+import { TimeElapsedPipe } from './individual/time.pipe';
 import { ChallengeComponent } from './challenge/challenge.component';
 
 import 'hammerjs';
@@ -19,12 +22,14 @@ import 'hammerjs';
     AppComponent,
     HomeComponent,
     IndividualComponent,
+    TimeElapsedPipe,
     ChallengeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    CodemirrorModule,
     MaterialModule.forRoot(),
     RouterModule.forRoot(ROUTES)
   ],

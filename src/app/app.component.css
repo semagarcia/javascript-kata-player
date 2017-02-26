@@ -1,11 +1,9 @@
-html, body {
-    height:100%;
-    margin:0;
+md-toolbar {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }
 
 .main-container {
-    height:100%;
-    display:flex;
+    display: flex;
     display: -webkit-flex;
     flex-direction: row;
     -webkit-flex-direction: row;
@@ -13,9 +11,7 @@ html, body {
     align-content: stretch;
 }
 
-.example-fill-remaining-space {
-    /* This fills the remaining space, by using flexbox. 
-      Every toolbar row uses a flexbox row layout. */
+.fill-remaining-space {
     flex: 1 1 auto;
 }
 
