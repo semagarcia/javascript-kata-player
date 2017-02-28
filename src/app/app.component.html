@@ -1,10 +1,10 @@
 <md-toolbar color="primary">
-    <a md-mini-fab routerLink="/" [routerLinkActive]="['hidden']" [routerLinkActiveOptions]="{exact:true}">
+    <a md-mini-fab routerLink="/home" [routerLinkActive]="['hidden']" [routerLinkActiveOptions]="{exact:true}">
         <md-icon>keyboard_return</md-icon>
     </a>
     <span style="margin-left:12px">{{ title }}</span>
     <md-menu #appMenu="mdMenu">
-        <button md-menu-item>
+        <button md-menu-item (click)="logout()">
             <md-icon>fingerprint</md-icon>
             <span>Logout</span>
         </button>

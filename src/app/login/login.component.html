@@ -13,11 +13,24 @@
   </div>
   
   <div style="display:flex; flex-direction:column">
-    <button md-raised-button color="primary"><i class="fa fa-key fa-lg" aria-hidden="true"></i> Standard login</button>
+    <button md-raised-button color="primary" (click)="standardLogin()">
+      <i class="fa fa-key fa-lg" aria-hidden="true"></i> Standard login
+    </button>
     <br /><hr style="width:100%" /><br />
 
-    <button md-raised-button color="accent"><i class="fa fa-github fa-lg" aria-hidden="true"></i> Github login</button><br />
-    <button md-raised-button color="accent"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i> Twitter login</button><br />
-    <button md-raised-button color="accent"><i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i> Facebook login</button><br />
+    <!-- Login with github credentials -->
+    <button md-raised-button color="accent" (click)="loginWithGithubCredentials()">
+      <i class="fa fa-github fa-lg" aria-hidden="true"></i> Github login
+    </button><br />
+
+    <!-- Login with twitter credentials -->
+    <button md-raised-button color="accent" (click)="loginWithTwitterCredentials()">
+      <i class="fa fa-twitter fa-lg" aria-hidden="true"></i> Twitter login
+    </button><br />
+
+    <!-- Login with facebook credentials -->
+    <button md-raised-button color="accent" (click)="loginWithFacebookCredentials()">
+      <i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i> Facebook login
+    </button><br />
   </div>
 </div>

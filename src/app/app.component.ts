@@ -11,7 +11,11 @@ export class AppComponent {
 
     constructor(private router: Router) {}
 
+    logout() {
+        this.router.navigate(['']);
+    }
+
     goHome() {
-        this.router.navigate(['/']);
+        this.router.navigate(['home']);
     }
 }
