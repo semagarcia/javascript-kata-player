@@ -16,6 +16,7 @@ import { TimeElapsedPipe } from './individual/time.pipe';
 import { ChallengeComponent } from './challenge/challenge.component';
 
 import 'hammerjs';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import 'hammerjs';
     HomeComponent,
     IndividualComponent,
     TimeElapsedPipe,
-    ChallengeComponent
+    ChallengeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
