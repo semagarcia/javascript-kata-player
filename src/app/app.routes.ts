@@ -9,5 +9,6 @@ export const ROUTES: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'individual', component: IndividualComponent },
-  { path: 'challenge', component: ChallengeComponent }
+  { path: 'challenge', component: ChallengeComponent },
+  { path: '**', redirectTo: '' }
 ];
