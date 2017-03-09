@@ -84,6 +84,18 @@ export class IndividualComponent implements OnInit {
                         line = `<span class="test-line-error">${line}</span>`;
                     }
 
+                    // Check for successful tests
+                    let checkCharacterFound = false;
+                    line.split('').forEach(letter => {
+                        if(letter.charCodeAt(0) === 10003) { 
+                            checkCharacterFound = true; 
+                        }
+                    });
+
+                    if(checkCharacterFound) {
+                        line = `<span class="test-line-successful">${line}</span>`;
+                    }
+
                     // Add the line processed
                     this.testResult.push(line);
                 });
