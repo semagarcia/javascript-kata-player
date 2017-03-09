@@ -15,27 +15,32 @@ import { IndividualComponent } from './individual/individual.component';
 import { TimeElapsedPipe } from './individual/time.pipe';
 import { ChallengeComponent } from './challenge/challenge.component';
 
-import 'hammerjs';
 import { LoginComponent } from './login/login.component';
+import { CreateChallengeDialog } from './challenge/create-challenge.component';
+
+import 'hammerjs';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    IndividualComponent,
-    TimeElapsedPipe,
-    ChallengeComponent,
-    LoginComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    CodemirrorModule,
-    MaterialModule.forRoot(),
-    RouterModule.forRoot(ROUTES)
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        IndividualComponent,
+        TimeElapsedPipe,
+        ChallengeComponent,
+        LoginComponent,
+        CreateChallengeDialog
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        CodemirrorModule,
+        MaterialModule.forRoot(),
+        RouterModule.forRoot(ROUTES)
+    ],
+    providers: [],
+    //exports: [CreateChallengeDialog],
+    entryComponents: [CreateChallengeDialog],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

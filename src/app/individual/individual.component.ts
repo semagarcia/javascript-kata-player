@@ -30,8 +30,8 @@ export class IndividualComponent implements OnInit {
     constructor(private httpSrv: Http) {}
 
     ngOnInit() {
-        this.leftPaneWidth = 50;
         this.showEditorPane = false;
+        this.leftPaneWidth = 50;
         this.resizingModeEnabled = false;
         this.code = 'function myTitleFunction(){\n\treturn 100;\n}';
         this.config = {
@@ -69,7 +69,6 @@ export class IndividualComponent implements OnInit {
     }
 
     testKata() {
-        console.log('testingKata');
         this.httpSrv.post('http://localhost:3000/kata', { function: this.code })
             .toPromise()
             .then((res) => { 
