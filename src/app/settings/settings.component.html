@@ -1,0 +1,23 @@
+<h1>Settings</h1>
+<hr />
+
+<!--
+There is a bug with Material library (tabs) with Angular v4.0.0-rc.X, because the 
+content is not alternate successfully. So, with the change event and the selectedIndex,
+the specific content of each tab can be hidden to simulate the behaviour until it would
+be fixed.
+-->
+<md-tab-group [selectedIndex]="tabIndex" (selectChange)="changeTab($event)">
+    <!-- First tab: XXX -->
+    <md-tab label="Tab zero">
+        <div *ngIf="tabIndex === 0">
+            Tab 0 content
+        </div>
+    </md-tab>
+    <!-- Second tab: XXX -->
+    <md-tab label="Tab one">
+        <div *ngIf="tabIndex === 1">
+            Tab 1 content
+        </div>
+    </md-tab>
+</md-tab-group>
