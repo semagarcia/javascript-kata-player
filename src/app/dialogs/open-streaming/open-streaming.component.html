@@ -1,0 +1,23 @@
+<h1>Streaming mode</h1>
+<hr style="margin-top: -18px" />
+
+<div class="flexibox-row-centered margin-12">
+    Icono
+</div>
+
+<div class="padding-top-18">
+    <p>In order to join and view a challenge, please, write here the challengeId:</p>
+    <md-input-container class="full-width">
+        <input #challengeInput mdInput placeholder="Write the challenge identifier" [(ngModel)]="challengeId">
+    </md-input-container>
+    
+    <p *ngIf="isEmptyChallengeId" style="color:darkred; margin-top:0">
+        <em> Error: you should insert the challenge identifier</em>
+    </p>
+
+    <div class="flexibox-row">
+        <button type="button" md-raised-button color="primary" (click)="joinToChallenge()" class="flex-grow-1">Join</button>
+        <div style="padding:0 3px;"></div> 
+        <button type="button" md-raised-button color="accent" (click)="cancel()" class="flex-grow-1">Cancel</button>
+    </div>
+</div>
