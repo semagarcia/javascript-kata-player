@@ -8,6 +8,7 @@
 </md-toolbar>
 
 <div class="main-container" style="height: calc(100% - (120px));">
+    <!-- Player A -->
     <div class="enunciado" style="flex-basis:50%">
         <div style="padding:12px">
             <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
@@ -15,7 +16,7 @@
         </div>
         <div class="medio-panel-superior card-ang-mat">
             <codemirror class="editor-area" 
-                [(ngModel)]="code" 
+                [(ngModel)]="codePlayerA" 
                 [config]="config">
             </codemirror>
         </div>
@@ -28,6 +29,8 @@
             <i class="fa fa-thumbs-down" aria-hidden="true" style="color:red"></i> 3
         </div>
     </div>
+
+    <!-- Player B -->
     <div class="enunciado" style="flex-basis:50%">
         <div style="padding:12px">
             <i class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i>
@@ -35,7 +38,7 @@
         </div>
         <div class="medio-panel-superior card-ang-mat">
             <codemirror class="editor-area" 
-                [(ngModel)]="code" 
+                [(ngModel)]="codePlayerB" 
                 [config]="config">
             </codemirror>
         </div>
