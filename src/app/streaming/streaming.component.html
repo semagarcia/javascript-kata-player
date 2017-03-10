@@ -1,0 +1,48 @@
+<md-toolbar color="second">
+    <span class="spacer"></span>
+
+    <md-icon>watch_later</md-icon>
+    <span>Time: {{ timeSpent | timeElapsed }}</span>
+
+    <span class="spacer"></span>
+</md-toolbar>
+
+<div class="main-container" style="height: calc(100% - (120px));">
+    <div class="enunciado" style="flex-basis:50%">
+        <div style="padding:12px">
+            <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+            Aitor Tilla Fernández
+        </div>
+        <div class="medio-panel-superior card-ang-mat">
+            <codemirror class="editor-area" 
+                [(ngModel)]="code" 
+                [config]="config">
+            </codemirror>
+        </div>
+        <div>
+            Tests: 
+            <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color:green"></i> 0
+            <i class="fa fa-thumbs-o-down" aria-hidden="true" style="color:red"></i> 3
+            |
+            <i class="fa fa-thumbs-up" aria-hidden="true" style="color:green"></i> 0
+            <i class="fa fa-thumbs-down" aria-hidden="true" style="color:red"></i> 3
+        </div>
+    </div>
+    <div class="enunciado" style="flex-basis:50%">
+        <div style="padding:12px">
+            <i class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i>
+            Borja Món de York
+        </div>
+        <div class="medio-panel-superior card-ang-mat">
+            <codemirror class="editor-area" 
+                [(ngModel)]="code" 
+                [config]="config">
+            </codemirror>
+        </div>
+    </div>
+
+    <!-- Separator -->
+    <div style="left:50%; position:absolute; width:4px; z-index:1;
+                background: #1d1d1d; top:128px; bottom:0; margin-left:-2px;">
+    </div>
+</div>

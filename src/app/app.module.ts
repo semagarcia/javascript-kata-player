@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { CreateChallengeDialog } from './challenge/create-challenge.component';
 
 import 'hammerjs';
+import { StreamingComponent } from './streaming/streaming.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import 'hammerjs';
         TimeElapsedPipe,
         ChallengeComponent,
         LoginComponent,
-        CreateChallengeDialog
+        CreateChallengeDialog,
+        StreamingComponent
     ],
     imports: [
         BrowserModule,
