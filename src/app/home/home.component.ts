@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
-import { CreateChallengeDialog } from './../challenge/create-challenge.component';
+import { CreateChallengeDialog } from './../dialogs/create-challenge/create-challenge.component';
 
 @Component({
     templateUrl: './home.component.html'
