@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MdDialog } from '@angular/material';
+
+import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.component';
 
 @Component({
     selector: 'app-root',
@@ -9,13 +12,31 @@ import { Router } from '@angular/router';
 export class AppComponent {
     title = 'JavaScript Katas Player!';
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, public dialog: MdDialog) {}
 
     logout() {
-        this.router.navigate(['']);
+        this.router.navigate(['/']);
     }
 
     goHome() {
-        this.router.navigate(['home']);
+        this.router.navigate(['/home']);
     }
+
+    openStreamingMode() {
+        let dialogRef = this.dialog.open(OpenStreamingDialog);
+        dialogRef.afterClosed().subscribe(challengeId => {
+            if(challengeId) {
+                this.router.navigate(['/streaming', challengeId]);
+            }
+        });
+    }
+
+    openRanking() {
+        this.router.navigate(['/ranking']);
+    }
+
+    openSettings() {
+        this.router.navigate(['/settings']);
+    }
+
 }

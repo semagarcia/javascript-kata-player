@@ -16,10 +16,13 @@ import { TimeElapsedPipe } from './individual/time.pipe';
 import { ChallengeComponent } from './challenge/challenge.component';
 
 import { LoginComponent } from './login/login.component';
-import { CreateChallengeDialog } from './challenge/create-challenge.component';
+import { StreamingComponent } from './streaming/streaming.component';
+import { CreateChallengeDialog } from './dialogs/create-challenge/create-challenge.component';
+import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.component';
 
 import 'hammerjs';
-import { StreamingComponent } from './streaming/streaming.component';
+import { SettingsComponent } from './settings/settings.component';
+import { RankingComponent } from './ranking/ranking.component';
 
 @NgModule({
     declarations: [
@@ -29,8 +32,11 @@ import { StreamingComponent } from './streaming/streaming.component';
         TimeElapsedPipe,
         ChallengeComponent,
         LoginComponent,
+        StreamingComponent,
         CreateChallengeDialog,
-        StreamingComponent
+        OpenStreamingDialog,
+        SettingsComponent,
+        RankingComponent
     ],
     imports: [
         BrowserModule,
@@ -41,8 +47,10 @@ import { StreamingComponent } from './streaming/streaming.component';
         RouterModule.forRoot(ROUTES)
     ],
     providers: [],
-    //exports: [CreateChallengeDialog],
-    entryComponents: [CreateChallengeDialog],
+    entryComponents: [
+        CreateChallengeDialog,
+        OpenStreamingDialog
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
