@@ -7,9 +7,6 @@ import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
-
-import { CodemirrorModule } from 'ng2-codemirror';
-
 import { HomeComponent } from './home/home.component';
 import { IndividualComponent } from './individual/individual.component';
 import { TimeElapsedPipe } from './individual/time.pipe';
@@ -19,10 +16,13 @@ import { LoginComponent } from './login/login.component';
 import { StreamingComponent } from './streaming/streaming.component';
 import { CreateChallengeDialog } from './dialogs/create-challenge/create-challenge.component';
 import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.component';
-
-import 'hammerjs';
 import { SettingsComponent } from './settings/settings.component';
 import { RankingComponent } from './ranking/ranking.component';
+
+import { ChallengeService, SocketService } from './core';
+
+import { CodemirrorModule } from 'ng2-codemirror';
+import 'hammerjs';
 
 @NgModule({
     declarations: [
@@ -46,7 +46,10 @@ import { RankingComponent } from './ranking/ranking.component';
         MaterialModule.forRoot(),
         RouterModule.forRoot(ROUTES)
     ],
-    providers: [],
+    providers: [
+        ChallengeService,
+        SocketService
+    ],
     entryComponents: [
         CreateChallengeDialog,
         OpenStreamingDialog
