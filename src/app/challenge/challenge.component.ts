@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject }  from 'rxjs';
+
+import { ChallengeService, SocketService } from './../core';
+
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/throttleTime';
 import 'codemirror/mode/javascript/javascript';
 
 @Component({
@@ -16,10 +22,16 @@ export class ChallengeComponent implements OnInit {
     private config;
     private timeSpent: number;
     private testResult: Array<String>;
-    private t: string;
+    private t: string = 'Soy la variable t';
     private counterDownObs: Observable<number>;
+    private challengeId: string;
+    private currentChallenge: object;
+    private codeChanged: Subject<string> = new Subject<string>();
 
-    constructor(private httpSrv: Http) {}
+    constructor(private httpSrv: Http, 
+                private route: ActivatedRoute,
+                private challengeSrv: ChallengeService, 
+                private socketSrv: SocketService) {}
 
     ngOnInit() {
         this.showEditorPane = false;
@@ -35,11 +47,38 @@ export class ChallengeComponent implements OnInit {
         };
 
         this.timeSpent = 0;
+        this.showEditorPane = true;
         this.counterDownObs = Observable.interval(1000);
         this.counterDownObs.subscribe((tick) => {
             this.timeSpent++;
         });
-        this.showEditorPane = true;
+
+        // Get the challengeId from the url
+        this.route.params.subscribe(params => {
+            this.challengeId = params['challengeId'];
+
+            // When the user enter to the challenge view, send this request to register itself as a
+            // opponent; the server will return either the user is playerA or playerB
+            this.challengeSrv.joinToChallengeRoom(this.challengeId, this.socketSrv.getSocketId()).subscribe(
+                (challenge) => { this.currentChallenge = challenge; }
+            );
+
+            this.codeChanged
+                .debounceTime(600)      // wait X ms after the last event
+                .distinctUntilChanged()  // only emit if value is different from previous value
+                .subscribe(code => {
+                    this.socketSrv.sendMessage('code', {
+                        player: this.socketSrv.getSocketId(),
+                        challengeId: this.challengeId,
+                        code: code
+                    });
+                }
+            );
+        });
+    }
+
+    onChange() {
+        this.codeChanged.next(this.code);
     }
 
 }

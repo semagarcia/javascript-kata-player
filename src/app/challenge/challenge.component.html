@@ -38,8 +38,8 @@
         <div class="medio-panel-superior card-ang-mat">
             <codemirror class="editor-area" 
                 [(ngModel)]="code" 
-                [config]="config" 
-                (focus)="onFocus()" (blur)="onBlur()">
+                [config]="config"
+                (change)="onChange()">
             </codemirror>
         </div>
         <div class="medio-panel-inferior card-ang-mat">
@@ -47,7 +47,6 @@
         </div>
     </div>
     <div [style.left.%]="leftPaneWidth" style="position:absolute; width:4px; z-index:1; cursor:ew-resize; 
-                background: #1d1d1d; top:128px; bottom:0; margin-left:-2px;"
-        (mousedown)="mousedown($event)" (mousemove)="mousemove($event)" (mouseup)="mouseup($event)">
+                background: #1d1d1d; top:128px; bottom:0; margin-left:-2px;">
     </div>
 </div>
