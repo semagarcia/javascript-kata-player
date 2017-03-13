@@ -2,26 +2,36 @@
 <hr style="margin-top: -18px" />
 <p>Select if you would create a new challenge or would like to join an existing one.</p>
 
+<!-- Button options -->
 <div class="flexibox-row">
-    <button type="button" md-raised-button color="accent" (click)="createChanllenge()" class="flex-grow-1">Create</button>
+    <button type="button" md-raised-button color="accent" (click)="createChallenge()" class="flex-grow-1">Create</button>
     <button type="button" md-raised-button color="accent" (click)="showJoinToChallengeForm()" style="margin:0 6px 0 6px; flex-grow:1">Join</button>
     <button type="button" md-raised-button color="accent" (click)="dialogRef.close(null)" class="flex-grow-1">cancel</button>
 </div>
 
+<!-- Form to create the challengeId -->
+<div *ngIf="challengeId && !joinForm" class="flex-grow-1 margin-top-8 margin-bottom-8">Challenge id: {{ challengeId }}</div>
+<div *ngIf="challengeId && !joinForm" class="flexibox-row margin-top-8 margin-bottom-8">
+    <md-progress-bar mode="indeterminate" *ngIf="isCreatingChallenge"></md-progress-bar>
+
+    <button type="button" md-raised-button color="primary" (click)="goToChallenge()" 
+        class="flex-grow-1" style="margin-right: 6px">Go to challenge</button>
+    <button type="button" md-raised-button color="primary" (click)="closeDialog()" 
+        class="flex-grow-1" style="margin-left: 6px">Close</button>
+</div>
+
+<!-- Form to insert the challengeId and go to challenge view -->
 <div *ngIf="joinForm" class="padding-top-18">
     <h3 style="margin-bottom:0">Challenge ID</h3>
     <md-input-container class="full-width">
-        <input mdInput placeholder="Write the challenge identifier" [(ngModel)]="challengeId">
+        <input mdInput placeholder="Write the challenge identifier" #challengeInput="ngModel" [(ngModel)]="challengeId">
     </md-input-container>
+
+    <div class="flexibox-row" *ngIf="joiningMessageError || (!challengeInput.pristine  && !existsChallengeId)">
+        <p style="color:darkred"><em>Error: {{ joiningMessageError }}</em></p>
+    </div>
     
     <div class="flexibox-row" *ngIf="!isCreatingChallenge">
         <button type="button" md-raised-button color="primary" (click)="joinToChallenge()" class="flex-grow-1">Join!</button>
     </div>
-
-    <!--<div>Resultado: </div>-->
 </div>
-
-<div class="margin-top-8 margin-bottom-8">
-</div>
-
-<md-progress-bar mode="indeterminate" *ngIf="isCreatingChallenge"></md-progress-bar>
