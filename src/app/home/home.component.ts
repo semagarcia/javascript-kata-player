@@ -8,8 +8,6 @@ import { CreateChallengeDialog } from './../dialogs/create-challenge/create-chal
 })
 export class HomeComponent {
 
-    selectedOption: string;
-
     constructor(private router: Router, public dialog: MdDialog) { }
 
     startIndividual() {
@@ -17,11 +15,7 @@ export class HomeComponent {
     }
 
     startChallenge() {
-        let dialogRef = this.dialog.open(CreateChallengeDialog);
-        dialogRef.afterClosed().subscribe(result => {
-            //this.selectedOption = result;
-            console.log('result: ', result);
-        });
+        this.dialog.open(CreateChallengeDialog);
     }
 
 }
