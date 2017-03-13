@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
+
+import { Challenge, ChallengeService, SocketService } from './../core';
+
 import 'codemirror/mode/javascript/javascript';
 
 @Component({
@@ -15,8 +19,12 @@ export class StreamingComponent implements OnInit {
     private counterDownObs: Observable<number>;
     private codePlayerA;
     private codePlayerB;
+    private currentChallenge: Challenge;
 
-    constructor(private httpSrv: Http) {}
+    constructor(private route: ActivatedRoute, 
+                private httpSrv: Http, 
+                private challengeSrv: ChallengeService,
+                private socketSrv: SocketService) {}
 
     ngOnInit() {
         // Global view config
@@ -36,9 +44,27 @@ export class StreamingComponent implements OnInit {
             theme: 'material'
         };
 
-        // Players
+        // Initialitate the code editors
         this.codePlayerA = '// Player A';
         this.codePlayerB = '// Player B';
+
+        // Send start-streaming signal-message and join into a challenge room
+        this.route.params.subscribe(params => {
+            let challengeId = params['challengeId'];
+            this.socketSrv.sendMessage('start-streaming', challengeId);
+            this.challengeSrv.getChallengeInfo(challengeId).subscribe(
+                (challenge) => { this.currentChallenge = challenge; }
+            );
+        });
+
+        // Connect to streaming
+        this.socketSrv.connectToStreaming().subscribe((data:any) => {
+            if(data.who === this.currentChallenge.playerA) {
+                this.codePlayerA = data.code;
+            } else if(data.who === this.currentChallenge.playerB) {
+                this.codePlayerB = data.code;
+            }
+        });
     }
 
 }
