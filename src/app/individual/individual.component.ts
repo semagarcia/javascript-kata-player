@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { MdDialog } from '@angular/material';
+
+import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
+import { TestExecutorService } from './../core';
+
 import 'codemirror/mode/javascript/javascript';
 
 //var electron = require('electron');
@@ -25,9 +30,9 @@ export class IndividualComponent implements OnInit {
     private timeSpent: number;
     private testResult: Array<String>;
     private testResultOutput: string;
-    private counterDownObs: Observable<number>;
+    private counterDownObs: Subscription;
 
-    constructor(private httpSrv: Http) {}
+    constructor(private httpSrv: Http, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {}
 
     ngOnInit() {
         this.showEditorPane = false;
@@ -43,23 +48,11 @@ export class IndividualComponent implements OnInit {
         };
 
         this.timeSpent = 0;
-        this.counterDownObs = Observable.interval(1000);
-        this.counterDownObs.subscribe((tick) => {
+        this.counterDownObs = Observable.timer(0, 1000).subscribe((tick) => {
             this.timeSpent++;
         });
 
-        // Notify the user kata has started
-        Notification.requestPermission((permission) => {
-            if(permission === 'granted') {
-                var notification = new Notification('Your kata has started!', {
-                    body: 'Good luck with this kata! Read carefully and don\'t forget to test frequently',
-                    title: 'JavaScript Kata Player',
-                    icon: '/src/favicon.ico',
-                    // To prevent sound
-                    //silent:true,
-                });
-            }
-        });
+        this.sendNotification('Your kata has started!', 'Good luck with this kata! Read carefully and don\'t forget to test frequently');
 
         this.showEditorPane = true;
     }
@@ -69,43 +62,39 @@ export class IndividualComponent implements OnInit {
     }
 
     testKata() {
-        this.httpSrv.post('http://localhost:3000/kata', { function: this.code })
-            .toPromise()
-            .then((res) => { 
-                this.testResult = [];
-                let result = res.json().res.split('\n');
-                result.forEach(line => {
-                    if(line.match(/^\s+\d\)/g)) {  // List specs
-                        line = `<span class="test-line-error">${line}</span>`;
-                    } else if(line.match(/passing/g)) {  // Passing tests
-                        line = `<span class="test-line-successful">${line}</span>`;
-                    } else if(line.match(/failing/g)) {  // Failing tests
-                        line = `<span class="test-line-error">${line}</span>`;
-                    }
-
-                    // Check for successful tests
-                    let checkCharacterFound = false;
-                    line.split('').forEach(letter => {
-                        if(letter.charCodeAt(0) === 10003) { 
-                            checkCharacterFound = true; 
-                        }
-                    });
-
-                    if(checkCharacterFound) {
-                        line = `<span class="test-line-successful">${line}</span>`;
-                    }
-
-                    // Add the line processed
-                    this.testResult.push(line);
-                });
-                // Rebuild all the output with colors
-                this.testResultOutput = this.testResult.join('\n');
-            })
-            .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+        this.testExecutorSrv.checkExerciseCode(this.code).subscribe(
+            (result: any) => {
+                if(result.executionResult && result.output) {
+                    this.testResultOutput = this.testExecutorSrv.formatOutput(result.output.split('\n'));
+                } else if(result.executionResult && !result.output) {
+                    this.testResultOutput = 'Not found nothing to test...';
+                } else if(!result.executionResult) {
+                    this.testResultOutput = this.testExecutorSrv.formatOutput(result.output.split('\n'));
+                    this.counterDownObs.unsubscribe();
+                    this.sendNotification('Great work!! :-)', 'You have completed this kata successfully!!');
+                }
+            }
+        );
     }
 
     stop() {
-        console.log('Stop()');
+        this.dialog.open(LeaveChallengeComponent);
+    }
+    
+    sendNotification(title, bodyMessage) {
+        // ToDo: Externalizar en un serivicio e incluir control para electron
+        // Notify the user kata has started
+        Notification.requestPermission((permission) => {
+            if(permission === 'granted') {
+                var notification = new Notification(title, {
+                    body: bodyMessage,
+                    title: 'JavaScript Kata Player',
+                    icon: '/src/favicon.ico',
+                    // To prevent sound
+                    //silent:true,
+                });
+            }
+        });
     }
 
     onFocus() {
