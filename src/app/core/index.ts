@@ -1,3 +1,6 @@
+// Pipes
+export * from './pipes/time.pipe';
+
 // Services
 export * from './services/challenge.service';
 export * from './services/socket.service';

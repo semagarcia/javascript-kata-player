@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
 import { HomeComponent } from './home/home.component';
 import { IndividualComponent } from './individual/individual.component';
-import { TimeElapsedPipe } from './individual/time.pipe';
 import { ChallengeComponent } from './challenge/challenge.component';
 
 import { LoginComponent } from './login/login.component';
@@ -21,6 +20,7 @@ import { LeaveChallengeComponent } from './dialogs/leave-challenge/leave-challen
 import { SettingsComponent } from './settings/settings.component';
 import { RankingComponent } from './ranking/ranking.component';
 
+import { TimeElapsedPipe } from './core';
 import { ChallengeService, SocketService, TestExecutorService } from './core';
 
 import { CodemirrorModule } from 'ng2-codemirror';
