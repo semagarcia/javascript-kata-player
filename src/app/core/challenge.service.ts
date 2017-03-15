@@ -10,6 +10,16 @@ export class ChallengeService {
     constructor(private httpSrv:Http) {}
 
     /**
+     * Get all the current challenges
+     * @retuns {Observable<Array<Challenge>} challenges.
+     */
+    getCurrentChallenges(): Observable<Array<Object>> {
+        return this.httpSrv.get('/api/challenges')
+            .map((res:Response) => res.json().challenges)
+            .catch((res:Response) => res.json().error);
+    }
+
+    /**
      * Create new challenge, assign a identifier and returns it.
      * @param playerId {string} the socketId.
      * @returns {string} UUID (v4).
