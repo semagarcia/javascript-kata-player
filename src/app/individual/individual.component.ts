@@ -24,7 +24,7 @@ export class IndividualComponent implements OnInit {
     private config;
     private timeSpent: number;
     private testResult: Array<String>;
-    private t: string;
+    private testResultOutput: string;
     private counterDownObs: Observable<number>;
 
     constructor(private httpSrv: Http) {}
@@ -99,7 +99,7 @@ export class IndividualComponent implements OnInit {
                     this.testResult.push(line);
                 });
                 // Rebuild all the output with colors
-                this.t = this.testResult.join('\n');
+                this.testResultOutput = this.testResult.join('\n');
             })
             .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }

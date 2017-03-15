@@ -22,7 +22,7 @@ export class ChallengeComponent implements OnInit {
     private config;
     private timeSpent: number;
     private testResult: Array<String>;
-    private t: string = 'Soy la variable t';
+    private testResultOutput: string;
     private counterDownObs: Observable<number>;
     private challengeId: string;
     private currentChallenge: object;
