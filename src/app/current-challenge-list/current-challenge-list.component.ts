@@ -14,17 +14,20 @@ export class CurrentChallengeListComponent implements OnInit {
     constructor(private challengeSrv: ChallengeService) { }
 
     ngOnInit() {
+        this.reload();
+    }
+
+    reload() {
         this.challenges = [];
         this.challengeSrv.getCurrentChallenges().subscribe(challenges => {
-            //console.log(challenges);
-            //this.challenges = challenges;
+
+            // Change by filter operator
+
             challenges.forEach(c => {
-                console.log(c[1]);
+                //console.log(c[1]);
                 this.challenges.push(c[1]);
             });
         });
-
-        //this.challenges = this.challengeSrv.getCurrentChallenges();
     }
 
 }

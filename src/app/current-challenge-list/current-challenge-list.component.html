@@ -5,7 +5,7 @@
 	<md-list class="flex-grow-1">
   		<h3 md-subheader>Current challenges</h3>
   		<md-list-item *ngFor="let challenge of challenges">
-    		<md-icon md-list-avatar>ondemand_video</md-icon>
+    		<a routerLink="/streaming/{{challenge.challengeId}}"><md-icon md-list-avatar>ondemand_video</md-icon></a>
 			<md-icon md-list-avatar>folder</md-icon>
     		<h4 md-line>{{challenge.challengeId}}</h4>
     		<p md-line> {{challenge.timestamp | date}} </p>
@@ -21,3 +21,5 @@
   		</md-list-item>
 	</md-list>
 </div>
+
+<button md-fab class="md-fav-bottom" (click)="reload()"><md-icon>autorenew</md-icon></button>
