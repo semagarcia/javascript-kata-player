@@ -23,6 +23,7 @@ import { ChallengeService, SocketService } from './core';
 
 import { CodemirrorModule } from 'ng2-codemirror';
 import 'hammerjs';
+import { CurrentChallengeListComponent } from './current-challenge-list/current-challenge-list.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import 'hammerjs';
         CreateChallengeDialog,
         OpenStreamingDialog,
         SettingsComponent,
-        RankingComponent
+        RankingComponent,
+        CurrentChallengeListComponent
     ],
     imports: [
         BrowserModule,

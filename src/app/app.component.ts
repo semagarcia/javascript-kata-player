@@ -22,6 +22,10 @@ export class AppComponent {
         this.router.navigate(['/home']);
     }
 
+    openCurrentChallenges() {
+        this.router.navigate(['/challenge-list']);
+    }
+
     openStreamingMode() {
         let dialogRef = this.dialog.open(OpenStreamingDialog);
         dialogRef.afterClosed().subscribe(challengeId => {
