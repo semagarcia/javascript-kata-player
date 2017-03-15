@@ -1,6 +1,6 @@
 // Services
-export * from './challenge.service';
-export * from './socket.service';
+export * from './services/challenge.service';
+export * from './services/socket.service';
 export * from './services/test-executor.service'
 
 // Models
