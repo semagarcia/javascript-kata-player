@@ -13,17 +13,19 @@ import { TimeElapsedPipe } from './individual/time.pipe';
 import { ChallengeComponent } from './challenge/challenge.component';
 
 import { LoginComponent } from './login/login.component';
+import { CurrentChallengeListComponent } from './current-challenge-list/current-challenge-list.component';
 import { StreamingComponent } from './streaming/streaming.component';
 import { CreateChallengeDialog } from './dialogs/create-challenge/create-challenge.component';
 import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.component';
+import { LeaveChallengeComponent } from './dialogs/leave-challenge/leave-challenge.component';
 import { SettingsComponent } from './settings/settings.component';
 import { RankingComponent } from './ranking/ranking.component';
 
-import { ChallengeService, SocketService } from './core';
+import { ChallengeService, SocketService, TestExecutorService } from './core';
 
 import { CodemirrorModule } from 'ng2-codemirror';
 import 'hammerjs';
-import { CurrentChallengeListComponent } from './current-challenge-list/current-challenge-list.component';
+
 
 @NgModule({
     declarations: [
@@ -33,12 +35,13 @@ import { CurrentChallengeListComponent } from './current-challenge-list/current-
         TimeElapsedPipe,
         ChallengeComponent,
         LoginComponent,
+        CurrentChallengeListComponent,
         StreamingComponent,
         CreateChallengeDialog,
         OpenStreamingDialog,
+        LeaveChallengeComponent,
         SettingsComponent,
-        RankingComponent,
-        CurrentChallengeListComponent
+        RankingComponent
     ],
     imports: [
         BrowserModule,
@@ -50,11 +53,13 @@ import { CurrentChallengeListComponent } from './current-challenge-list/current-
     ],
     providers: [
         ChallengeService,
-        SocketService
+        SocketService,
+        TestExecutorService
     ],
     entryComponents: [
         CreateChallengeDialog,
-        OpenStreamingDialog
+        OpenStreamingDialog,
+        LeaveChallengeComponent
     ],
     bootstrap: [AppComponent]
 })

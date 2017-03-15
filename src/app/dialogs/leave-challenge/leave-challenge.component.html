@@ -1,0 +1,17 @@
+<h1>Are you sure?</h1>
+<hr style="margin-top: -18px" />
+<p>Are you sure to leave this kata?</p>
+
+<!-- Button options -->
+<div class="flexibox-row">
+    <button type="button" md-raised-button 
+        color="primary" 
+        (click)="exit()" 
+        class="flex-grow-1 right-separator">I'm sure</button>
+
+    <button type="button" 
+        md-raised-button 
+        color="accent" 
+        (click)="dialogRef.close(null)" 
+        class="flex-grow-1 left-separator">Cancel</button>
+</div>
