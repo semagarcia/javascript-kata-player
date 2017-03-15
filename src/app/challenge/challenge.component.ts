@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 import { Observable, Subject }  from 'rxjs';
+import { MdDialog } from '@angular/material';
 
-import { ChallengeService, SocketService } from './../core';
+import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
+import { ChallengeService, SocketService, TimeElapsedPipe } from './../core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/throttleTime';
@@ -31,7 +33,8 @@ export class ChallengeComponent implements OnInit {
     constructor(private httpSrv: Http, 
                 private route: ActivatedRoute,
                 private challengeSrv: ChallengeService, 
-                private socketSrv: SocketService) {}
+                private socketSrv: SocketService, 
+                public dialog: MdDialog) {}
 
     ngOnInit() {
         this.showEditorPane = false;
@@ -75,6 +78,14 @@ export class ChallengeComponent implements OnInit {
                 }
             );
         });
+    }
+
+    testKata() {
+
+    }
+
+    stop() {
+        this.dialog.open(LeaveChallengeComponent);
     }
 
     onChange() {

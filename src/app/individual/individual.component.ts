@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
-import { TestExecutorService } from './../core';
+import { TimeElapsedPipe, TestExecutorService } from './../core';
 
 import 'codemirror/mode/javascript/javascript';
 
