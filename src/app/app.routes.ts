@@ -8,6 +8,7 @@ import { CurrentChallengeListComponent } from './current-challenge-list/current-
 import { StreamingComponent } from './streaming/streaming.component';
 import { RankingComponent } from './ranking/ranking.component';
 import { SettingsComponent } from './settings/settings.component';
+import { AboutComponent } from './about/about.component';
 
 export const ROUTES: Routes = [
   { path: '', component: LoginComponent },
@@ -19,5 +20,6 @@ export const ROUTES: Routes = [
   { path: 'streaming/:challengeId', component: StreamingComponent },
   { path: 'ranking', component: RankingComponent },
   { path: 'settings', component: SettingsComponent },  // ToDo: Add guards
+  { path: 'about', component: AboutComponent },
   { path: '**', redirectTo: '' }
 ];

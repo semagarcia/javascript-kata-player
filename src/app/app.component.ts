@@ -43,4 +43,8 @@ export class AppComponent {
         this.router.navigate(['/settings']);
     }
 
+    openAbout() {
+        this.router.navigate(['/about']);
+    }
+
 }

@@ -20,12 +20,14 @@ import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.com
 import { LeaveChallengeComponent } from './dialogs/leave-challenge/leave-challenge.component';
 import { SettingsComponent } from './settings/settings.component';
 import { RankingComponent } from './ranking/ranking.component';
+import { AboutComponent } from './about/about.component';
 
 import { TimeElapsedPipe } from './core';
 import { ChallengeService, SocketService, TestExecutorService } from './core';
 
 import { CodemirrorModule } from 'ng2-codemirror';
 import 'hammerjs';
+
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import 'hammerjs';
         OpenStreamingDialog,
         LeaveChallengeComponent,
         SettingsComponent,
-        RankingComponent
+        RankingComponent,
+        AboutComponent
     ],
     imports: [
         BrowserModule,
