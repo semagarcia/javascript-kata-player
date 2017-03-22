@@ -1,23 +1,54 @@
 <h1>Settings</h1>
 <hr />
 
-<!--
-There is a bug with Material library (tabs) with Angular v4.0.0-rc.X, because the 
-content is not alternate successfully. So, with the change event and the selectedIndex,
-the specific content of each tab can be hidden to simulate the behaviour until it would
-be fixed.
--->
-<md-tab-group [selectedIndex]="tabIndex" (selectChange)="changeTab($event)">
-    <!-- First tab: XXX -->
-    <md-tab label="Tab zero">
-        <div *ngIf="tabIndex === 0">
+<md-tab-group>
+    <!-- First tab: users -->
+    <md-tab>
+        <ng-template md-tab-label>
+            <i class="fa fa-users" aria-hidden="true"></i> Users
+        </ng-template>
+        <div>
             Tab 0 content
         </div>
     </md-tab>
-    <!-- Second tab: XXX -->
-    <md-tab label="Tab one">
-        <div *ngIf="tabIndex === 1">
+
+    <!-- Second tab: learning paths -->
+    <md-tab>
+        <ng-template md-tab-label>
+            <i class="fa fa-thumbs-down" aria-hidden="true"></i> Learning paths
+        </ng-template>
+        <div>
             Tab 1 content
+        </div>
+    </md-tab>
+    
+    <!-- third tab: admin katas -->
+    <md-tab>
+        <ng-template md-tab-label>
+            <i class="fa fa-file-text" aria-hidden="true"></i> Katas
+        </ng-template>
+        <div>
+            Tab 2 content
+        </div>
+    </md-tab>
+
+    <!-- fourth tab: XXX -->
+    <md-tab>
+        <ng-template md-tab-label>
+            <i class="fa fa-thumbs-down" aria-hidden="true"></i> Tab XXX
+        </ng-template>
+        <div>
+            Tab 3 content
+        </div>
+    </md-tab>
+
+    <!-- fiveth tab: YYY -->
+    <md-tab>
+        <ng-template md-tab-label>
+            <i class="fa fa-thumbs-down" aria-hidden="true"></i> Tab YYY
+        </ng-template>
+        <div>
+            Tab 4 content
         </div>
     </md-tab>
 </md-tab-group>
