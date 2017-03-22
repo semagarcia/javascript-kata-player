@@ -8,16 +8,9 @@ import { MdTabChangeEvent } from '@angular/material';
 })
 export class SettingsComponent implements OnInit {
 
-    private tabIndex: number;
-
     constructor() { }
 
     ngOnInit() {
-        this.tabIndex = 0;
-    }
-
-    changeTab(e: MdTabChangeEvent) {
-        this.tabIndex = e.index;
     }
 
 }
