@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "build": "ng build --base-href /$ROOT/your-project-folder/scotch-player/dist/ --target=electron-renderer",
+    "build": "ng build --base-href ./dist/ --target=electron-renderer",
     "electron": "electron .",
     "package": "npm run build-electron && electron dist",
     "start": "ng serve --proxy-config proxy.config.json",
