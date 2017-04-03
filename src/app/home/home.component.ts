@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
-import { CreateChallengeDialog } from './../dialogs/create-challenge/create-challenge.component';
+import { CreateChallengeDialog, SelectTrainingPathDialog } from './../dialogs';
 
 @Component({
     templateUrl: './home.component.html'
@@ -12,6 +12,10 @@ export class HomeComponent {
 
     startIndividual() {
         this.router.navigate(['/individual']);
+    }
+
+    startTraining() {
+        this.dialog.open(SelectTrainingPathDialog);
     }
 
     startChallenge() {

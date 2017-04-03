@@ -1,4 +1,4 @@
-<div style="display:flex; flex-direction:row; justify-content:center">
+<div style="display:flex; flex-direction:row; justify-content:center; padding: 12px">
     <div class="animated slideInLeft" style="width:50%; margin:6px 6px 0 0">
         <md-card class="example-card">
             <img md-card-image src="assets/images/challenge.jpg">
@@ -13,6 +13,22 @@
               <a md-button routerLink="/individual">START INDIVIDUAL</a>
           </md-card-actions>
       </md-card>
+    </div>
+
+    <div class="animated slideInRight" style="width:50%; margin:6px 0 0 6px">
+        <md-card class="example-card">
+            <img md-card-image src="assets/images/training-by-levels.png">
+            <md-card-content>
+                <p>
+                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+                    A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+                    bred for hunting.
+                </p>
+            </md-card-content>
+            <md-card-actions>
+                <button md-button (click)="startTraining()">START TRAINING</button>
+            </md-card-actions>
+        </md-card>
     </div>
 
     <div class="animated slideInRight" style="width:50%; margin:6px 0 0 6px">
