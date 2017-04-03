@@ -5,6 +5,8 @@ export * from './pipes/time.pipe';
 export * from './services/challenge.service';
 export * from './services/socket.service';
 export * from './services/test-executor.service'
+export * from './services/training.service';
 
 // Models
 export * from './models/Challenge';
+export * from './models/TrainingPaths';
