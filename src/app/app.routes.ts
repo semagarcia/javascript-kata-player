@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { IndividualComponent } from './individual/individual.component';
+import { TrainingComponent } from './training/training.component';
 import { ChallengeComponent } from './challenge/challenge.component';
 import { CurrentChallengeListComponent } from './current-challenge-list/current-challenge-list.component';
 import { StreamingComponent } from './streaming/streaming.component';
@@ -14,6 +15,7 @@ export const ROUTES: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'individual', component: IndividualComponent },
+  { path: 'training/:path', component: TrainingComponent },
   { path: 'challenge', component: ChallengeComponent },
   { path: 'challenge/:challengeId', component: ChallengeComponent },
   { path: 'challenge-list', component: CurrentChallengeListComponent },
