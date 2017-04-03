@@ -17,6 +17,7 @@ import 'codemirror/mode/javascript/javascript';
 declare var Notification;
 
 @Component({
+    selector: 'individual-kata-player',
     templateUrl: './individual.component.html',
     styleUrls: ['./individual.styles.css']
 })
