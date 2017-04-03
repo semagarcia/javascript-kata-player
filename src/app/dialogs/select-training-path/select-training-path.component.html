@@ -1,0 +1,31 @@
+<h1>Starting a training path!</h1>
+<hr style="margin-top: -18px" />
+<p>Select the path to train:</p>
+<md-select class="full-width" placeholder="Training path" 
+    required="true"
+    (change)="onSelectedChange($event)" name="training-path">
+    <md-option *ngFor="let tp of trainingPaths" [value]="tp.trainingPathId">
+        {{ tp.trainingPathName }}
+    </md-option>
+</md-select>
+<div class="full-width margin-top-12">
+    <p>{{ s?.trainingPathDescription }}</p>
+</div>
+
+<div class="full-width margin-top-12" *ngIf="showError">
+    <p style="color: red"><em>Sorry, you have to select an option</em></p>
+</div>
+
+<div class="flexibox-row padding-top-18">
+    <button type="button" 
+        md-raised-button 
+        color="primary" 
+        (click)="startPath()" 
+        class="flex-grow-1 right-separator">Start!</button>
+
+    <button type="button" 
+        md-raised-button 
+        color="accent" 
+        (click)="dialogRef.close(null)" 
+        class="flex-grow-1 left-separator">Cancel</button>
+</div>
