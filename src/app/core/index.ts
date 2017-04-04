@@ -9,4 +9,5 @@ export * from './services/training.service';
 
 // Models
 export * from './models/Challenge';
+export * from './models/Kata';
 export * from './models/TrainingPaths';
