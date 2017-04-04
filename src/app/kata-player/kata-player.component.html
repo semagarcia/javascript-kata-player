@@ -1,0 +1,44 @@
+<md-toolbar color="second">
+    <md-icon>watch_later</md-icon>
+    <span>Time: {{ timeSpent | timeElapsed }}</span>
+
+    <span class="spacer"></span>
+
+    <button md-mini-fab (click)="testKata()"><md-icon>play_arrow</md-icon></button>
+    <span style="margin-left:6px"></span>
+    <button md-mini-fab (click)="stop()"><md-icon>stop</md-icon></button>
+    <span style="margin-left:6px"></span>
+    <button md-mini-fab (click)="nextExercise()"><md-icon>arrow_forward</md-icon></button>
+</md-toolbar>
+
+<div class="main-container" style="height: calc(100% - (110px));">
+    <div class="enunciado" [style.flex-basis.%]="leftPaneWidth">
+        <md-card class="example-card">
+            <md-card-content>
+                <h1>{{ title }}</h1>
+                <h3>Explanation</h3>
+                <p>{{ explanation }}</p>
+                <h3>Example</h3>
+                <p>{{ example }}</p>
+            </md-card-content>
+            <md-card-actions>
+                <a md-button (click)="startExercise()"><md-icon>play_arrow</md-icon> Start exercise!</a>
+            </md-card-actions>
+        </md-card>
+    </div>
+    <div class="codigo animated" *ngIf="showEditorPane" [class.bounce]="showEditorPane" [style.flex-basis.%]="100 - leftPaneWidth">
+        <div class="medio-panel-superior card-ang-mat">
+            <codemirror class="editor-area" 
+                [(ngModel)]="bodyFunction" 
+                [config]="config">
+            </codemirror>
+        </div>
+        <div class="medio-panel-inferior card-ang-mat">
+            <span style="white-space:pre-wrap;" [innerHtml]="testResultOutput"></span>
+        </div>
+    </div>
+    <div [style.left.%]="leftPaneWidth" style="position:absolute; width:4px; z-index:-99; cursor:ew-resize; 
+                background: #1d1d1d; top:128px; bottom:0; margin-left:-2px;"
+        (mousedown)="mousedown($event)" (mousemove)="mousemove($event)" (mouseup)="mouseup($event)">
+    </div>
+</div>

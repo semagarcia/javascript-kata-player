@@ -10,6 +10,7 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { IndividualComponent } from './individual/individual.component';
+import { KataPlayerComponent } from './kata-player/kata-player.component';
 import { TrainingComponent } from './training/training.component';
 import { ChallengeComponent } from './challenge/challenge.component';
 import { LoginComponent } from './login/login.component';
@@ -32,6 +33,7 @@ import 'hammerjs';
         AppComponent,
         HomeComponent,
         IndividualComponent,
+        KataPlayerComponent,
         TrainingComponent,
         ChallengeComponent,
         LoginComponent,
