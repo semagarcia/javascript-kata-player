@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { TrainingService } from './../core';
+import { KataMetadata, TrainingService } from './../core';
+
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-training',
@@ -9,8 +11,9 @@ import { TrainingService } from './../core';
     styleUrls: ['./training.component.scss']
 })
 export class TrainingComponent implements OnInit {
-
+private x$: Observable<any>;
     private trainingPath: string;
+    private trainingPathMetadata: KataMetadata;
 
     constructor(private router: Router, private route: ActivatedRoute, private trainingSrv: TrainingService) { }
 
@@ -18,7 +21,7 @@ export class TrainingComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.trainingPath = params['path'];
             this.trainingSrv.getPathExercises(this.trainingPath).subscribe(
-                (res) => { console.log(res); }
+                (metadata: KataMetadata) => { this.trainingPathMetadata = metadata; }
             );
         });
     }

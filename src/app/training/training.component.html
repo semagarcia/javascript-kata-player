@@ -1,9 +1,17 @@
-<div class="flexbox-row">
-    <h3>
-        Your current training path: {{ trainingPath }}
-    </h3>
-</div>
+<md-toolbar color="accent">
+    <span>Your current training path: {{ trainingPath }}</span>
+    <span class="fill-remaining-space"></span>
+    <span>
+        <i class="fa fa-cubes" aria-hidden="true"></i> 
+        <!-- X / Y -->
+        X 
+        / 
+        <div *ngIf="trainingPathMetadata?.keys;then pathLength else pathLengthUnknown"></div>
+        <ng-template #pathLength>{{ trainingPathMetadata.keys.length }}</ng-template>
+        <ng-template #pathLengthUnknown>?</ng-template> 
+    </span>
+</md-toolbar>
 
 <div class="flexbox-row">
-    
+
 </div>
