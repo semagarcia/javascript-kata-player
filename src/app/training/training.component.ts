@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
     styleUrls: ['./training.component.scss']
 })
 export class TrainingComponent implements OnInit {
-private x$: Observable<any>;
+
     private trainingPath: string;
     private trainingPathMetadata: KataMetadata;
 
