@@ -1,17 +1,30 @@
 <md-toolbar color="accent">
     <span>Your current training path: {{ trainingPath }}</span>
     <span class="fill-remaining-space"></span>
+    <md-select class="margin-right-12" [(ngModel)]="selectedValue" (change)="onSelectedChange($event)" name="exercise">
+        <md-option *ngFor="let exercise of pathExercises" [value]="exercise.id">
+            {{ exercise.name }}
+        </md-option>
+    </md-select>
     <span>
         <i class="fa fa-cubes" aria-hidden="true"></i> 
         <!-- X / Y -->
-        X 
-        / 
-        <div *ngIf="trainingPathMetadata?.keys;then pathLength else pathLengthUnknown"></div>
-        <ng-template #pathLength>{{ trainingPathMetadata.keys.length }}</ng-template>
+        {{ currentExerciseIndex + 1 }}
+        /
+        <div *ngIf="trainingPathLength; then pathLength else pathLengthUnknown"></div>
+        <ng-template #pathLength>{{ trainingPathLength }}</ng-template>
         <ng-template #pathLengthUnknown>?</ng-template> 
     </span>
 </md-toolbar>
 
 <div class="flexbox-row">
-
+    <kata-player
+        [title]="currentExercise?.name"
+        [explanation]="currentExercise?.description"
+        [example]="currentExercise?.example"
+        [code]="currentExercise?.fnBodyImpl"
+        (success)="onSuccessKata()"
+        (fail)="onFailedKataAttemp()"
+        (next)="onNextExercise()">
+    </kata-player>
 </div>
