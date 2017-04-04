@@ -17,7 +17,6 @@ import 'codemirror/mode/javascript/javascript';
 declare var Notification;
 
 @Component({
-    selector: 'individual-kata-player',
     templateUrl: './individual.component.html',
     styleUrls: ['./individual.styles.css']
 })
@@ -53,7 +52,7 @@ export class IndividualComponent implements OnInit {
             this.timeSpent++;
         });
 
-        this.sendNotification('Your kata has started!', 'Good luck with this kata! Read carefully and don\'t forget to test frequently');
+        //this.sendNotification('Your kata has started!', 'Good luck with this kata! Read carefully and don\'t forget to test frequently');
 
         this.showEditorPane = true;
     }
