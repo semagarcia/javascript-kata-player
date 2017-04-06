@@ -4,12 +4,12 @@
 <md-select class="full-width" placeholder="Training path" 
     required="true"
     (change)="onSelectedChange($event)" name="training-path">
-    <md-option *ngFor="let tp of trainingPaths" [value]="tp.trainingPathId">
+    <md-option *ngFor="let tp of trainingPathsMetadata" [value]="tp.trainingPathId">
         {{ tp.trainingPathName }}
     </md-option>
 </md-select>
 <div class="full-width margin-top-12">
-    <p>{{ s?.trainingPathDescription }}</p>
+    <p>{{ selected?.trainingPathDescription }}</p>
 </div>
 
 <div class="full-width margin-top-12" *ngIf="showError">
