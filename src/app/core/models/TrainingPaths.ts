@@ -1,12 +1,8 @@
+import { KataMetadata, KataExercise } from './Kata';
 
-export interface TrainingPath {
+export class TrainingPath {
 
-    /** */
-    trainingPathId: string;
-    
-    /** */
-    trainingPathName: string;
-    
-    /** */
-    trainingPathDescription: string;
+    metadata: KataMetadata;
+    exercises: Array<KataExercise>;    
+
 }

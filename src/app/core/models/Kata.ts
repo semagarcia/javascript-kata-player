@@ -1,3 +1,4 @@
+
 export interface KataExercise {
 
     id: string;
@@ -19,6 +20,15 @@ export interface KataExercise {
 export interface KataMetadata {
 
     /** */
-    keys: Array<String>;
+    trainingPathId: string;
+
+    /** */
+    trainingPathName: string;
+
+    /** */
+    trainingPathDescription: string;
+
+    /** */
+    trainingPathKeys: Array<string>;
 
 }
