@@ -15,7 +15,7 @@ export const ROUTES: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'individual', component: IndividualComponent },
-  { path: 'training/:path', component: TrainingComponent },
+  { path: 'training/:topic', component: TrainingComponent },
   { path: 'challenge', component: ChallengeComponent },
   { path: 'challenge/:challengeId', component: ChallengeComponent },
   { path: 'challenge-list', component: CurrentChallengeListComponent },
