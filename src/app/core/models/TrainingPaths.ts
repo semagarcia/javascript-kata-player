@@ -1,8 +1,20 @@
-import { KataMetadata, KataExercise } from './Kata';
+import { Kata } from './Kata';
 
 export class TrainingPath {
 
-    metadata: KataMetadata;
-    exercises: Array<KataExercise>;    
+    /** */
+    topic: string;
+
+    /** */
+    name: string;
+
+    /** */
+    description: string;
+
+    /** */
+    katas: Array<Kata>;
+
+    /** */
+    enabled: boolean;
 
 }

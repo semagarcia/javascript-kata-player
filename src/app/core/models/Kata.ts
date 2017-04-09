@@ -1,7 +1,5 @@
 
-export interface KataExercise {
-
-    id: string;
+export interface Kata {
 
     /** */
     name: string;
@@ -10,25 +8,27 @@ export interface KataExercise {
     description: string;
 
     /** */
-    example: string;
+    examples: Array<string>;
 
     /** */
-    fnBodyImpl: string;
-
-}
-
-export interface KataMetadata {
+    initialBodyFunction: string;
 
     /** */
-    trainingPathId: string;
+    rawkata: {
+        /** */
+        packageJson: string;
+
+        /** */
+        readme: string;
+
+        /** */
+        tests: string;
+
+        /** */
+        hiddenTests: string;
+    };
 
     /** */
-    trainingPathName: string;
-
-    /** */
-    trainingPathDescription: string;
-
-    /** */
-    trainingPathKeys: Array<string>;
+    enabled: boolean;
 
 }
