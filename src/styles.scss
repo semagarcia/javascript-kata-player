@@ -41,6 +41,9 @@ div {
   will-change: box-shadow;
 }
 
+/* --------------------------------------------------- */
+/*                        Cards                        */
+/* --------------------------------------------------- */
 .card-1 {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -66,18 +69,19 @@ div {
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
 
-.test-line-error {
+/* --------------------------------------------------- */
+/*                       Colors                        */
+/* --------------------------------------------------- */
+.text-color-red {
   color: red;
-}
-
-.test-line-successful {
-  color: green;
 }
 
 /* --------------------------------------------------- */
 /*                       Spaces                        */
 /* --------------------------------------------------- */
 .padding-top-18 { padding-top: 18px; }
+
+.margin-hr { margin-top: -18px; }
 
 .margin-12 { margin: 12px; }
 .margin-top-8 { margin-top: 18px; }
