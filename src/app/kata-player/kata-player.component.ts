@@ -27,7 +27,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
 
     @Input() title;
     @Input() explanation;
-    @Input() example;
+    @Input() examples;
     @Input() code;
     @Output() success = new EventEmitter();
     @Output() fail = new EventEmitter();

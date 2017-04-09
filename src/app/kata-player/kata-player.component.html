@@ -18,8 +18,8 @@
                 <h1>{{ title }}</h1>
                 <h3>Explanation</h3>
                 <p>{{ explanation }}</p>
-                <h3>Example</h3>
-                <p>{{ example }}</p>
+                <h3>Examples</h3>
+                <p *ngFor="let ex of examples">{{ ex }}</p>
             </md-card-content>
             <md-card-actions>
                 <a md-button (click)="startExercise()"><md-icon>play_arrow</md-icon> Start exercise!</a>
