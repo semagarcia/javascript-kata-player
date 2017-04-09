@@ -1,6 +1,6 @@
-<p>
-  show-error works!
-</p>
+<h1 class="text-color-red">Ups! An error has occurred...</h1>
+<hr class="margin-hr" />
 
-<p>Error: {{ errorMessage }}</p>
-<button>{{ textLabel }}</button>
+<div class="margin-top-8 margin-bottom-8"><p>Error: {{ errorMessage }}</p></div>
+
+<button md-raised-button color="primary" class="full-width" (click)="dialogRef.close(null)"> {{ textLabel }}</button>

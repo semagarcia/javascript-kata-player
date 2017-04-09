@@ -23,9 +23,9 @@ import { RankingComponent } from './ranking/ranking.component';
 import { AboutComponent } from './about/about.component';
 
 import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, ShowErrorDialog } from './dialogs';
+import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
 import { ChallengeService, SocketService, TestExecutorService, TrainingService } from './core';
-import { ShowErrorService } from './dialogs';
 
 import { CodemirrorModule } from 'ng2-codemirror';
 import 'hammerjs';

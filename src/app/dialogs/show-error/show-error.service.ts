@@ -10,7 +10,7 @@ export class ShowErrorService {
 
     constructor(private dialog: MdDialog) { }
 
-    showErrorInDialog(errorMessage: string, textLabel: string = 'Ok') {
+    showErrorInDialog(errorMessage: string, textLabel: string) {
         this.errorMessage = errorMessage;
         this.textLabel = textLabel;
         this.dialog.open(ShowErrorDialog);
