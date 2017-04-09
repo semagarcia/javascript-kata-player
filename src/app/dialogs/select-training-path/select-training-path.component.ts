@@ -36,13 +36,13 @@ export class SelectTrainingPathDialog implements OnInit {
     }
 
     onSelectedChange(e) {
-        let selected: Array<TrainingPath> = this.trainingPaths.filter(
+        let selected: TrainingPath = this.trainingPaths.find(
             (path: TrainingPath) => { return (path.topic === e.value); }
         );
 
-        if(selected[0]) {
-            this.selected = selected[0];
-            this.selectedValue = selected[0].topic;
+        if(selected) {
+            this.selected = selected;
+            this.selectedValue = selected.topic;
             this.showError = false;
         } else {
             this.selectedValue = null;
