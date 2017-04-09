@@ -1,8 +1,10 @@
 import { Component, OnInit, animate, style, state, transition, trigger } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { MdDialog } from '@angular/material';
 
-import { KataExercise, TrainingService } from './../core';
+import { TrainingService, TrainingPath, Kata } from './../core';
+import { ShowErrorService } from './../dialogs/';
 
 @Component({
     templateUrl: './training.component.html',
@@ -10,39 +12,47 @@ import { KataExercise, TrainingService } from './../core';
 })
 export class TrainingComponent implements OnInit {
 
-    private trainingPath: string;
+    private topic: string;
+    private currentExercise: Kata;
     private currentExerciseIndex: number;
-    private currentExercise: KataExercise;
-    private pathExercises: Array<KataExercise>;
-    private selectedExercise: string;
+    private trainingPath: TrainingPath;
     private selectedValue: string;
     private trainingPathLength: number;
 
-    constructor(private router: Router, private route: ActivatedRoute, private trainingSrv: TrainingService) { }
+    constructor(private router: Router, private route: ActivatedRoute, 
+                private dialog: MdDialog, 
+                private trainingSrv: TrainingService, private showErrorSrv: ShowErrorService) { }
 
     ngOnInit() {
         this.currentExerciseIndex = 0;
         this.route.params.subscribe(params => {
-            this.trainingPath = params['path'];
-            this.trainingSrv.getPathExercises(this.trainingPath).subscribe(
-                (exercises: Array<KataExercise>) => { 
-                    // Copy all exercises
-                    this.pathExercises = exercises;  
-                    this.trainingPathLength = this.pathExercises.length;
-
-                    // Select the first of them as initial exercise
-                    this.currentExercise = exercises[this.currentExerciseIndex];
-                    this.selectedValue = exercises[this.currentExerciseIndex].id;
+            this.topic = params['topic'];
+            this.trainingSrv.getKatasOfTrainingPath(this.topic).subscribe(
+                (trainingPath: TrainingPath) => { 
+                    if(trainingPath) {
+                        this.trainingPath = trainingPath;
+                        this.trainingPathLength = trainingPath.katas.length;
+                        this.currentExercise = trainingPath.katas[this.currentExerciseIndex];
+                        this.selectedValue = trainingPath.katas[this.currentExerciseIndex].name;
+                        console.log('selVal >> ', this.selectedValue);
+                    } else {
+                        this.showErrorSrv.showErrorInDialog(
+                            'Sorry, an error has been occurred retrieving the training path...', 'Go to home!');
+                    }
                 }
             );
         });
     }
 
     onSelectedChange(e) {
-        let selected: KataExercise = this.pathExercises.filter(
-            (exercise: KataExercise) => { return (exercise.id === e.value); }
-        )[0];
-        this.selectedValue = selected.name;
+        let length = this.trainingPath.katas.length;
+        for(let i=0; i<length; i++) {
+            if(this.trainingPath.katas[i].name === e.value) {
+                this.currentExercise = this.trainingPath.katas[i];
+                this.selectedValue = this.trainingPath.katas[i].name;
+                this.currentExerciseIndex = i;
+            }
+        }
     }
 
     onSuccessKata() {
@@ -55,12 +65,20 @@ export class TrainingComponent implements OnInit {
 
     onNextExercise() {
         this.nextExerciseIndex();
-        this.currentExercise = this.pathExercises[this.currentExerciseIndex];
-        this.selectedValue = this.pathExercises[this.currentExerciseIndex].id;
+        this.currentExercise = this.trainingPath.katas[this.currentExerciseIndex];
+        this.selectedValue = this.currentExercise.name;
     }
 
     nextExerciseIndex() {
-        this.currentExerciseIndex = (this.currentExerciseIndex !== this.pathExercises.length-1) ? ++this.currentExerciseIndex : 0; 
+        this.currentExerciseIndex = (this.currentExerciseIndex !== this.trainingPath.katas.length-1) 
+            ? ++this.currentExerciseIndex 
+            : 0;
+            
+    }
+
+    updateIndicators() {
+        // Current index
+
     }
 
 }
