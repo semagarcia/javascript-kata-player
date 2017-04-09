@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { KataExercise, KataMetadata, TrainingPath } from './../../core';
+import { TrainingPath, Kata } from './../../core';
 
 @Injectable()
 export class TrainingService {
@@ -15,15 +15,9 @@ export class TrainingService {
             .catch((res: Response) => res.json().error);
     }
 
-    getTrainingPathsMetadata(): Observable<Array<KataMetadata>> {
-        return this.httpSrv.get('/api/training-paths/metadata')
-            .map((res: Response) => res.json().metadata)
-            .catch((res: Response) => res.json().error);
-    }
-
-    getPathExercises(path): Observable<Array<KataExercise>> {
-        return this.httpSrv.get(`/api/training-paths/exercises/${path}`)
-            .map((res: Response) => res.json().exercises)
+    getKatasOfTrainingPath(topic): Observable<TrainingPath> {
+        return this.httpSrv.get(`/api/training-paths/${topic}/katas`)
+            .map((res: Response) => res.json().trainingPath)
             .catch((res: Response) => res.json().error);
     }
 
