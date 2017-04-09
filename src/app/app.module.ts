@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
+// TODO: refactor to group them with spread operator
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -21,9 +22,10 @@ import { SettingsComponent } from './settings/settings.component';
 import { RankingComponent } from './ranking/ranking.component';
 import { AboutComponent } from './about/about.component';
 
-import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog } from './dialogs';
+import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, ShowErrorDialog } from './dialogs';
 import { TimeElapsedPipe } from './core';
 import { ChallengeService, SocketService, TestExecutorService, TrainingService } from './core';
+import { ShowErrorService } from './dialogs';
 
 import { CodemirrorModule } from 'ng2-codemirror';
 import 'hammerjs';
@@ -43,6 +45,7 @@ import 'hammerjs';
         CreateChallengeDialog,
         OpenStreamingDialog,
         SelectTrainingPathDialog,
+        ShowErrorDialog,
         LeaveChallengeComponent,
         SettingsComponent,
         RankingComponent,
@@ -59,6 +62,7 @@ import 'hammerjs';
     ],
     providers: [
         ChallengeService,
+        ShowErrorService,
         SocketService,
         TestExecutorService,
         TrainingService
@@ -67,7 +71,7 @@ import 'hammerjs';
         CreateChallengeDialog,
         OpenStreamingDialog,
         SelectTrainingPathDialog,
-        LeaveChallengeComponent
+        ShowErrorDialog
     ],
     bootstrap: [AppComponent]
 })

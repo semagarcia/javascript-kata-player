@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { TrainingService, KataMetadata } from './../../core';
+import { TrainingService, TrainingPath } from './../../core';
 
 @Component({
     templateUrl: './select-training-path.component.html',
@@ -11,9 +11,9 @@ import { TrainingService, KataMetadata } from './../../core';
 export class SelectTrainingPathDialog implements OnInit {
 
     private showError: boolean;
-    private selected: KataMetadata;
+    private selected: TrainingPath;
     private selectedValue: string;
-    private trainingPathsMetadata: Array<KataMetadata>;
+    private trainingPaths: Array<TrainingPath>;
 
     constructor(private dialogRef: MdDialogRef<SelectTrainingPathDialog>, 
         private router: Router,
@@ -21,8 +21,8 @@ export class SelectTrainingPathDialog implements OnInit {
 
     ngOnInit() {
         this.showError = false;
-        this.trainingSrv.getTrainingPathsMetadata().subscribe(
-            (metadata) => { this.trainingPathsMetadata = metadata; }
+        this.trainingSrv.getTrainingPaths().subscribe(
+            (metadata) => { this.trainingPaths = metadata; }
         );
     }
 
@@ -36,13 +36,13 @@ export class SelectTrainingPathDialog implements OnInit {
     }
 
     onSelectedChange(e) {
-        let selected: Array<KataMetadata> = this.trainingPathsMetadata.filter(
-            (path: KataMetadata) => { return (path.trainingPathId === e.value); }
+        let selected: Array<TrainingPath> = this.trainingPaths.filter(
+            (path: TrainingPath) => { return (path.topic === e.value); }
         );
 
         if(selected[0]) {
             this.selected = selected[0];
-            this.selectedValue = selected[0].trainingPathId;
+            this.selectedValue = selected[0].topic;
             this.showError = false;
         } else {
             this.selectedValue = null;
