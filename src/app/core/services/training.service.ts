@@ -21,4 +21,10 @@ export class TrainingService {
             .catch((res: Response) => res.json().error);
     }
 
+    getTrainingPathsForGrid(): Observable<Array<TrainingPath>> {
+        return this.httpSrv.get('/api/training-paths/grid')
+            .map((res: Response) => res.json().trainingPaths)
+            .catch((res: Response) => res.json().error);
+    }
+
 }
