@@ -19,6 +19,8 @@ import { CurrentChallengeListComponent } from './current-challenge-list/current-
 import { StreamingComponent } from './streaming/streaming.component';
 import { LeaveChallengeComponent } from './dialogs/leave-challenge/leave-challenge.component';
 import { SettingsComponent } from './settings/settings.component';
+import { LearningPathComponent } from './settings/learning-path/learning-path.component';
+import { KataComponent } from './settings/kata/kata.component';
 import { RankingComponent } from './ranking/ranking.component';
 import { AboutComponent } from './about/about.component';
 
@@ -28,6 +30,7 @@ import { TimeElapsedPipe } from './core';
 import { ChallengeService, SocketService, TestExecutorService, TrainingService } from './core';
 
 import { CodemirrorModule } from 'ng2-codemirror';
+import { AgGridModule } from 'ag-grid-angular/main';
 import 'hammerjs';
 
 @NgModule({
@@ -48,8 +51,10 @@ import 'hammerjs';
         ShowErrorDialog,
         LeaveChallengeComponent,
         SettingsComponent,
+        LearningPathComponent,
+        KataComponent,
         RankingComponent,
-        AboutComponent
+        AboutComponent        
     ],
     imports: [
         BrowserModule,
@@ -58,7 +63,8 @@ import 'hammerjs';
         HttpModule,
         CodemirrorModule,
         MaterialModule.forRoot(),
-        RouterModule.forRoot(ROUTES)
+        RouterModule.forRoot(ROUTES),
+        AgGridModule.withComponents([])
     ],
     providers: [
         ChallengeService,

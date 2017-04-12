@@ -26,6 +26,8 @@
     "@angular/platform-browser": "^4.0.0-rc.5",
     "@angular/platform-browser-dynamic": "^4.0.0-rc.5",
     "@angular/router": "^4.0.0-rc.5",
+    "ag-grid": "^9.0.0",
+    "ag-grid-angular": "^9.0.0",
     "animate.css": "^3.5.2",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",

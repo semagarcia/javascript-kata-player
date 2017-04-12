@@ -21,7 +21,9 @@
       "styles": [
         "styles.scss",
         "../node_modules/font-awesome/css/font-awesome.min.css",
-        "../node_modules/animate.css/animate.min.css"
+        "../node_modules/animate.css/animate.min.css",
+        "../node_modules/ag-grid/dist/styles/ag-grid.css",
+        "../node_modules/ag-grid/dist/styles/theme-material.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
