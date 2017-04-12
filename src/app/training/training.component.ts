@@ -29,12 +29,11 @@ export class TrainingComponent implements OnInit {
             this.topic = params['topic'];
             this.trainingSrv.getKatasOfTrainingPath(this.topic).subscribe(
                 (trainingPath: TrainingPath) => { 
-                    if(trainingPath) {
+                    if(trainingPath && trainingPath.katas && trainingPath.katas.length > 0) {
                         this.trainingPath = trainingPath;
                         this.trainingPathLength = trainingPath.katas.length;
                         this.currentExercise = trainingPath.katas[this.currentExerciseIndex];
                         this.selectedValue = trainingPath.katas[this.currentExerciseIndex].name;
-                        console.log('selVal >> ', this.selectedValue);
                     } else {
                         this.showErrorSrv.showErrorInDialog(
                             'Sorry, an error has been occurred retrieving the training path...', 'Go to home!');
