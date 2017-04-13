@@ -10,6 +10,7 @@ import { ShowErrorService } from './show-error.service';
     styleUrls: ['./show-error.component.scss']
 })
 export class ShowErrorDialog implements OnInit {
+    private dialogTitle: string;
     private errorMessage: string;
     private dialogAction: DIALOG_ACTIONS;
     private textLabel: string;
@@ -19,6 +20,7 @@ export class ShowErrorDialog implements OnInit {
                 private showErrorSrv: ShowErrorService) { }
 
     ngOnInit() {
+        this.dialogTitle = this.showErrorSrv.getDialogTitle();
         this.errorMessage = this.showErrorSrv.getErrorMessage();
         this.dialogAction = this.showErrorSrv.getAction();
         this.textLabel = this.showErrorSrv.getTextLabel() || 'Ok';

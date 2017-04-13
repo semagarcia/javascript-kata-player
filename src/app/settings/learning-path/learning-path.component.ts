@@ -102,22 +102,41 @@ export class LearningPathComponent implements OnInit {
         ];
     }
 
-    autoSize() {
-        this.gridOptions.api.sizeColumnsToFit();
-    }
-
     ngOnInit() {
         this.trainingSrv.getTrainingPathsForGrid().subscribe(
             (trainingPaths) => { 
                 this.gridOptions.api.addItems(trainingPaths);
+                this.gridOptions.api.sizeColumnsToFit();
+            },
+            (err) => { 
                 this.showErrorSrv.showErrorInDialog(
+                    'Ups! An error has occurred...',
                     'Sorry, an error has been occurred retrieving the training paths...', 
                     DIALOG_ACTIONS.NOP,
                     '');
-            },
-            (err) => { 
             }
         );
+    }
+
+    addNewTrainingPath() {
+
+    }
+
+    deleteTrainingPath() {
+        let selectedRows = this.gridOptions.api.getSelectedRows();
+        if(selectedRows.length === 0) {
+            this.showErrorSrv.showErrorInDialog(
+            'No rows selected',
+            'Sorry, to delete a training path, you should select a row before...', 
+            DIALOG_ACTIONS.NOP,
+            'I got it!');
+        } else {
+            // Delete training paths
+        }
+    }
+
+    openKatasOfTrainingPath() {
+        
     }
 
 }

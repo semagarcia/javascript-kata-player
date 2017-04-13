@@ -1,6 +1,6 @@
-<h1 class="text-color-red">Ups! An error has occurred...</h1>
+<h1 class="text-color-red">{{ dialogTitle }}</h1>
 <hr class="margin-hr" />
 
-<div class="margin-top-8 margin-bottom-8"><p>Error: {{ errorMessage }}</p></div>
+<div class="margin-top-8 margin-bottom-8"><p>{{ errorMessage }}</p></div>
 
 <button md-raised-button color="primary" class="full-width" (click)="dialogRef.close(null)"> {{ textLabel }}</button>

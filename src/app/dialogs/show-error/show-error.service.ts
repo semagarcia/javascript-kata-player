@@ -6,17 +6,23 @@ import { ShowErrorDialog } from './show-error.component';
 
 @Injectable()
 export class ShowErrorService {
+    private dialogTitle: string;
     private errorMessage: string;
     private textLabel: string;
     private action: DIALOG_ACTIONS;
 
     constructor(private dialog: MdDialog) { }
 
-    showErrorInDialog(errorMessage: string, action: DIALOG_ACTIONS, textLabel?: string) {
+    showErrorInDialog(title: string, errorMessage: string, action: DIALOG_ACTIONS, textLabel?: string) {
+        this.dialogTitle = title;
         this.errorMessage = errorMessage;
         this.action = action;
         this.textLabel = textLabel;
         this.dialog.open(ShowErrorDialog);
+    }
+
+    getDialogTitle() {
+        return this.dialogTitle;
     }
 
     getErrorMessage(): string {
