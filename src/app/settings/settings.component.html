@@ -1,52 +1,22 @@
 <h1>Settings</h1>
 <hr />
 
-<md-tab-group>
-    <!-- First tab: users -->
-    <!--<md-tab>
-        <ng-template md-tab-label>
-            <i class="fa fa-users" aria-hidden="true"></i> Users
-        </ng-template>
-        <div>
-            Tab 0 content
-        </div>
-    </md-tab>-->
+<nav md-tab-nav-bar>
+    <a md-tab-link [routerLink]="['/settings/learning-paths']" 
+        routerLinkActive 
+        #rla="routerLinkActive" 
+        [active]="rla.isActive">
+            <i class="material-icons">delete</i> Learning Paths
+    </a>
+    <a md-tab-link
+        [routerLink]="['/settings/katas']"
+        routerLinkActive 
+        #rla="routerLinkActive"
+        [active]="rla.isActive">
+            <i class="material-icons">delete</i> Katas repository
+    </a>
+</nav>
 
-    <!-- Second tab: learning paths -->
-    <md-tab>
-        <ng-template md-tab-label>
-            <i class="fa fa-thumbs-down" aria-hidden="true"></i> Learning paths
-        </ng-template>
-        <div class="padding-12">
-            <settings-learning-path></settings-learning-path>
-        </div>
-    </md-tab>
-    
-    <!-- third tab: admin katas -->
-    <md-tab>
-        <ng-template md-tab-label>
-            <i class="fa fa-file-text" aria-hidden="true"></i> Katas
-        </ng-template>
-        <settings-kata></settings-kata>
-    </md-tab>
-
-    <!-- fourth tab: XXX -->
-    <md-tab>
-        <ng-template md-tab-label>
-            <i class="fa fa-thumbs-down" aria-hidden="true"></i> Tab XXX
-        </ng-template>
-        <div>
-            Tab 3 content
-        </div>
-    </md-tab>
-
-    <!-- fiveth tab: YYY -->
-    <md-tab>
-        <ng-template md-tab-label>
-            <i class="fa fa-thumbs-down" aria-hidden="true"></i> Tab YYY
-        </ng-template>
-        <div>
-            Tab 4 content
-        </div>
-    </md-tab>
-</md-tab-group>
+<div class="padding-12">
+    <router-outlet></router-outlet>
+</div>

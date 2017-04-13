@@ -10,14 +10,19 @@ import { TrainingService } from './../core';
 })
 export class SettingsComponent implements OnInit {
 
-    private trainingPaths: Array<any>
+    private trainingPaths: Array<any>;
+    private currentTabSelected: number;
 
     constructor(private trainingSrv: TrainingService) { }
 
     ngOnInit() {
         this.trainingSrv.getTrainingPaths().subscribe(
-            (tPaths) => { this.trainingPaths = tPaths; console.log(tPaths); }
+            (tPaths) => { this.trainingPaths = tPaths }
         );
+    }
+
+    onTabChanged(event: MdTabChangeEvent) {
+        this.currentTabSelected = event.index;
     }
 
 }
