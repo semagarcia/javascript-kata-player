@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MdDialog } from '@angular/material';
 
+import { LpDialogComponent } from './lp-dialog/lp-dialog.component';
 import { TrainingService } from './../../core';
 import { ShowErrorService, DIALOG_ACTIONS } from './../../dialogs';
 
@@ -14,7 +16,7 @@ export class LearningPathComponent implements OnInit {
 
     private gridOptions: GridOptions = {};
 
-    constructor(private trainingSrv: TrainingService, private showErrorSrv: ShowErrorService) { 
+    constructor(private dialog: MdDialog, private trainingSrv: TrainingService, private showErrorSrv: ShowErrorService) {
         // Default options
         this.gridOptions.defaultColDef = { 
             width: 50,
@@ -119,7 +121,11 @@ export class LearningPathComponent implements OnInit {
     }
 
     addNewTrainingPath() {
+        this.dialog.open(LpDialogComponent);
+    }
 
+    startRowEditing() {
+        
     }
 
     deleteTrainingPath() {
