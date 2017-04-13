@@ -3,10 +3,7 @@
 
 <div class="full-width flexibox-row">
     <div class="flex-grow-1 margin-6" style="margin-left: 0">
-        <button md-raised-button class="full-width" color="accent" (click)="autoSize()">AAA</button>
-    </div>
-    <div class="flex-grow-1 margin-6">
-        <button md-raised-button class="full-width" color="accent">
+        <button md-raised-button class="full-width" color="accent" (click)="addNewTrainingPath()">
             <i class="material-icons">add_circle</i> New training
         </button>
     </div>
@@ -16,12 +13,12 @@
         </button>
     </div>
     <div class="flex-grow-1 margin-6">
-        <button md-raised-button class="full-width" color="accent">
+        <button md-raised-button class="full-width" color="accent" (click)="deleteTrainingPath()">
             <i class="material-icons">delete</i> Delete selected
         </button>
     </div>
     <div class="flex-grow-1 margin-6" style="margin-right: 0">
-        <button md-raised-button class="full-width" color="accent">
+        <button md-raised-button class="full-width" color="accent" (click)="openKatasOfTrainingPath()">
             <i class="material-icons">list</i> View katas
         </button>
     </div>
