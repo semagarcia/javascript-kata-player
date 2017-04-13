@@ -11,6 +11,8 @@ import { RankingComponent } from './ranking/ranking.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AboutComponent } from './about/about.component';
 
+import { SettingsRoutes } from './settings';
+
 export const ROUTES: Routes = [
   { path: '', component: LoginComponent },
   { path: 'home', component: HomeComponent },
@@ -21,7 +23,7 @@ export const ROUTES: Routes = [
   { path: 'challenge-list', component: CurrentChallengeListComponent },
   { path: 'streaming/:challengeId', component: StreamingComponent },
   { path: 'ranking', component: RankingComponent },
-  { path: 'settings', component: SettingsComponent },  // ToDo: Add guards
+  { path: 'settings', component: SettingsComponent, children: SettingsRoutes },  // ToDo: Add guards
   { path: 'about', component: AboutComponent },
   { path: '**', redirectTo: '' }
 ];

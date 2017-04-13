@@ -6,8 +6,13 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 
-// TODO: refactor to group them with spread operator
+// Modules
+import { SettingsModule } from './settings';
+
+// Routes
 import { ROUTES } from './app.routes';
+
+// TODO: refactor to group them with spread operator
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { IndividualComponent } from './individual/individual.component';
@@ -18,17 +23,16 @@ import { LoginComponent } from './login/login.component';
 import { CurrentChallengeListComponent } from './current-challenge-list/current-challenge-list.component';
 import { StreamingComponent } from './streaming/streaming.component';
 import { LeaveChallengeComponent } from './dialogs/leave-challenge/leave-challenge.component';
-import { SettingsComponent } from './settings/settings.component';
-import { LearningPathComponent } from './settings/learning-path/learning-path.component';
-import { KataComponent } from './settings/kata/kata.component';
 import { RankingComponent } from './ranking/ranking.component';
 import { AboutComponent } from './about/about.component';
 
+// Dialogs, Pipes & Services
 import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, ShowErrorDialog } from './dialogs';
 import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
 import { ChallengeService, SocketService, TestExecutorService, TrainingService } from './core';
 
+// 3rd party libraries
 import { CodemirrorModule } from 'ng2-codemirror';
 import { AgGridModule } from 'ag-grid-angular/main';
 import 'hammerjs';
@@ -50,9 +54,6 @@ import 'hammerjs';
         SelectTrainingPathDialog,
         ShowErrorDialog,
         LeaveChallengeComponent,
-        SettingsComponent,
-        LearningPathComponent,
-        KataComponent,
         RankingComponent,
         AboutComponent        
     ],
@@ -61,6 +62,7 @@ import 'hammerjs';
         BrowserAnimationsModule,
         FormsModule,
         HttpModule,
+        SettingsModule,
         CodemirrorModule,
         MaterialModule.forRoot(),
         RouterModule.forRoot(ROUTES),
