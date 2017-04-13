@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdDialogRef } from '@angular/material';
 
+import { DIALOG_ACTIONS } from './show-error-actions.enum';
 import { ShowErrorService } from './show-error.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { ShowErrorService } from './show-error.service';
 })
 export class ShowErrorDialog implements OnInit {
     private errorMessage: string;
+    private dialogAction: DIALOG_ACTIONS;
     private textLabel: string;
 
     constructor(private router: Router, 
@@ -18,10 +20,20 @@ export class ShowErrorDialog implements OnInit {
 
     ngOnInit() {
         this.errorMessage = this.showErrorSrv.getErrorMessage();
+        this.dialogAction = this.showErrorSrv.getAction();
         this.textLabel = this.showErrorSrv.getTextLabel() || 'Ok';
 
         this.dialogRef.afterClosed().subscribe(() => {
-            this.router.navigate(['/home']);
+            switch(this.dialogAction) {
+                // Go home
+                case DIALOG_ACTIONS.GO_HOME:
+                    this.router.navigate(['/home']);
+                    break;
+                // No-op & default option
+                case DIALOG_ACTIONS.NOP:
+                default:
+                    break;
+            }
         });
     }
 

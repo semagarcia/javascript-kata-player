@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TrainingService } from './../../core';
+import { ShowErrorService, DIALOG_ACTIONS } from './../../dialogs';
 
 import { GridOptions } from 'ag-grid/main';
 
@@ -13,18 +14,33 @@ export class LearningPathComponent implements OnInit {
 
     private gridOptions: GridOptions = {};
 
-    constructor(private trainingSrv: TrainingService) { 
+    constructor(private trainingSrv: TrainingService, private showErrorSrv: ShowErrorService) { 
+        // Default options
         this.gridOptions.defaultColDef = { 
             width: 50,
-            editable: false,
+            editable: true,
             filter: 'text'
         };
+        
+        // Configure grid
+        this.gridOptions.editType = 'fullRow';
         this.gridOptions.animateRows = true;
         this.gridOptions.enableFilter = true;
         this.gridOptions.enableSorting = true;
         this.gridOptions.enableColResize = true;
+        //this.gridOptions.singleClickEdit = true;
+        this.gridOptions.stopEditingWhenGridLosesFocus = true;
         this.gridOptions.sortingOrder = ['desc', 'asc', null];
         this.gridOptions.rowSelection = 'multiple';
+
+        //
+        this.gridOptions.onCellEditingStarted = (event) => {
+            console.log('cellEditingStarted');
+        };
+        this.gridOptions.onCellEditingStopped = (event) => {
+            console.log('cellEditingStopped', event);
+        };
+
         this.gridOptions.columnDefs = [
             {
                 headerName: '', 
@@ -32,48 +48,56 @@ export class LearningPathComponent implements OnInit {
                 headerCheckboxSelection: true,
                 headerCheckboxSelectionFilteredOnly: true,
                 checkboxSelection: true,
-                suppressFilter: true
+                suppressFilter: true,
+                width: 20
             },
             {
                 headerName: 'Topic',
                 field: 'topic',
-                width: 100,
-                filter: 'text'
+                width: 80,
+                filter: 'text',
+                cellClass: 'center-column-content'
             },
             {
                 headerName: 'Name',
                 field: 'name',
                 width: 100,
-                filter: 'text'
+                filter: 'text',
+                cellClass: 'center-column-content'
             },
             {
                 headerName: 'Description',
                 field: 'description',
-                width: 100,
-                filter: 'text'
+                width: 200,
+                filter: 'text',
+                cellClass: 'center-column-content'
             },
             {
                 headerName: 'Enabled?',
                 field: 'enabled',
-                width: 100
+                width: 60,
+                cellRenderer: (params) => { return (params.value) ? 'Yes' : 'No' },
+                cellEditor: 'select',
+                cellEditorParams: {
+                    values: ['Yes', 'No']
+                },
+                cellClass: 'center-column-content'
             },
             {
                 headerName: '# Katas',
                 field: 'katas',
-                width: 100,
-                filter: 'number'
-            },
-            {
-                headerName: 'Created',
-                field: 'createdAt',
-                width: 100,
-                filter: 'date'
+                width: 60,
+                filter: 'number',
+                editable: false,
+                cellClass: 'center-column-content'
             },
             {
                 headerName: 'Updated',
                 field: 'updatedAt',
                 width: 100,
-                filter: 'date'
+                filter: 'date',
+                editable: false,
+                cellClass: 'center-column-content'
             }
         ];
     }
@@ -86,8 +110,13 @@ export class LearningPathComponent implements OnInit {
         this.trainingSrv.getTrainingPathsForGrid().subscribe(
             (trainingPaths) => { 
                 this.gridOptions.api.addItems(trainingPaths);
+                this.showErrorSrv.showErrorInDialog(
+                    'Sorry, an error has been occurred retrieving the training paths...', 
+                    DIALOG_ACTIONS.NOP,
+                    '');
             },
-            (err) => { console.log('Show generic error loading data'); }
+            (err) => { 
+            }
         );
     }
 

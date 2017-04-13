@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { TrainingService, TrainingPath, Kata } from './../core';
-import { ShowErrorService } from './../dialogs/';
+import { ShowErrorService, DIALOG_ACTIONS } from './../dialogs/';
 
 @Component({
     templateUrl: './training.component.html',
@@ -36,7 +36,9 @@ export class TrainingComponent implements OnInit {
                         this.selectedValue = trainingPath.katas[this.currentExerciseIndex].name;
                     } else {
                         this.showErrorSrv.showErrorInDialog(
-                            'Sorry, an error has been occurred retrieving the training path...', 'Go to home!');
+                            'Sorry, an error has been occurred retrieving the training path...', 
+                            DIALOG_ACTIONS.GO_HOME, 
+                            'Go to home!');
                     }
                 }
             );
