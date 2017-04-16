@@ -27,4 +27,10 @@ export class TrainingService {
             .catch((res: Response) => res.json().error);
     }
 
+    createTrainingPath(topic, name, description): Observable<TrainingPath> {
+        return this.httpSrv.post('/api/training-paths', { topic: topic, name: name, description: description})
+            .map((res: Response) => res.json())
+            .catch((res: Response) => res.json().error );
+    }
+
 }
