@@ -1,0 +1,51 @@
+<h1 class="text-color-red">Add a new kata</h1>
+<hr class="margin-hr" />
+
+<div class="margin-top-8 margin-bottom-8">
+    <p><em>Fill the following fields in order to create a new kata.</em></p>
+</div>
+
+<!--<div class="flexbox full-width">
+    Bla, bla, bla...
+</div>-->
+
+<!--<div class="flexibox-row-centered margin-12">
+    Icono
+</div>-->
+
+<md-input-container class="full-width">
+    <input #kataName mdInput placeholder="Write an identifier for the new training path" required [(ngModel)]="name">
+</md-input-container>
+
+<md-input-container class="full-width">
+    <input #kataDescription mdInput placeholder="Also, you can write a brief description" required [(ngModel)]="description">
+</md-input-container>
+
+<md-input-container class="full-width">
+    <textarea #kataExamples mdInput placeholder="Write the examples for this kata (each example have to start with '*')" 
+        required [(ngModel)]="examples">
+    </textarea>
+</md-input-container>
+
+<md-input-container class="full-width">
+    <input #kataInitialBodyImpl mdInput placeholder="Write the base implementation signature of the kata" required [(ngModel)]="initialFnImpl">
+</md-input-container>
+
+<!-- Package.json -->
+<!-- readme -->
+<!-- tests -->
+<!-- hidden tests -->
+
+<div class="padding-top-18" *ngIf="showError">
+    <div class="flexibox-row text-color-red">
+        Error: {{ errorMessage }}
+    </div>
+</div>
+
+<div class="padding-top-18">
+    <div class="flexibox-row">
+        <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="createLearningPath()">Create</button>
+        <div style="padding:0 3px;"></div> 
+        <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="dialogRef.close(null)">Cancel</button>
+    </div>
+</div>
