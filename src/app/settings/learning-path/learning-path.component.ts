@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { LpDialogComponent } from './lp-dialog/lp-dialog.component';
 import { TrainingService } from './../../core';
@@ -16,7 +16,8 @@ export class LearningPathComponent implements OnInit {
 
     private gridOptions: GridOptions = {};
 
-    constructor(private dialog: MdDialog, private trainingSrv: TrainingService, private showErrorSrv: ShowErrorService) {
+    constructor(private dialog: MdDialog/*, private dialogRef: MdDialogRef<LpDialogComponent>*/,
+                private trainingSrv: TrainingService, private showErrorSrv: ShowErrorService) {
         // Default options
         this.gridOptions.defaultColDef = { 
             width: 50,
@@ -105,6 +106,10 @@ export class LearningPathComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loadTrainingPaths();
+    }
+
+    loadTrainingPaths() {
         this.trainingSrv.getTrainingPathsForGrid().subscribe(
             (trainingPaths) => { 
                 this.gridOptions.api.addItems(trainingPaths);
@@ -121,7 +126,12 @@ export class LearningPathComponent implements OnInit {
     }
 
     addNewTrainingPath() {
-        this.dialog.open(LpDialogComponent);
+        /*this.dialogRef.afterClosed().subscribe((x) => {
+            console.log('Cerrado');
+        });*/
+        this.dialog.open(LpDialogComponent).afterClosed().subscribe((x) => {
+            console.log('Cerrado', x);
+        });
     }
 
     startRowEditing() {
