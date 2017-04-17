@@ -1,51 +1,169 @@
-<h1 class="text-color-red">Add a new kata</h1>
-<hr class="margin-hr" />
+<div style="overflow:hidden;">
+    <h1 class="text-color-red">Add a new kata ({{ stepIndex }})</h1>
+    <hr class="margin-hr" />
 
-<div class="margin-top-8 margin-bottom-8">
-    <p><em>Fill the following fields in order to create a new kata.</em></p>
-</div>
+    <div class="step-wrapper" [@formSteps]="stepIndex">
+        <!-- Step 1 -->
+        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        <div class="step">
+            <md-input-container class="full-width">
+                <input #kataName mdInput required [(ngModel)]="name"
+                    placeholder="Write an identifier for the new training path">
+            </md-input-container>
+            <md-input-container class="full-width">
+                <input #kataDescription mdInput required [(ngModel)]="description"
+                    placeholder="Also, you can write a brief description">
+            </md-input-container>
+            <md-input-container class="full-width">
+                <input #kataExamples mdInput required [(ngModel)]="examples"
+                    placeholder="Write the examples for this kata (each example have to start with '*')">
+            </md-input-container>
+            <md-input-container class="full-width">
+                <input #kataInitialBodyImpl mdInput required [(ngModel)]="initialFnImpl"
+                    placeholder="Write the base implementation signature of the kata">
+            </md-input-container>
+            <!-- Buttons -->
+            <div class="padding-top-18">
+                <div class="flexibox-row">
+                    <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="nextStep()">
+                        Next step (2/3)
+                    </button>
+                    <div style="padding:0 3px;"></div> 
+                    <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="closeDialog()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
 
-<!--<div class="flexbox full-width">
-    Bla, bla, bla...
-</div>-->
+        <!-- Step 2 -->
+        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        <div class="step">
+            <!-- Package.json -->
+            <div class="flexibox-column full-width" style="margin-top:12px;">
+                <div class="flex-grow-1 flexibox-row" style="color:gray; justify-content: flex-end">
+                    <md-radio-group>
+                        <span mdTooltip="Write your own package.json" mdTooltipPosition="above">
+                            <md-radio-button value="write">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </md-radio-button>
+                        </span>
+                        <span mdTooltip="Upload one" mdTooltipPosition="above">
+                            <md-radio-button value="upload" checked="checked">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                            </md-radio-button>
+                        </span>
+                    </md-radio-group>
+                </div>
+                <div class="flex-grow-1 flexibox-row-centered full-width padding-6" style="border: 2.3px dashed gray">
+                    <div class="" style="color: gray">Upload your package.json file</div>
+                </div>
+                <!-- click para eliminar + lógica para subir un fichero -->
+                <div class="flex-grow-1" style="color:gray">File Added: xxxx.xxx (delete)</div> 
+            </div>
+            <!-- README.md -->
+            <div class="flexibox-column full-width" style="margin-top:12px">
+                <div class="flex-grow-1 flexibox-row" style="color:gray; justify-content: flex-end">
+                    <md-radio-group>
+                        <span mdTooltip="Write your own package.json" mdTooltipPosition="above">
+                            <md-radio-button value="write">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </md-radio-button>
+                        </span>
+                        <span mdTooltip="Upload one" mdTooltipPosition="above">
+                            <md-radio-button value="upload" checked="checked">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                            </md-radio-button>
+                        </span>
+                    </md-radio-group>
+                </div>
+                <div class="flex-grow-1 flexibox-row-centered full-width padding-6" style="border: 2.3px dashed gray">
+                    <div class="flexibox-row-centered" style="color: gray">Upload your readme.md file</div>
+                </div>
+                <!-- click para eliminar + lógica para subir un fichero -->
+                <div class="flex-grow-1" style="color:gray">File Added: xxxx.xxx (delete)</div> 
+            </div>
+            <!-- Buttons -->
+            <div class="padding-top-18">
+                <div class="flexibox-row">
+                    <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="previousStep()">
+                        Previous step (1/3)
+                    </button>
+                    <div style="padding:0 3px;"></div> 
+                    <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="closeDialog()">
+                        Cancel
+                    </button>
+                    <div style="padding:0 3px;"></div> 
+                    <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="nextStep()">
+                        Next step (3/3)
+                    </button>
+                </div>
+            </div>
+        </div>
 
-<!--<div class="flexibox-row-centered margin-12">
-    Icono
-</div>-->
-
-<md-input-container class="full-width">
-    <input #kataName mdInput placeholder="Write an identifier for the new training path" required [(ngModel)]="name">
-</md-input-container>
-
-<md-input-container class="full-width">
-    <input #kataDescription mdInput placeholder="Also, you can write a brief description" required [(ngModel)]="description">
-</md-input-container>
-
-<md-input-container class="full-width">
-    <textarea #kataExamples mdInput placeholder="Write the examples for this kata (each example have to start with '*')" 
-        required [(ngModel)]="examples">
-    </textarea>
-</md-input-container>
-
-<md-input-container class="full-width">
-    <input #kataInitialBodyImpl mdInput placeholder="Write the base implementation signature of the kata" required [(ngModel)]="initialFnImpl">
-</md-input-container>
-
-<!-- Package.json -->
-<!-- readme -->
-<!-- tests -->
-<!-- hidden tests -->
-
-<div class="padding-top-18" *ngIf="showError">
-    <div class="flexibox-row text-color-red">
-        Error: {{ errorMessage }}
-    </div>
-</div>
-
-<div class="padding-top-18">
-    <div class="flexibox-row">
-        <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="createLearningPath()">Create</button>
-        <div style="padding:0 3px;"></div> 
-        <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="dialogRef.close(null)">Cancel</button>
+        <!-- Step 3 -->
+        <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+        <div class="step">
+            <!-- tests -->
+            <div class="flexibox-column full-width" style="margin-top:12px">
+                <div class="flex-grow-1 flexibox-row" style="color:gray; justify-content: flex-end">
+                    <md-radio-group>
+                        <span mdTooltip="Write your own package.json" mdTooltipPosition="above">
+                            <md-radio-button value="write">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </md-radio-button>
+                        </span>
+                        <span mdTooltip="Upload one" mdTooltipPosition="above">
+                            <md-radio-button value="upload" checked="checked">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                            </md-radio-button>
+                        </span>
+                    </md-radio-group>
+                </div>
+                <div class="flex-grow-1 flexibox-row-centered full-width padding-6" style="border: 2.3px dashed gray">
+                    <div class="flexibox-row-centered" style="color: gray">Upload your kata.test.js file</div>
+                </div>
+                <!-- click para eliminar + lógica para subir un fichero -->
+                <div class="flex-grow-1" style="color:gray">File Added: xxxx.xxx (delete)</div> 
+            </div>
+            <!-- hidden tests -->
+            <div class="flexibox-column full-width" style="margin-top:12px">
+                <div class="flex-grow-1 flexibox-row" style="color:gray; justify-content: flex-end">
+                    <md-radio-group>
+                        <span mdTooltip="Write your own package.json" mdTooltipPosition="above">
+                            <md-radio-button value="write">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </md-radio-button>
+                        </span>
+                        <span mdTooltip="Upload one" mdTooltipPosition="above">
+                            <md-radio-button value="upload" checked="checked">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                            </md-radio-button>
+                        </span>
+                    </md-radio-group>
+                </div>
+                <div class="flex-grow-1 flexibox-row-centered full-width padding-6" style="border: 2.3px dashed gray">
+                    <div class="flexibox-row-centered" style="color: gray">Upload your kata.hiddenTest.js file</div>
+                </div>
+                <!-- click para eliminar + lógica para subir un fichero -->
+                <div class="flex-grow-1" style="color:gray">File Added: xxxx.xxx (delete)</div> 
+            </div>
+            <!-- Buttons -->
+            <div class="padding-top-18">
+                <div class="flexibox-row">
+                    <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="previousStep()">
+                        Previous step (2/3)
+                    </button>
+                    <div style="padding:0 3px;"></div> 
+                    <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="closeDialog()">
+                        Cancel
+                    </button>
+                    <div style="padding:0 3px;"></div> 
+                    <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="createLearningPath()">
+                        Create!
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
