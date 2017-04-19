@@ -4,7 +4,9 @@
 
     <span class="spacer"></span>
 
-    <button md-mini-fab (click)="testKata()"><md-icon>play_arrow</md-icon></button>
+    <span mdTooltip="Test kata!" mdTooltipPosition="above">
+        <button md-mini-fab (click)="testKata()"><md-icon>play_arrow</md-icon></button>
+    </span>
     <span style="margin-left:6px"></span>
     <button md-mini-fab (click)="stop()"><md-icon>stop</md-icon></button>
     <span style="margin-left:6px"></span>
@@ -12,7 +14,7 @@
 </md-toolbar>
 
 <div class="main-container" style="height: calc(100% - (110px));">
-    <div class="enunciado" [style.flex-basis.%]="leftPaneWidth">
+    <div class="enunciado animated bounce" [style.flex-basis.%]="leftPaneWidth">
         <md-card class="example-card">
             <md-card-content>
                 <h1>{{ title }}</h1>
@@ -26,7 +28,7 @@
             </md-card-actions>
         </md-card>
     </div>
-    <div class="codigo animated" *ngIf="showEditorPane" [class.bounce]="showEditorPane" [style.flex-basis.%]="100 - leftPaneWidth">
+    <div class="codigo" [@startKata]="kataState" [style.hidden]="true" [style.flex-basis.%]="100 - leftPaneWidth">
         <div class="medio-panel-superior card-ang-mat">
             <codemirror class="editor-area" 
                 [(ngModel)]="bodyFunction" 
