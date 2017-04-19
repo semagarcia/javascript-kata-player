@@ -1,4 +1,4 @@
-@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '~notosans-fontface/css/notosans-fontface.min.css';
 @import '~codemirror/lib/codemirror.css';
 @import '~codemirror/theme/material.css';
@@ -79,6 +79,14 @@ div {
 /* --------------------------------------------------- */
 .text-color-red {
   color: red;
+}
+
+.text-line-error {
+  color: red;
+}
+
+.text-line-successful {
+  color: green;
 }
 
 /* --------------------------------------------------- */
