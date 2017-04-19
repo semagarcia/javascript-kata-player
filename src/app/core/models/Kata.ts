@@ -29,6 +29,6 @@ export interface Kata {
     };
 
     /** */
-    enabled: boolean;
+    enabled?: boolean;
 
 }
