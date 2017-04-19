@@ -4,6 +4,7 @@ import { MdDialog } from '@angular/material';
 import { KataDialogComponent } from './kata-dialog/kata-dialog.component';
 import { KataService } from './../../core';
 import { ShowErrorService, DIALOG_ACTIONS } from './../../dialogs';
+import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
 
 import { GridOptions } from 'ag-grid/main';
 
@@ -25,6 +26,7 @@ export class KataComponent implements OnInit {
         };
         
         // Configure grid
+        this.gridOptions.rowHeight = 48;
         this.gridOptions.editType = 'fullRow';
         this.gridOptions.animateRows = true;
         this.gridOptions.enableFilter = true;
@@ -34,6 +36,9 @@ export class KataComponent implements OnInit {
         this.gridOptions.stopEditingWhenGridLosesFocus = true;
         this.gridOptions.sortingOrder = ['desc', 'asc', null];
         this.gridOptions.rowSelection = 'multiple';
+        this.gridOptions.icons = {
+            checkboxChecked: SettingsAgGridMaterialCheckbox.CB_ICON
+        };
 
         //
         this.gridOptions.onCellEditingStarted = (event) => {
@@ -51,33 +56,30 @@ export class KataComponent implements OnInit {
                 headerCheckboxSelectionFilteredOnly: true,
                 checkboxSelection: true,
                 suppressFilter: true,
-                width: 20
+                width: 25
             },
             {
                 headerName: 'Name',
                 field: 'name',
                 width: 100,
-                filter: 'text',
-                cellClass: 'center-column-content'
+                filter: 'text'
             },
             {
                 headerName: 'Description',
                 field: 'description',
                 width: 200,
-                filter: 'text',
-                cellClass: 'center-column-content'
+                filter: 'text'
             },
             {
                 headerName: 'Examples',
                 field: 'examples',
                 width: 140,
-                filter: 'text',
-                cellClass: 'center-column-content'
+                filter: 'text'
             },
             {
                 headerName: 'Enabled?',
                 field: 'enabled',
-                width: 70,
+                width: 65,
                 cellRenderer: (params) => { return (params.value) ? 'Yes' : 'No' },
                 cellEditor: 'select',
                 cellEditorParams: {
@@ -90,8 +92,7 @@ export class KataComponent implements OnInit {
                 field: 'updatedAt',
                 width: 100,
                 filter: 'date',
-                editable: false,
-                cellClass: 'center-column-content'
+                editable: false
             }
         ];
     }

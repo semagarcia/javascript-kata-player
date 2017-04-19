@@ -14,7 +14,9 @@ import { AboutComponent } from './about/about.component';
 import { SettingsRoutes } from './settings';
 
 export const ROUTES: Routes = [
+  //{ path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
   { path: 'individual', component: IndividualComponent },
   { path: 'training/:topic', component: TrainingComponent },

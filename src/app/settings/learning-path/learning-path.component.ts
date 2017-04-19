@@ -4,6 +4,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { LpDialogComponent } from './lp-dialog/lp-dialog.component';
 import { TrainingService } from './../../core';
 import { ShowErrorService, DIALOG_ACTIONS } from './../../dialogs';
+import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
 
 import { GridOptions } from 'ag-grid/main';
 
@@ -26,6 +27,7 @@ export class LearningPathComponent implements OnInit {
         };
         
         // Configure grid
+        this.gridOptions.rowHeight = 48;
         this.gridOptions.editType = 'fullRow';
         this.gridOptions.animateRows = true;
         this.gridOptions.enableFilter = true;
@@ -35,6 +37,9 @@ export class LearningPathComponent implements OnInit {
         this.gridOptions.stopEditingWhenGridLosesFocus = true;
         this.gridOptions.sortingOrder = ['desc', 'asc', null];
         this.gridOptions.rowSelection = 'multiple';
+        this.gridOptions.icons = {
+            checkboxChecked: SettingsAgGridMaterialCheckbox.CB_ICON
+        };
 
         //
         this.gridOptions.onCellEditingStarted = (event) => {
@@ -52,33 +57,30 @@ export class LearningPathComponent implements OnInit {
                 headerCheckboxSelectionFilteredOnly: true,
                 checkboxSelection: true,
                 suppressFilter: true,
-                width: 20
+                width: 25
             },
             {
                 headerName: 'Topic',
                 field: 'topic',
                 width: 80,
-                filter: 'text',
-                cellClass: 'center-column-content'
+                filter: 'text'
             },
             {
                 headerName: 'Name',
                 field: 'name',
                 width: 100,
-                filter: 'text',
-                cellClass: 'center-column-content'
+                filter: 'text'
             },
             {
                 headerName: 'Description',
                 field: 'description',
                 width: 200,
-                filter: 'text',
-                cellClass: 'center-column-content'
+                filter: 'text'
             },
             {
                 headerName: 'Enabled?',
                 field: 'enabled',
-                width: 60,
+                width: 65,
                 cellRenderer: (params) => { return (params.value) ? 'Yes' : 'No' },
                 cellEditor: 'select',
                 cellEditorParams: {
@@ -91,16 +93,14 @@ export class LearningPathComponent implements OnInit {
                 field: 'katas',
                 width: 60,
                 filter: 'number',
-                editable: false,
-                cellClass: 'center-column-content'
+                editable: false
             },
             {
                 headerName: 'Updated',
                 field: 'updatedAt',
                 width: 100,
                 filter: 'date',
-                editable: false,
-                cellClass: 'center-column-content'
+                editable: false
             }
         ];
     }
