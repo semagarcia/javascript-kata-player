@@ -14,7 +14,7 @@ export interface Kata {
     initialBodyFunction: string;
 
     /** */
-    rawkata: {
+    rawkata?: {
         /** */
         packageJson: string;
 
