@@ -25,12 +25,12 @@
             <!-- Buttons -->
             <div class="padding-top-18">
                 <div class="flexibox-row">
-                    <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="nextStep()">
-                        Next step (2/3)
-                    </button>
-                    <div style="padding:0 3px;"></div> 
                     <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="closeDialog()">
                         Cancel
+                    </button>
+                    <div style="padding:0 3px;"></div> 
+                    <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="nextStep()">
+                        Next step (2/3)
                     </button>
                 </div>
             </div>
@@ -77,8 +77,9 @@
                         </span>
                     </md-radio-group>
                 </div>
-                <div class="flex-grow-1 flexibox-row-centered full-width padding-6" style="border: 2.3px dashed gray">
-                    <div class="flexibox-row-centered" style="color: gray">Upload your readme.md file</div>
+                <div class="flex-grow-1 flexibox-row-centered full-width padding-6" 
+                    style="border:3px dotted lightgray; background-color:#f5f5f5;">
+                    <div class="flexibox-row-centered" style="color:gray">Upload your readme.md file</div>
                 </div>
                 <!-- click para eliminar + lógica para subir un fichero -->
                 <div class="flex-grow-1" style="color:gray">File Added: xxxx.xxx (delete)</div> 
