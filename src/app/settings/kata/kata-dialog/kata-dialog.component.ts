@@ -1,4 +1,4 @@
-import { Component, OnInit, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, OnInit, animate, state, style, transition, trigger } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 
 import { KataService } from './../../../core';
@@ -18,10 +18,8 @@ import { KataService } from './../../../core';
             state('step-3', style({
                 transform: 'translate3d(-66.66%, 0, 0)'
             })),
-            transition('* => *', animate('400ms ease-in-out')),
-            //transition('2 => 3', animate('400ms ease-in-out')),
-            //transition('2 => 3', animate('400ms ease-in-out'))
-        ]),
+            transition('* => *', animate('400ms ease-in-out'))
+        ])
     ]
 })
 export class KataDialogComponent implements OnInit {
