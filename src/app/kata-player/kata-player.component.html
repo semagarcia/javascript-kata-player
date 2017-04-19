@@ -8,7 +8,7 @@
     <span style="margin-left:6px"></span>
     <button md-mini-fab (click)="stop()"><md-icon>stop</md-icon></button>
     <span style="margin-left:6px"></span>
-    <button md-mini-fab (click)="nextExercise()"><md-icon>arrow_forward</md-icon></button>
+    <button md-mini-fab *ngIf="nextButton" (click)="nextExercise()"><md-icon>arrow_forward</md-icon></button>
 </md-toolbar>
 
 <div class="main-container" style="height: calc(100% - (110px));">

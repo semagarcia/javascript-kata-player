@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
-import { TimeElapsedPipe, TestExecutorService } from './../core';
+import { Kata, TimeElapsedPipe, TestExecutorService } from './../core';
 
 import 'codemirror/mode/javascript/javascript';
 
@@ -31,6 +31,7 @@ export class IndividualComponent implements OnInit {
     private testResult: Array<String>;
     private testResultOutput: string;
     private counterDownObs: Subscription;
+    private kata: Kata;
 
     constructor(private httpSrv: Http, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {}
 
@@ -38,7 +39,7 @@ export class IndividualComponent implements OnInit {
         this.showEditorPane = false;
         this.leftPaneWidth = 50;
         this.resizingModeEnabled = false;
-        this.code = 'function myTitleFunction(){\n\treturn 100;\n}';
+        this.code = 'function addTwoNumbers(a, b){\n\treturn 100;\n}';
         this.config = {
             cursorBlinkRate: 200,
             lineNumbers: true,
@@ -55,6 +56,13 @@ export class IndividualComponent implements OnInit {
         //this.sendNotification('Your kata has started!', 'Good luck with this kata! Read carefully and don\'t forget to test frequently');
 
         this.showEditorPane = true;
+        this.kata = {
+            name: 'addTwoNumbers',
+            description: 'Given two numbers, return the sum of both.',
+            examples: ['* For a = 1, b = 2, the output should be 3.'],
+            initialBodyFunction: 'function addTwoNumbers(a, b) {\n\treturn 100;\n}',
+            enabled: true  // To compliance the model
+        };
     }
 
     startExercise() {

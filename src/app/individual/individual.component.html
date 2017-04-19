@@ -1,53 +1,11 @@
-<md-toolbar color="second">
-    <md-icon>watch_later</md-icon>
-    <span>Time: {{ timeSpent | timeElapsed }}</span>
 
-    <span class="spacer"></span>
-
-    <button md-mini-fab (click)="testKata()"><md-icon>play_arrow</md-icon></button>
-    <span style="margin-left:6px"></span>
-    <button md-mini-fab (click)="stop()"><md-icon>stop</md-icon></button>
-</md-toolbar>
-
-<div class="main-container" style="height: calc(100% - (110px));">
-    <div class="enunciado" [style.flex-basis.%]="leftPaneWidth">
-        <md-card class="example-card">
-            <md-card-content>
-                <h1>addTwoNumbers</h1>
-                <h3>Add two numbers</h3>
-                <p>
-                    Given two numbers, you should return the add of both.
-                </p>
-                <h3>Example</h3>
-                <p>
-                    * For a = 3 and b = 5, the output should be 8
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean rhoncus justo quis justo convallis convallis. Nulla mi elit, posuere in ultricies vitae, faucibus ac nibh. Praesent tincidunt facilisis maximus. Maecenas sed consequat nunc, eu elementum erat. Ut iaculis est elit, et scelerisque orci feugiat nec. Suspendisse pellentesque nibh nec neque porttitor, in malesuada dui posuere. Morbi vel lacus pharetra, porta massa vel, ullamcorper quam. Morbi sagittis hendrerit mi. Mauris in pulvinar metus.
-                </p>
-                <p>
-                    Cras auctor euismod lectus et luctus. In sed ullamcorper mauris. Sed et eros quam. Sed dignissim id leo quis accumsan. Suspendisse sagittis at purus vitae rhoncus. Aenean scelerisque sollicitudin congue. Nunc ac elementum nunc. Nunc sollicitudin ut orci in fermentum. Duis eu efficitur est. Aenean auctor purus nec sem ultricies, vitae tincidunt quam commodo. Nulla tempus sem ac diam sollicitudin, ac scelerisque neque tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer blandit molestie erat, at porta orci sagittis quis.
-                </p>
-            </md-card-content>
-            <md-card-actions>
-                <a md-button (click)="startExercise()"><md-icon>play_arrow</md-icon> Start exercise!</a>
-            </md-card-actions>
-        </md-card>
-    </div>
-    <div class="codigo animated" *ngIf="showEditorPane" [class.bounce]="showEditorPane" [style.flex-basis.%]="100 - leftPaneWidth">
-        <div class="medio-panel-superior card-ang-mat">
-            <codemirror class="editor-area" 
-                [(ngModel)]="code" 
-                [config]="config" 
-                (focus)="onFocus()" (blur)="onBlur()">
-            </codemirror>
-        </div>
-        <div class="medio-panel-inferior card-ang-mat">
-            <span style="white-space:pre-wrap;" [innerHtml]="testResultOutput"></span>
-        </div>
-    </div>
-    <div [style.left.%]="leftPaneWidth" style="position:absolute; width:4px; z-index:1; cursor:ew-resize; 
-                background: #1d1d1d; top:128px; bottom:0; margin-left:-2px;"
-        (mousedown)="mousedown($event)" (mousemove)="mousemove($event)" (mouseup)="mouseup($event)">
-    </div>
-</div>
+<kata-player
+    [title]="kata?.name"
+    [explanation]="kata?.description"
+    [examples]="kata?.examples"
+    [code]="kata?.initialBodyFunction"
+    (success)="onSuccessKata()"
+    (fail)="onFailedKataAttemp()"
+    [next-button]="false"
+    (next)="onNextExercise()">
+</kata-player>

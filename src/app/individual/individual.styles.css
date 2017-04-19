@@ -51,3 +51,11 @@
   resize: none;
   width: 100%;
 }
+
+.text-line-error {
+  color: red;
+}
+
+.text-line-successful {
+  color: green;
+}
