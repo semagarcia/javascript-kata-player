@@ -24,6 +24,7 @@
         [examples]="currentExercise?.examples"
         [code]="currentExercise?.initialBodyFunction"
         (success)="onSuccessKata()"
+        [next-button]="true"
         (fail)="onFailedKataAttemp()"
         (next)="onNextExercise()">
     </kata-player>
