@@ -5,10 +5,10 @@
 
   <div style="display:flex; flex-direction:column; padding-bottom:20px">
     <md-input-container class="">
-      <input mdInput placeholder="Username">
+      <input mdInput placeholder="Username" [(ngModel)]="username" >
     </md-input-container>
     <md-input-container class="">
-      <input type="password" mdInput placeholder="Password">
+      <input type="password" mdInput placeholder="Password" [(ngModel)]="password">
     </md-input-container>
   </div>
   

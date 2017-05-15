@@ -3,6 +3,8 @@
     [title]="kata?.name"
     [explanation]="kata?.description"
     [examples]="kata?.examples"
+    [inputs]="kata?.inputs"
+    [outputs]="kata?.outputs"
     [code]="kata?.initialBodyFunction"
     (success)="onSuccessKata()"
     (fail)="onFailedKataAttemp()"

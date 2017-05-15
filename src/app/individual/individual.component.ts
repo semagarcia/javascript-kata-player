@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable, Subscription } from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
-import { Kata, TimeElapsedPipe, TestExecutorService } from './../core';
+import { Kata, IndividualService, TimeElapsedPipe, TestExecutorService } from './../core';
 
 import 'codemirror/mode/javascript/javascript';
 
@@ -25,45 +24,47 @@ export class IndividualComponent implements OnInit {
     private counterDownObs: Subscription;
     private kata: Kata;
 
-    constructor(private httpSrv: Http, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {}
+    constructor(private individualKataSrv: IndividualService, 
+                private testExecutorSrv: TestExecutorService, 
+                public dialog: MdDialog) {}
 
     ngOnInit() {
         this.timeSpent = 0;
         this.showEditorPane = false;
         this.leftPaneWidth = 50;
         this.resizingModeEnabled = false;
-        this.code = 'function addTwoNumbers(a, b){\n\treturn 100;\n}';
         this.config = {
             cursorBlinkRate: 200,
             lineNumbers: true,
-            mode: { name: "javascript", json: true },
+            mode: { name: 'javascript', json: true },
             tabSize: 2,
             theme: 'material'
         };
 
-        this.counterDownObs = Observable.timer(0, 1000).subscribe((tick) => {
-            this.timeSpent++;
-        });
-
-        // Hardcoded kata (temporal)
-        this.kata = {
-            name: 'addTwoNumbers',
-            description: 'Given two numbers, return the sum of both.',
-            examples: ['* For a = 1, b = 2, the output should be 3.'],
-            initialBodyFunction: 'function addTwoNumbers(a, b) {\n\treturn 100;\n}'
-        };
+        this.individualKataSrv.getRandomKata().subscribe(
+            (kata: Kata) => {
+                this.kata = kata;
+                this.counterDownObs = Observable.timer(0, 1000).subscribe((tick) => {
+                    this.timeSpent++;
+                });
+            },
+            (err) => { /* CHANGE */ alert('error retrieving random katas'); }
+        );
     }
 
     onSuccessKata() {
+        console.log('on success');
 
+        // refactor => common/core service
+        this.sendNotification('Individual kata', 'Congrats! Your implementation is correct :-)');  
     }
 
     onFailedKataAttemp() {
-
+        console.log('on fail');
     }
 
     testKata() {
-        this.testExecutorSrv.checkExerciseCode(this.code).subscribe(
+        this.testExecutorSrv.checkExerciseCode(this.code, this.kata.name).subscribe(
             (result: any) => {
                 if(result.executionResult && result.output) {
                     this.testResultOutput = this.testExecutorSrv.formatOutput(result.output.split('\n'));
@@ -75,6 +76,15 @@ export class IndividualComponent implements OnInit {
                 }
             }
         );
+    }
+
+    sendNotification(title: string, body: string) {
+        Notification.requestPermission().then(function(result) {
+            new Notification(title, {
+                body: body,
+                icon: './assets/images/logo_javascript.png'
+            });
+        }); 
     }
 
 }

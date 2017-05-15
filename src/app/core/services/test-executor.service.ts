@@ -7,8 +7,8 @@ export class TestExecutorService {
 
     constructor(private httpSrv: Http) { }
 
-    checkExerciseCode(exerciseCode: string): Observable<object> {
-        return this.httpSrv.post('http://localhost:3000/kata', { function: exerciseCode })
+    checkExerciseCode(exerciseImpl: string, title: string): Observable<object> {
+        return this.httpSrv.post('/api/kata', { function: exerciseImpl, name: title })
             .map((res:Response) => res.json().result, 
                         (error: any) => Observable.throw(error.json().error || 'Server error'));
     }

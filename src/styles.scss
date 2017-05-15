@@ -23,6 +23,10 @@ div {
     text-align: center;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 
 /* --------------------------------------------------- */
 /*                        Cards                        */
@@ -132,4 +136,8 @@ div {
 
 .fill-remaining-space {
     flex: 1 1 auto;
+}
+
+.align-s-center {
+  align-self: center;
 }

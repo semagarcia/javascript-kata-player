@@ -1,10 +1,10 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, animate, state, style, transition, trigger } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, animate, state, style, transition, trigger 
+} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
-import { TimeElapsedPipe, TestExecutorService } from './../core';
+import { KataService, TestExecutorService } from './../core';
 
 import 'codemirror/mode/javascript/javascript';
 
@@ -24,6 +24,23 @@ import 'codemirror/mode/javascript/javascript';
                 opacity: 1
             })),
             transition('* => *', animate('400ms ease-in-out'))
+        ]),
+        trigger('unitTestCase', [
+            state('null', style({
+                display: 'none',
+                height: 0
+            })),
+            state('closed', style({
+                display: 'none',
+                height: 0
+            })),
+            state('opened', style({
+                display: 'block',
+                height: '*'
+            })),
+            transition('null => closed', animate('400ms ease-in')),
+            transition('opened => closed', animate('400ms ease-in')),
+            transition('closed => opened', animate('400ms ease-out'))
         ])
     ]
 })
@@ -38,21 +55,33 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     private testResult: Array<String>;
     private testResultOutput: string;
     private counterDownObs: Subscription;
+    private attemps;
 
     @Input() title;
     @Input() explanation;
     @Input() examples;
+    @Input() inputs;
+    @Input() outputs;
     @Input() code;
     @Input('next-button') nextButton;
     @Output() success = new EventEmitter();
     @Output() fail = new EventEmitter();
     @Output() next = new EventEmitter();
 
-    constructor(private httpSrv: Http, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {
+    private tests: any;
+    private numberOfPassedTests: number;
+    private numberOfTests: number;
+
+    constructor(private kataSrv: KataService, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {
         this.kataState = 'reading';
     }
 
     ngOnInit() {
+        this.tests = {};
+        this.numberOfPassedTests = 0;
+        this.numberOfTests = 0;
+
+        this.attemps = 0;
         this.leftPaneWidth = 50;
         this.resizingModeEnabled = false;
 
@@ -80,24 +109,42 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     }
 
     testKata() {
+        this.attemps++;
         if(this.kataState === 'writing') {
-            this.testExecutorSrv.checkExerciseCode(this.bodyFunction).subscribe(
+            this.testExecutorSrv.checkExerciseCode(this.bodyFunction, this.title).subscribe(
                 (result: any) => {
-                    if(result.executionResult && result.output) {
-                        this.testResultOutput = this.testExecutorSrv.formatOutput(result.output.split('\n'));
-                    } else if(result.executionResult && !result.output) {
-                        this.testResultOutput = 'Not found nothing to test...';
-                    } else if(!result.executionResult) {
-                        this.testResultOutput = this.testExecutorSrv.formatOutput(result.output.split('\n'));
-                        this.counterDownObs.unsubscribe();
+                    this.tests = result;
+                    this.numberOfTests = this.tests.output.length;
+                    this.numberOfPassedTests = this.tests.output.filter((o) => { return o.result }).length;
+                    if(this.tests.executionResult) {
+                        this.sendKataStats(true);
                         this.success.emit(this.timeSpent);
+                    } else {
+                        this.sendKataStats(false);
                     }
                 }
             );
         }
     }
 
-    stop() {
+    sendKataStats(result: boolean) {
+        this.kataSrv.sendKataStats({
+            kata: this.title,
+            status: result,
+            attemps: this.attemps,
+            time: this.timeSpent
+        });
+    }
+
+    openOrCloseTestCase(currentStatus) {
+        if(currentStatus === 'opened') {
+            return 'closed';
+        } else {
+            return 'opened';
+        }
+    }
+
+    endKata() {
         //this.dialog.open(LeaveChallengeComponent);
         this.fail.emit();
     }

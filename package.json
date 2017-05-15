@@ -7,6 +7,7 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build --base-href ./dist/ --target=electron-renderer",
+    "desktop": "npm start && npm run electron",
     "electron": "electron .",
     "package": "npm run build-electron && electron dist",
     "start": "ng serve --proxy-config proxy.config.json",
@@ -47,6 +48,7 @@
     "@types/node": "^6.0.42",
     "@types/socket.io-client": "^1.4.29",
     "codelyzer": "~2.0.0-beta.1",
+    "concurrently": "^3.4.0",
     "electron": "^1.4.15",
     "electron-reload": "^1.1.0",
     "jasmine-core": "2.5.2",

@@ -17,6 +17,18 @@
   padding: .5em;
 }
 
+.h3-editor {
+  margin: 0.66em 0 0.33em 0;
+}
+
+.h4-editor {
+  margin: 0.33em 0;
+}
+
+.full-line {
+  display: block;
+}
+
 .codigo {
   align-items: flex-start;
   display: flex;
@@ -48,4 +60,10 @@
 .editor-area {
   resize: none;
   width: 100%;
+}
+
+.accordion-header {
+  background-color: #f5f5f5; 
+  color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
 }

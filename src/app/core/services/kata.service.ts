@@ -21,4 +21,14 @@ export class KataService {
             .catch((err) => Observable.throw(err));
     }
 
+    sendKataStats(statistics: object): Promise<any> {
+        return this.httpSrv.post('/api/kata/stats', { stats: statistics }).toPromise();
+    }
+
+    getKataStats(): Observable<Array<any>> {
+        return this.httpSrv.get('/api/katas/stats', {})
+            .map((res: Response) => res.json().stats)
+            .catch((err) => Observable.throw(err));
+    }
+
 }

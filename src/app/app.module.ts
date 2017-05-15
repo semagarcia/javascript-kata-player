@@ -30,7 +30,8 @@ import { AboutComponent } from './about/about.component';
 import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, ShowErrorDialog } from './dialogs';
 import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
-import { ChallengeService, KataService, SocketService, TestExecutorService, TrainingService } from './core';
+import { ChallengeService, IndividualService, KataService, LoginService, 
+        SocketService, TestExecutorService, TrainingService } from './core';
 
 // 3rd party libraries
 import { CodemirrorModule } from 'ng2-codemirror';
@@ -70,7 +71,9 @@ import 'hammerjs';
     ],
     providers: [
         ChallengeService,
+        IndividualService,
         KataService,
+        LoginService,
         ShowErrorService,
         SocketService,
         TestExecutorService,

@@ -7,27 +7,54 @@
     <span mdTooltip="Test kata!" mdTooltipPosition="above">
         <button md-mini-fab (click)="testKata()"><md-icon>play_arrow</md-icon></button>
     </span>
+    
     <span style="margin-left:6px"></span>
-    <button md-mini-fab (click)="stop()"><md-icon>stop</md-icon></button>
+    
+    <span mdTooltip="Finish!" mdTooltipPosition="above">
+        <button md-mini-fab (click)="endKata()"><md-icon>stop</md-icon></button>
+    </span>
+    
     <span style="margin-left:6px"></span>
     <button md-mini-fab *ngIf="nextButton" (click)="nextExercise()"><md-icon>arrow_forward</md-icon></button>
 </md-toolbar>
 
 <div class="main-container" style="height: calc(100% - (110px));">
+    <!-- Kata description -->
     <div class="enunciado animated bounce" [style.flex-basis.%]="leftPaneWidth">
         <md-card class="example-card">
             <md-card-content>
                 <h1>{{ title }}</h1>
-                <h3>Explanation</h3>
+                
+                <h2>Explanation</h2>
                 <p>{{ explanation }}</p>
-                <h3>Examples</h3>
-                <p *ngFor="let ex of examples">{{ ex }}</p>
+                
+                <h2>Examples</h2>
+                <p *ngFor="let example of examples">* {{ example }}</p>
+                
+                <h2 *ngIf="inputs || outputs">Inputs / Outputs</h2>
+                <!-- Inputs -->
+                <div *ngFor="let input of inputs">
+                    <h3 class="h3-editor">[Input] {{ input.type }} {{ input.parameter }}</h3>
+                    <span>{{ input.description }}</span>
+                    <h4 *ngIf="input.constraints.length > 0" class="h4-editor">Constraints</h4>
+                    <span class="full-line" *ngFor="let constraint of input.constraints">* {{ constraint }}</span>
+                </div>
+
+                <!-- Outputs -->
+                <div *ngFor="let output of outputs">
+                    <h3 class="h3-editor">[Output] {{ output.type }} {{ output.name }}</h3>
+                    <p>{{ output.description }}</p>
+                    <h4 *ngIf="output.constraints?.length > 0" class="h4-editor">Constraints</h4>
+                    <span class="full-line" *ngFor="let constraint of output.constraints">* {{ constraint }}</span>
+                </div>
             </md-card-content>
             <md-card-actions>
                 <a md-button (click)="startExercise()"><md-icon>play_arrow</md-icon> Start exercise!</a>
             </md-card-actions>
         </md-card>
     </div>
+
+    <!-- Editor -->
     <div class="codigo" [@startKata]="kataState" [style.hidden]="true" [style.flex-basis.%]="100 - leftPaneWidth">
         <div class="medio-panel-superior card-ang-mat">
             <codemirror class="editor-area" 
@@ -35,12 +62,30 @@
                 [config]="config">
             </codemirror>
         </div>
-        <div class="medio-panel-inferior card-ang-mat">
-            <span style="white-space:pre-wrap;" [innerHtml]="testResultOutput"></span>
+        <div class="medio-panel-inferior card-ang-mat flexibox-column">
+            <div class="full-width" *ngIf="tests.output">Passed tests: {{numberOfPassedTests}} out of {{numberOfTests}}</div>
+            <div class="full-width margin-6" *ngFor="let test of tests.output; let i = index">
+                <div #unitTest (click)="unitTest.status = openOrCloseTestCase(unitTest.status)"
+                    class="flexibox-row padding-6 accordion-header">
+                    <span class="align-s-center">Test {{i+1}} / {{numberOfTests}}</span>
+                    <span class="fill-remaining-space"></span>
+                    <i class="material-icons align-s-center">
+                        {{ (unitTest.status === 'opened') ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+                    </i>
+                </div>
+                <div [@unitTestCase]="unitTest.status">
+                    <p>Input: {{test.input}}</p>
+                    <p [style.color]="(test.result) ? 'green' : 'red'">Expected output: {{test.output}}</p>
+                    <p *ngIf="test.message" [style.color]="(test.result) ? 'green' : 'red'">Failure message: {{test.message}}</p>
+                    <p>Log: {{test.log}}</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div [style.left.%]="leftPaneWidth" style="position:absolute; width:4px; z-index:-99; cursor:ew-resize; 
-                background: #1d1d1d; top:128px; bottom:0; margin-left:-2px;"
+
+    <!-- Separator -->
+    <div id="playerSeparator" [style.left.%]="leftPaneWidth" style="position:absolute; width:4px; z-index:-99;
+                background: #1d1d1d; top:128px; bottom:0; margin-left:-2px; height:calc(100% - 110px)"
         (mousedown)="mousedown($event)" (mousemove)="mousemove($event)" (mouseup)="mouseup($event)">
     </div>
 </div>

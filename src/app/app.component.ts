@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
+import { LoginService } from './core';
 import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.component';
 
 @Component({
@@ -12,10 +13,15 @@ import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.com
 export class AppComponent {
     title = 'JavaScript Katas Player!';
 
-    constructor(private router: Router, public dialog: MdDialog) {}
+    constructor(private router: Router, public dialog: MdDialog, private loginSrv: LoginService) {}
 
     logout() {
-        this.router.navigate(['/']);
+        this.loginSrv.logout().subscribe(
+            (response) => {
+                this.router.navigate(['/']);
+            },
+            (error) => { console.log('err: ', error); }
+        );
     }
 
     goHome() {
