@@ -1,5 +1,5 @@
 <md-toolbar color="primary">
-    <a md-mini-fab routerLink="/home" [routerLinkActive]="['hidden']" [routerLinkActiveOptions]="{exact:true}">
+    <a md-mini-fab routerLink="/home" *ngIf="isLoginPage">
         <md-icon>keyboard_return</md-icon>
     </a>
     <span style="margin-left:12px">{{ title }}</span>
@@ -36,7 +36,7 @@
 
     <!-- This fills the remaining space of the current row -->
     <span class="fill-remaining-space"></span>
-    <button md-icon-button [mdMenuTriggerFor]="appMenu">
+    <button md-icon-button [mdMenuTriggerFor]="appMenu" *ngIf="isLoginPage">
         <md-icon>more_vert</md-icon>
     </button>
 </md-toolbar>

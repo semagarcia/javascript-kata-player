@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
 import { LoginService } from './core';
@@ -10,10 +10,21 @@ import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.com
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'JavaScript Katas Player!';
+    isLoginPage = false;
 
-    constructor(private router: Router, public dialog: MdDialog, private loginSrv: LoginService) {}
+    constructor(private router: Router, 
+                private dialog: MdDialog, 
+                private loginSrv: LoginService) {}
+
+    ngOnInit() {
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .subscribe(
+                (navigationEnd) => this.isLoginPage = !(this.router.url === '/' || this.router.url === '/login')
+            );
+    }
 
     logout() {
         this.loginSrv.logout().subscribe(
