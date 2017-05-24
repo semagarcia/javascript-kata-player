@@ -7,11 +7,18 @@ export class LoginService {
 
     constructor(private httpSrv: Http) { }
 
-    loginUserForJSDayEs(username: string, email: string): Observable<any> {
+    login(username: string, password: string, eventSelected: string): Observable<any> {
         return this.httpSrv.post('/api/login', {
           user: username,
-          email: email
+          password: password,
+          event: eventSelected
         })
+          .map((res: Response) => res.json())
+          .catch((err: Response) => err.json().error);
+    }
+
+    getCurrentEvents(): Observable<any> {
+        return this.httpSrv.get('/api/events')
           .map((res: Response) => res.json())
           .catch((err: Response) => err.json().error);
     }
