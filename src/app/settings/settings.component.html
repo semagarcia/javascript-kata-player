@@ -6,14 +6,27 @@
         routerLinkActive 
         #rla="routerLinkActive" 
         [active]="rla.isActive">
-            <i class="material-icons">delete</i> Learning Paths
+            <i class="fa fa-users fa-3x" aria-hidden="true"></i> Users
+    </a>
+    <a md-tab-link [routerLink]="['/settings/learning-paths']" 
+        routerLinkActive 
+        #rla="routerLinkActive" 
+        [active]="rla.isActive">
+            <i class="fa fa-folder-open-o fa-3x" aria-hidden="true"></i> Learning Paths
     </a>
     <a md-tab-link
         [routerLink]="['/settings/katas']"
         routerLinkActive 
         #rla="routerLinkActive"
         [active]="rla.isActive">
-            <i class="material-icons">delete</i> Katas repository
+            <i class="fa fa-files-o fa-3x" aria-hidden="true"></i> Katas repository
+    </a>
+    <a md-tab-link
+        [routerLink]="['/settings/katas']"
+        routerLinkActive 
+        #rla="routerLinkActive"
+        [active]="rla.isActive">
+            <i class="fa fa-language fa-3x" aria-hidden="true"></i> Languages
     </a>
 </nav>
 
