@@ -67,19 +67,13 @@ export class KataComponent implements OnInit {
             {
                 headerName: 'Description',
                 field: 'description',
-                width: 200,
-                filter: 'text'
-            },
-            {
-                headerName: 'Examples',
-                field: 'examples',
-                width: 140,
+                width: 250,
                 filter: 'text'
             },
             {
                 headerName: 'Enabled?',
                 field: 'enabled',
-                width: 65,
+                width: 40,
                 cellRenderer: (params) => { return (params.value) ? 'Yes' : 'No' },
                 cellEditor: 'select',
                 cellEditorParams: {
