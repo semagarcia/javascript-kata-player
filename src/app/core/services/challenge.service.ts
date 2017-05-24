@@ -24,8 +24,13 @@ export class ChallengeService {
      * @param playerId {string} the socketId.
      * @returns {string} UUID (v4).
      */
-    createChallengeId(playerId: string): Observable<string> {
-        return this.httpSrv.post('/api/challenges/create', { playerId: playerId })
+    createChallengeId(playerId: string, direction: string, duration: number, mode: string): Observable<string> {
+        return this.httpSrv.post('/api/challenges/create', { 
+                playerId: playerId,
+                direction: direction,
+                duration: duration,
+                mode: mode
+            })
             .map((res:Response) => res.json().uuid)
             .catch((res:Response) => res.json().error);
     }
