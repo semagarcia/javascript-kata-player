@@ -10,8 +10,12 @@ export class CreateChallengeDialog implements OnInit {
 
     private joinForm: boolean;
     private challengeId: string;
+    private counterDirection: string;
+    private challengeTimeDuration: number;
+    private challengeMode: string;
     private existsChallengeId: boolean;
     private isCreatingChallenge: boolean;
+    private isWaitingResponse: boolean;
     private joiningMessageError: string;
 
     constructor(private dialogRef: MdDialogRef<CreateChallengeDialog>, 
@@ -21,35 +25,54 @@ export class CreateChallengeDialog implements OnInit {
 
     ngOnInit() {
         this.joinForm = false;
+        this.challengeMode = 'SYNC';
         this.existsChallengeId = true;
         this.isCreatingChallenge = false;
+        this.isWaitingResponse = false;
         this.joiningMessageError = '';
+    }
+
+    showCreateChallengeForm() {
+        this.isCreatingChallenge = true;
+        this.joinForm = false;
+    }
+
+    showJoinToChallengeForm() {
+        this.isCreatingChallenge = false;
+        this.joinForm = true;
+        this.joiningMessageError = '';
+        this.hideProgressBar();
     }
 
     createChallenge() {
         this.showProgressBar(); 
         this.joinForm = false;
-        let playerSocketId = this.socketSrv.getSocketId();
-        if(playerSocketId) {
-            this.challengeSrv.createChallengeId(playerSocketId).subscribe((challengeId) => { 
-                this.challengeId = challengeId;
-                this.isCreatingChallenge = false;
-            });
+        this.joiningMessageError = '';
+        if(this.counterDirection && this.challengeTimeDuration) {
+            let playerSocketId = this.socketSrv.getSocketId();
+            if(playerSocketId) {
+                this.challengeSrv.createChallengeId(
+                        playerSocketId, 
+                        this.counterDirection, 
+                        this.challengeTimeDuration,
+                        this.challengeMode
+                ).subscribe((challengeId) => { 
+                    this.challengeId = challengeId;
+                    this.isWaitingResponse = false;
+                });
+            } else {
+                this.isWaitingResponse = false;
+                this.joiningMessageError = 'ERR-SOCK-1000';
+            }
         } else {
-            this.isCreatingChallenge = false;
-            this.joiningMessageError = 'ERR-SOCK-1000';
+            this.isWaitingResponse = false;
+            this.joiningMessageError = 'You have to fill the required fields';
         }
     }
 
     goToChallenge() {
         this.router.navigate(['/challenge', this.challengeId]);
         this.dialogRef.close();
-    }
-
-    showJoinToChallengeForm() {
-        this.joinForm = !this.joinForm;
-        this.joiningMessageError = '';
-        this.hideProgressBar();
     }
 
     joinToChallenge() {
@@ -79,11 +102,11 @@ export class CreateChallengeDialog implements OnInit {
     }
 
     private showProgressBar() {
-        this.isCreatingChallenge = true;
+        this.isWaitingResponse = true;
     }
 
     private hideProgressBar() {
-        this.isCreatingChallenge = false;
+        this.isWaitingResponse = false;
     }
 
 }

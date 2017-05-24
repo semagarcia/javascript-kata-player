@@ -4,15 +4,46 @@
 
 <!-- Button options -->
 <div class="flexibox-row">
-    <button type="button" md-raised-button color="accent" (click)="createChallenge()" class="flex-grow-1">Create</button>
+    <button type="button" md-raised-button color="accent" (click)="showCreateChallengeForm()" class="flex-grow-1">Create</button>
     <button type="button" md-raised-button color="accent" (click)="showJoinToChallengeForm()" style="margin:0 6px 0 6px; flex-grow:1">Join</button>
     <button type="button" md-raised-button color="accent" (click)="dialogRef.close(null)" class="flex-grow-1">Cancel</button>
 </div>
 
 <!-- Form to create the challengeId -->
+<div *ngIf="isCreatingChallenge" class="padding-top-18">
+    <h3 style="margin-bottom:0">Fill the following fields</h3>
+    <div class="full-width">
+        <md-select placeholder="Select the direction of the counter"
+                class="full-width margin-top-8"
+                floatPlaceholder="auto" [(ngModel)]="counterDirection" name="counterDirection" required>
+            <md-option value="ASC">Ascendent</md-option>
+            <md-option value="DESC">Descendent</md-option>
+        </md-select>
+    </div>
+    <div class="full-width">
+        <md-input-container class="full-width">
+            <input type="number" mdInput placeholder="Write the challenge time (in minutes)" 
+                [(ngModel)]="challengeTimeDuration" required>
+        </md-input-container>
+    </div>
+    <div class="full-width">    
+        Challenge mode:
+        <md-radio-group class="full-width" [(ngModel)]="challengeMode" required>
+            <md-radio-button value="SYNC" class="padding-left-6">Sync. challenge</md-radio-button>
+            <md-radio-button value="ASYNC" class="padding-left-6">Async. challenge</md-radio-button>
+        </md-radio-group>
+    </div>
+    <div class="full-width" *ngIf="joiningMessageError">
+        <p style="color:darkred"><em>Error: {{ joiningMessageError }}</em></p>
+    </div>
+    <div class="full-width margin-top-8">
+        <button type="button" md-raised-button color="primary" 
+                (click)="createChallenge()" class="full-width">Create challenge</button>
+    </div>
+</div>
 <div *ngIf="challengeId && !joinForm" class="flex-grow-1 margin-top-8 margin-bottom-8">Challenge id: {{ challengeId }}</div>
 <div *ngIf="challengeId && !joinForm" class="flexibox-row margin-top-8 margin-bottom-8">
-    <md-progress-bar mode="indeterminate" *ngIf="isCreatingChallenge"></md-progress-bar>
+    <md-progress-bar mode="indeterminate" *ngIf="isWaitingResponse"></md-progress-bar>
 
     <button type="button" md-raised-button color="primary" (click)="goToChallenge()" 
         class="flex-grow-1" style="margin-right: 6px">Go to challenge</button>
@@ -31,7 +62,7 @@
         <p style="color:darkred"><em>Error: {{ joiningMessageError }}</em></p>
     </div>
     
-    <div class="flexibox-row" *ngIf="!isCreatingChallenge">
+    <div class="flexibox-row" *ngIf="!isWaitingResponse">
         <button type="button" md-raised-button color="primary" (click)="joinToChallenge()" class="flex-grow-1">Join!</button>
     </div>
 </div>
