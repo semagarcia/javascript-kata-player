@@ -16,6 +16,7 @@ import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { IndividualComponent } from './individual/individual.component';
+import { ChronometerComponent } from './chronometer/chronometer.component';
 import { KataPlayerComponent } from './kata-player/kata-player.component';
 import { TrainingComponent } from './training/training.component';
 import { ChallengeComponent } from './challenge/challenge.component';
@@ -44,6 +45,7 @@ import 'hammerjs';
         HomeComponent,
         IndividualComponent,
         KataPlayerComponent,
+        ChronometerComponent,
         TrainingComponent,
         ChallengeComponent,
         LoginComponent,
@@ -56,7 +58,7 @@ import 'hammerjs';
         ShowErrorDialog,
         LeaveChallengeComponent,
         RankingComponent,
-        AboutComponent        
+        AboutComponent
     ],
     imports: [
         BrowserModule,
