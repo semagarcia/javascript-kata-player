@@ -108,6 +108,10 @@ export class KataPlayerComponent implements OnInit, OnChanges {
         this.kataState = 'writing';
     }
 
+    chronoEvent(evt) {
+        console.log('event! ', evt);
+    }
+
     testKata() {
         this.attemps++;
         if(this.kataState === 'writing') {
