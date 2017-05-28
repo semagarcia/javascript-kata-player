@@ -28,10 +28,8 @@ export class AppComponent implements OnInit {
 
     logout() {
         this.loginSrv.logout().subscribe(
-            (response) => {
-                this.router.navigate(['/']);
-            },
-            (error) => { console.log('err: ', error); }
+            (response) => this.router.navigate(['/']),
+            (error) => this.router.navigate(['/'])
         );
     }
 

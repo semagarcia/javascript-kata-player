@@ -31,8 +31,8 @@ import { AboutComponent } from './about/about.component';
 import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, ShowErrorDialog } from './dialogs';
 import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
-import { ChallengeService, IndividualService, KataService, LoginService, 
-        SocketService, TestExecutorService, TrainingService } from './core';
+import { AuthenticationService, AuthenticationGuard, ChallengeService, IndividualService, KataService, LoginService, 
+        SocketService, TestExecutorService, TrainingService, UserService } from './core';
 
 // 3rd party libraries
 import { CodemirrorModule } from 'ng2-codemirror';
@@ -72,6 +72,8 @@ import 'hammerjs';
         AgGridModule.withComponents([])
     ],
     providers: [
+        AuthenticationService, 
+        AuthenticationGuard,
         ChallengeService,
         IndividualService,
         KataService,
@@ -79,7 +81,8 @@ import 'hammerjs';
         ShowErrorService,
         SocketService,
         TestExecutorService,
-        TrainingService
+        TrainingService,
+        UserService
     ],
     entryComponents: [
         CreateChallengeDialog,

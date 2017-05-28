@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+import { AuthenticationGuard } from './core';
+
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { IndividualComponent } from './individual/individual.component';
@@ -17,7 +19,7 @@ export const ROUTES: Routes = [
   //{ path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
   { path: 'individual', component: IndividualComponent },
   { path: 'training/:topic', component: TrainingComponent },
   { path: 'challenge', component: ChallengeComponent },

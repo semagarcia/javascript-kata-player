@@ -15,11 +15,12 @@
     </md-select>
   </div>
   
-  <div style="display:flex; flex-direction:column">
+  <div class="flexibox-column">
+    <span class="flex-grow-1 text-color-red margin-6"><em>{{ loginError }}</em></span>
     <button md-raised-button color="primary" (click)="standardLogin()">
       <i class="fa fa-key fa-lg" aria-hidden="true"></i> Standard login
     </button>
-    <br /><hr style="width:100%" /><br />
+    <br /><hr class="full-width" /><br />
 
     <!-- Login with github credentials -->
     <a md-raised-button color="accent" href="/auth/github">
