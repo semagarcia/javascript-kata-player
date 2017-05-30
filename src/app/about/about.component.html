@@ -1,3 +1,27 @@
-<p>
-  about works!
-</p>
+<div class="center-column-content margin-12">
+  <h1>KataPlayer</h1>
+  <p>Lorem ipsum bla, bla, bla...</p>
+
+  <h2>Contributors</h2>
+  <p>These are the main contributors of KataPLayer... a lot of thanks!!</p>
+</div>
+
+<div class="flexibox-row margin-12">
+
+
+  <md-card *ngFor="let contributor of contributors" class="flex-grow-1 margin-6">
+    <md-card-header>
+      <md-card-title>{{contributor.name}}</md-card-title>
+      <md-card-subtitle>{{contributor.contribution}}</md-card-subtitle>
+    </md-card-header>
+    <img md-card-image src="{{contributor.pic}}" width="400px">
+    <md-card-content>
+      <p>{{contributor.bio}}</p>
+    </md-card-content>
+    <md-card-actions>
+      <button md-button>TWITTER</button>
+      <button md-button>LINKEDIN</button>
+    </md-card-actions>
+  </md-card>
+
+</div>
