@@ -20,14 +20,14 @@ export const ROUTES: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
-  { path: 'individual', component: IndividualComponent },
-  { path: 'training/:topic', component: TrainingComponent },
-  { path: 'challenge', component: ChallengeComponent },
-  { path: 'challenge/:challengeId', component: ChallengeComponent },
-  { path: 'challenge-list', component: CurrentChallengeListComponent },
-  { path: 'streaming/:challengeId', component: StreamingComponent },
+  { path: 'individual', component: IndividualComponent, canActivate: [AuthenticationGuard] },
+  { path: 'training/:topic', component: TrainingComponent, canActivate: [AuthenticationGuard] },
+  { path: 'challenge', component: ChallengeComponent, canActivate: [AuthenticationGuard] },
+  { path: 'challenge/:challengeId', component: ChallengeComponent, canActivate: [AuthenticationGuard] },
+  { path: 'challenge-list', component: CurrentChallengeListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'streaming/:challengeId', component: StreamingComponent, canActivate: [AuthenticationGuard] },
   { path: 'ranking', component: RankingComponent },
-  { path: 'settings', component: SettingsComponent, children: SettingsRoutes },  // ToDo: Add guards
+  { path: 'settings', component: SettingsComponent, children: SettingsRoutes, canActivate: [AuthenticationGuard] },
   { path: 'about', component: AboutComponent },
   { path: '**', redirectTo: '' }
 ];
