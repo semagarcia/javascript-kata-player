@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog } from '@angular/material';
 
 import { KataDialogComponent } from './kata-dialog/kata-dialog.component';
 import { KataService } from './../../core';
 import { ShowErrorService, DIALOG_ACTIONS } from './../../dialogs';
 import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
 
+import { MdDialog } from '@angular/material';
 import { GridOptions } from 'ag-grid/main';
 
 @Component({
