@@ -7,7 +7,7 @@ import { Challenge } from './../models/Challenge';
 @Injectable()
 export class ChallengeService {
 
-    constructor(private httpSrv:Http) {}
+    constructor(private httpSrv: Http) {}
 
     /**
      * Get all the current challenges

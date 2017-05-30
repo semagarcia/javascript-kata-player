@@ -10,8 +10,7 @@ export class AuthenticationGuard implements CanActivate {
     constructor(private router: Router, private authSrv: AuthenticationService) { }
 
     canActivate(nextRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        if(this.authSrv.getJwtToken()) {
-            // There is token => logged
+        if(this.authSrv.isLoggedIn()) {
             return true;
         } else {
             //this.router.navigate(['/login'], { queryParams: { status: 'expired' }});

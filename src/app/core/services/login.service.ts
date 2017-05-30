@@ -25,12 +25,6 @@ export class LoginService {
           .catch((err: Response) => err.json().error);
     }
 
-    getCurrentEvents(): Observable<any> {
-        return this.httpSrv.get('/api/events')
-          .map((res: Response) => res.json())
-          .catch((err: Response) => err.json().error);
-    }
-
     logout(): Observable<any> {
         return this.httpSrv.get('/api/logout')
           .map((res: Response) => {
