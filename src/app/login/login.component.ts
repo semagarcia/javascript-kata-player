@@ -29,6 +29,11 @@ export class LoginComponent implements OnInit {
         );
     }
 
+    onEnter(event) {
+        if(event.keyCode === 13) 
+            this.standardLogin();
+    }
+
     standardLogin() {
         this.loginError = '';
         this.loginSrv.login(this.username, this.password, this.eventSelected).subscribe(
