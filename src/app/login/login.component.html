@@ -11,7 +11,7 @@
       <input type="password" mdInput placeholder="Password" [(ngModel)]="password">
     </md-input-container>
     <md-select placeholder="Select the event to join (optional)" floatPlaceholder="never" [(ngModel)]="eventSelected" name="event">
-      <md-option *ngFor="let event of events" [value]="event">{{ event }}</md-option>
+      <md-option *ngFor="let event of events" [value]="event.name">{{ event.name }}</md-option>
     </md-select>
   </div>
   

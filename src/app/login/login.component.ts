@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService }  from './../core';
+import { EventService, LoginService }  from './../core';
 
 @Component({
   selector: 'app-login',
@@ -16,14 +16,14 @@ export class LoginComponent implements OnInit {
     loginError: string;
     //languages: Array<string>;
 
-    constructor(private router: Router, private loginSrv: LoginService) { }
+    constructor(private router: Router, private loginSrv: LoginService, private eventSrv: EventService) { }
 
     ngOnInit() {
         this.username = '';
         this.password = '';
         this.eventSelected = '';
         this.loginSrv.logout().subscribe();
-        this.loginSrv.getCurrentEvents().subscribe(
+        this.eventSrv.getCurrentEvents().subscribe(
             (events) => this.events = events,
             (err) => this.events = []
         );
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         this.loginSrv.login(this.username, this.password, this.eventSelected).subscribe(
             (loggedUser) => {
                 if(loggedUser)
-                    this.router.navigate(['home']);
+                    this.router.navigate(['/home']);
                 else
                     this.loginError = 'Error: login error';
             },
