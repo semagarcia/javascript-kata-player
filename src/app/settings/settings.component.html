@@ -1,35 +1,39 @@
-<h1>Settings</h1>
-<hr />
+<div class="margin-18">
+    <h1>Settings</h1>
+    <hr />
 
-<nav md-tab-nav-bar>
-    <a md-tab-link [routerLink]="['/settings/learning-paths']" 
-        routerLinkActive 
-        #rla="routerLinkActive" 
-        [active]="rla.isActive">
-            <i class="fa fa-users fa-3x" aria-hidden="true"></i> Users
-    </a>
-    <a md-tab-link [routerLink]="['/settings/learning-paths']" 
-        routerLinkActive 
-        #rla="routerLinkActive" 
-        [active]="rla.isActive">
-            <i class="fa fa-folder-open-o fa-3x" aria-hidden="true"></i> Learning Paths
-    </a>
-    <a md-tab-link
-        [routerLink]="['/settings/katas']"
-        routerLinkActive 
-        #rla="routerLinkActive"
-        [active]="rla.isActive">
-            <i class="fa fa-files-o fa-3x" aria-hidden="true"></i> Katas repository
-    </a>
-    <a md-tab-link
-        [routerLink]="['/settings/katas']"
-        routerLinkActive 
-        #rla="routerLinkActive"
-        [active]="rla.isActive">
-            <i class="fa fa-language fa-3x" aria-hidden="true"></i> Languages
-    </a>
-</nav>
+    <nav md-tab-nav-bar>
+        <a md-tab-link [routerLink]="['/settings/users']" 
+            routerLinkActive 
+            #rla="routerLinkActive">
+                <i class="fa fa-users fa-3x" aria-hidden="true"></i> Users
+        </a>
+        <a md-tab-link [routerLink]="['/settings/learning-paths']" 
+            routerLinkActive 
+            #rla="routerLinkActive">
+                <i class="fa fa-folder-open-o fa-3x" aria-hidden="true"></i> Learning Paths
+        </a>
+        <a md-tab-link
+            [routerLink]="['/settings/katas']"
+            routerLinkActive 
+            #rla="routerLinkActive">
+                <i class="fa fa-files-o fa-3x" aria-hidden="true"></i> Katas repository
+        </a>
+        <a md-tab-link
+            [routerLink]="['/settings/events']"
+            routerLinkActive 
+            #rla="routerLinkActive">
+                <i class="fa fa-flash fa-3x" aria-hidden="true"></i> Events
+        </a>
+        <a md-tab-link
+            [routerLink]="['/settings/languages']"
+            routerLinkActive 
+            #rla="routerLinkActive">
+                <i class="fa fa-language fa-3x" aria-hidden="true"></i> Languages
+        </a>
+    </nav>
 
-<div class="padding-12">
-    <router-outlet></router-outlet>
+    <div class="padding-12">
+        <router-outlet></router-outlet>
+    </div>
 </div>
