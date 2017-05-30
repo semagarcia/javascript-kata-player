@@ -2,12 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { MaterialModule } from '@angular/material';
+import { HttpModule, Http, RequestOptions, XHRBackend } from '@angular/http';
+import { RouterModule, Router } from '@angular/router';
 
 // Modules
 import { SettingsModule } from './settings';
+import { MaterialModule } from './material/material.module';
 
 // Routes
 import { ROUTES } from './app.routes';
@@ -31,13 +31,19 @@ import { AboutComponent } from './about/about.component';
 import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, ShowErrorDialog } from './dialogs';
 import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
-import { AuthenticationService, AuthenticationGuard, ChallengeService, IndividualService, KataService, LoginService, 
-        SocketService, TestExecutorService, TrainingService, UserService } from './core';
+import {
+    AuthenticationService, AuthenticationGuard, ChallengeService, EventService, HttpService, IndividualService,
+    KataService, LoginService, SocketService, TestExecutorService, TrainingService, UserService
+} from './core';
 
 // 3rd party libraries
 import { CodemirrorModule } from 'ng2-codemirror';
 import { AgGridModule } from 'ag-grid-angular/main';
 import 'hammerjs';
+
+export function httpRequestInterceptor(backend, opts, authSrv, router) { 
+    return new HttpService(backend, opts, authSrv, router); 
+}
 
 @NgModule({
     declarations: [
@@ -67,15 +73,22 @@ import 'hammerjs';
         HttpModule,
         SettingsModule,
         CodemirrorModule,
-        MaterialModule.forRoot(),
+        MaterialModule,
         RouterModule.forRoot(ROUTES),
         AgGridModule.withComponents([])
     ],
     providers: [
-        AuthenticationService, 
+        AuthenticationService,
         AuthenticationGuard,
         ChallengeService,
+        EventService,
+        HttpService,
         IndividualService,
+        {
+            provide: Http,
+            useFactory: httpRequestInterceptor,
+            deps: [XHRBackend, RequestOptions, AuthenticationService, Router]    
+        },
         KataService,
         LoginService,
         ShowErrorService,
