@@ -10,7 +10,7 @@
     "desktop": "npm start && npm run electron",
     "electron": "electron .",
     "package": "npm run build-electron && electron dist",
-    "start": "ng serve --proxy-config proxy.config.json",
+    "start": "ng serve --host 0.0.0.0 --proxy-config proxy.config.json",
     "test": "ng test",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor"
