@@ -1,18 +1,36 @@
 import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 import { User } from './../models/User';
 
 @Injectable()
 export class UserService {
     user: User;
 
-    constructor() { }
+    constructor(private httpSrv: Http) { }
 
-    setUserContext(loggedUser: User) {
+    setUserContext(loggedUser: User): void {
         this.user = loggedUser;
     }
 
-    getUserContext() {
-        return this.user;
+    getUserContext(): Promise<User> {
+        return new Promise((resolve, reject) => {
+            if(this.user)
+                resolve(this.user);
+            else 
+                this.getUserInfo().subscribe(
+                    (user => { 
+                        this.user = user; 
+                        resolve(user); 
+                    }),
+                    (err => reject(err) )
+                );
+        });
+    }
+
+    getUserInfo() {
+        return this.httpSrv.get('/api/user')
+            .map(res => res.json())
+            .catch(err => err);
     }
 
 }

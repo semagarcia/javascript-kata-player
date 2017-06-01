@@ -14,7 +14,9 @@ export class HomeComponent implements OnInit {
     constructor(private router: Router, public dialog: MdDialog, public userSrv: UserService) { }
 
     ngOnInit() {
-        this.event = (this.userSrv.getUserContext()) ? this.userSrv.getUserContext().event : '';
+        this.userSrv.getUserContext()
+            .then(user => this.event = user.event)
+            .catch(() => this.event = '');
     }
 
     startIndividual() {

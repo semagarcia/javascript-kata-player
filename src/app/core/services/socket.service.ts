@@ -38,7 +38,7 @@ export class SocketService {
     }
 
     connectToStreaming() {
-        return Observable.fromEvent(this.socket, 'code');
+        return Observable.fromEvent(this.socket, 'challenge');
     }
 
     /*get(): Observable<any> {
