@@ -10,6 +10,8 @@ export class CreateChallengeDialog implements OnInit {
 
     private joinForm: boolean;
     private challengeId: string;
+    private arrowDirection: string;
+    private showChallengeConfig: boolean;
     private counterDirection: string;
     private challengeTimeDuration: number;
     private challengeMode: string;
@@ -25,11 +27,20 @@ export class CreateChallengeDialog implements OnInit {
 
     ngOnInit() {
         this.joinForm = false;
+        this.arrowDirection = 'down';
+        this.showChallengeConfig = false;
         this.challengeMode = 'SYNC';
+        this.counterDirection = 'ASC';
         this.existsChallengeId = true;
         this.isCreatingChallenge = false;
         this.isWaitingResponse = false;
         this.joiningMessageError = '';
+        this.challengeTimeDuration = 0;
+    }
+
+    toggleOptionalParamsChallengeMenu() {
+        this.showChallengeConfig = !this.showChallengeConfig;
+        this.arrowDirection = (this.showChallengeConfig) ? 'up' : 'down';
     }
 
     showCreateChallengeForm() {
@@ -48,7 +59,7 @@ export class CreateChallengeDialog implements OnInit {
         this.showProgressBar(); 
         this.joinForm = false;
         this.joiningMessageError = '';
-        if(this.counterDirection && this.challengeTimeDuration) {
+        if(this.counterDirection && this.challengeTimeDuration >= 0) {
             let playerSocketId = this.socketSrv.getSocketId();
             if(playerSocketId) {
                 this.challengeSrv.createChallengeId(
