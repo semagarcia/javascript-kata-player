@@ -1,17 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, trigger, state, transition, animate, style } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdDialogRef } from '@angular/material';
 import { ChallengeService, SocketService } from './../../core';
 
 @Component({
-    templateUrl: './create-challenge.component.html'
+    templateUrl: './create-challenge.component.html',
+    animations: [
+        trigger('challengeParams', [
+            state('closed', style({
+                display: 'none',
+                height: 0
+            })),
+            state('opened', style({
+                display: 'block',
+                height: '*'
+            })),
+            transition('null => closed', animate('400ms ease-in')),
+            transition('opened => closed', animate('400ms ease-in')),
+            transition('closed => opened', animate('400ms ease-out'))
+        ])
+    ]
 })
 export class CreateChallengeDialog implements OnInit {
 
     private joinForm: boolean;
     private challengeId: string;
     private arrowDirection: string;
-    private showChallengeConfig: boolean;
+    private showChallengeConfig: string;
     private counterDirection: string;
     private challengeTimeDuration: number;
     private challengeMode: string;
@@ -28,7 +43,7 @@ export class CreateChallengeDialog implements OnInit {
     ngOnInit() {
         this.joinForm = false;
         this.arrowDirection = 'down';
-        this.showChallengeConfig = false;
+        this.showChallengeConfig = 'closed';
         this.challengeMode = 'SYNC';
         this.counterDirection = 'ASC';
         this.existsChallengeId = true;
@@ -39,8 +54,8 @@ export class CreateChallengeDialog implements OnInit {
     }
 
     toggleOptionalParamsChallengeMenu() {
-        this.showChallengeConfig = !this.showChallengeConfig;
-        this.arrowDirection = (this.showChallengeConfig) ? 'up' : 'down';
+        this.showChallengeConfig = (this.showChallengeConfig === 'opened') ? 'closed' : 'opened';
+        this.arrowDirection = (this.showChallengeConfig === 'opened') ? 'up' : 'down';
     }
 
     showCreateChallengeForm() {
