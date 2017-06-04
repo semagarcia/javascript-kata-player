@@ -1,8 +1,8 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, animate, state, style, transition, trigger 
-} from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { MdDialog } from '@angular/material';
 
+import { KATA_PLAYER_ANIMATIONS } from './kata-player.animation';
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
 import { KataService, TestExecutorService } from './../core';
 
@@ -12,37 +12,7 @@ import 'codemirror/mode/javascript/javascript';
     selector: 'kata-player',
     templateUrl: './kata-player.component.html',
     styleUrls: ['./kata-player.component.scss'],
-    animations: [
-        trigger('startKata', [
-            transition(':enter', [
-                style({ opacity: 0 })
-            ]),
-            state('reading', style({
-                opacity: 0
-            })),
-            state('writing', style({
-                opacity: 1
-            })),
-            transition('* => *', animate('400ms ease-in-out'))
-        ]),
-        trigger('unitTestCase', [
-            state('null', style({
-                display: 'none',
-                height: 0
-            })),
-            state('closed', style({
-                display: 'none',
-                height: 0
-            })),
-            state('opened', style({
-                display: 'block',
-                height: '*'
-            })),
-            transition('null => closed', animate('400ms ease-in')),
-            transition('opened => closed', animate('400ms ease-in')),
-            transition('closed => opened', animate('400ms ease-out'))
-        ])
-    ]
+    animations: KATA_PLAYER_ANIMATIONS
 })
 export class KataPlayerComponent implements OnInit, OnChanges {
 
@@ -109,7 +79,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     }
 
     chronoEvent(evt) {
-        console.log('event! ', evt);
+        //console.log('event! ', evt);
     }
 
     testKata() {
