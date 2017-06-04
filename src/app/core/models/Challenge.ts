@@ -1,11 +1,12 @@
 export class Challenge {
 
     challengeId: string;
+    challengeKata: string;
     creator: string;
     playerA: string;
-    namePlayerA: string;
+    usernamePlayerA: string;
     playerB: string;
-    namePlayerB: string;
+    usernamePlayerB: string;
     timestamp: Date;
     status: ChallengeStatus;
     result: ChallengeResult;

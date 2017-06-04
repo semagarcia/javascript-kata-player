@@ -2,6 +2,9 @@
 export interface Kata {
 
     /** */
+    _id: string;
+
+    /** */
     name: string;
 
     /** */
@@ -11,24 +14,15 @@ export interface Kata {
     examples: Array<string>;
 
     /** */
+    inputs: Array<{parameter: string, description: string, type: string, constraints: Array<string>}>;
+
+    /** */
+    outputs: Array<{description: string, type: string, constraints: Array<string>}>;
+
+    /** */
     initialBodyFunction: string;
 
     /** */
-    rawkata?: {
-        /** */
-        packageJson: string;
-
-        /** */
-        readme: string;
-
-        /** */
-        tests: string;
-
-        /** */
-        hiddenTests: string;
-    };
-
-    /** */
-    enabled?: boolean;
+    enabled: boolean;
 
 }
