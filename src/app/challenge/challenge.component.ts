@@ -5,7 +5,7 @@ import { Observable, Subject }  from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
-import { ChallengeService, SocketService, TimeElapsedPipe } from './../core';
+import { Challenge, ChallengeService, Kata, KataService, SocketService, TimeElapsedPipe, UserService } from './../core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/throttleTime';
@@ -27,24 +27,26 @@ export class ChallengeComponent implements OnInit {
     private testResultOutput: string;
     private counterDownObs: Observable<number>;
     private challengeId: string;
-    private currentChallenge: object;
+    private kata: Kata;
     private codeChanged: Subject<string> = new Subject<string>();
 
     constructor(private httpSrv: Http, 
                 private route: ActivatedRoute,
                 private challengeSrv: ChallengeService, 
+                private kataSrv: KataService,
                 private socketSrv: SocketService, 
+                private userSrv: UserService,
                 public dialog: MdDialog) {}
 
     ngOnInit() {
         this.showEditorPane = false;
         this.leftPaneWidth = 50;
         this.resizingModeEnabled = false;
-        this.code = 'function myTitleFunction(){\n\treturn 100;\n}';
+        this.code = '';
         this.config = {
             cursorBlinkRate: 200,
             lineNumbers: true,
-            mode: { name: "javascript", json: true },
+            mode: { name: 'javascript', json: true },
             tabSize: 2,
             theme: 'material'
         };
@@ -60,18 +62,46 @@ export class ChallengeComponent implements OnInit {
         this.route.params.subscribe(params => {
             this.challengeId = params['challengeId'];
 
-            // When the user enter to the challenge view, send this request to register itself as a
-            // opponent; the server will return either the user is playerA or playerB
-            this.challengeSrv.joinToChallengeRoom(this.challengeId, this.socketSrv.getSocketId()).subscribe(
-                (challenge) => { this.currentChallenge = challenge; }
-            );
+            this.userSrv.getUserContext()
+                .then((user) => {
+                    // When the user enter to the challenge view, send this request to register itself as a
+                    // opponent; the server will return either the user is playerA or playerB
+                    this.challengeSrv.joinToChallengeRoom(
+                            this.challengeId, 
+                            user.username, 
+                            this.socketSrv.getSocketId()).subscribe(
+                        (challenge: Challenge) => { 
+                            if(challenge) {
+                                this.kataSrv.getKata(challenge.challengeKata).subscribe(
+                                    (kata) => { this.kata = kata },
+                                    (err) => { console.log('Error retrieving kata for challenge: ', err); }
+                                );
+
+                                this.socketSrv.sendMessage('challenge', {
+                                    event: 'playerReady',
+                                    challengeId: this.challengeId,
+                                    playerName: user.username,
+                                    data: 'Joined into challenge ' + this.challengeId
+                                });
+                                
+                                this.socketSrv.connectToStreaming().subscribe(
+                                    (data) => { console.log('Connected; received in challenge: ', data); },
+                                    (err) => { console.log('Error connectionToStreaming(): ', err); }
+                                );
+                            } else {
+                                console.log('Error joining');
+                            }   
+                        }
+                    );
+                })
+                .catch((err) => { console.log('Error getUserContext(): ', err); });
 
             this.codeChanged
-                .debounceTime(600)      // wait X ms after the last event
+                .debounceTime(400)      // wait X ms after the last event
                 .distinctUntilChanged()  // only emit if value is different from previous value
                 .subscribe(code => {
-                    this.socketSrv.sendMessage('code', {
-                        player: this.socketSrv.getSocketId(),
+                    this.socketSrv.sendMessage('challenge', {
+                        event: 'codeUpdated',
                         challengeId: this.challengeId,
                         code: code
                     });
