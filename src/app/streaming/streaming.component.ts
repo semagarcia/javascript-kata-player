@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs';
 
 import { Challenge, ChallengeService, SocketService } from './../core';
@@ -22,7 +21,6 @@ export class StreamingComponent implements OnInit {
     private currentChallenge: Challenge;
 
     constructor(private route: ActivatedRoute, 
-                private httpSrv: Http, 
                 private challengeSrv: ChallengeService,
                 private socketSrv: SocketService) {}
 
@@ -45,24 +43,33 @@ export class StreamingComponent implements OnInit {
         };
 
         // Initialitate the code editors
-        this.codePlayerA = '// Player A';
-        this.codePlayerB = '// Player B';
+        this.codePlayerA = '';
+        this.codePlayerB = '';
 
-        // Send start-streaming signal-message and join into a challenge room
+        // Send challenge signal-message and join into a challenge room
         this.route.params.subscribe(params => {
             let challengeId = params['challengeId'];
-            this.socketSrv.sendMessage('start-streaming', challengeId);
+            this.socketSrv.sendMessage('challenge', {
+                event: 'joinToChallenge',
+                challengeId: challengeId
+            });
             this.challengeSrv.getChallengeInfo(challengeId).subscribe(
-                (challenge) => { this.currentChallenge = challenge; }
+                (challenge: Challenge) => this.currentChallenge = challenge
             );
         });
 
         // Connect to streaming
-        this.socketSrv.connectToStreaming().subscribe((data:any) => {
-            if(data.who === this.currentChallenge.playerA) {
-                this.codePlayerA = data.code;
-            } else if(data.who === this.currentChallenge.playerB) {
-                this.codePlayerB = data.code;
+        this.socketSrv.connectToStreaming().subscribe((data: any) => {
+            if(data.event === 'codeUpdated') {
+                if(data.who === this.currentChallenge.playerA)
+                    this.codePlayerA = data.code;
+                else
+                    this.codePlayerB = data.code;
+            } else if(data.event === 'playerReady') {
+                if(data.playerId === this.currentChallenge.playerA)
+                    this.currentChallenge.usernamePlayerA = data.playerName;
+                else
+                    this.currentChallenge.usernamePlayerB = data.playerName;
             }
         });
     }
