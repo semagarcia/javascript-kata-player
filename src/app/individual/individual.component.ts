@@ -66,14 +66,16 @@ export class IndividualComponent implements OnInit {
     testKata() {
         this.testExecutorSrv.checkExerciseCode(this.code, this.kata.name).subscribe(
             (result: any) => {
-                if(result.executionResult && result.output) {
+                alert('individual.component -> revisar');
+                console.log('Result: ', result);
+                /*if(result.executionResult && result.output) {
                     this.testResultOutput = this.testExecutorSrv.formatOutput(result.output.split('\n'));
                 } else if(result.executionResult && !result.output) {
                     this.testResultOutput = 'Not found nothing to test...';
                 } else if(!result.executionResult) {
                     this.testResultOutput = this.testExecutorSrv.formatOutput(result.output.split('\n'));
                     this.counterDownObs.unsubscribe();
-                }
+                }*/
             }
         );
     }
