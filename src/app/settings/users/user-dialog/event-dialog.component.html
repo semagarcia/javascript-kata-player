@@ -1,0 +1,62 @@
+<div style="overflow:hidden;">
+    <h1 class="text-color-red">Add a new event</h1>
+    <hr class="margin-hr" />
+
+    <div class="flexibox-column">
+        <md-input-container class="full-width">
+            <input #eventName mdInput required [(ngModel)]="name"
+                placeholder="Write event's name'">
+        </md-input-container>
+
+        <div class="flexibox-row">
+            <div class="flex-grow-1">
+                <md-input-container>
+                    <input mdInput 
+                        [mdDatepicker]="eventStartDate" 
+                        [mdDatepickerFilter]="filterAfterNow"
+                        [(ngModel)]="startDate"
+                        required placeholder="Start event date">
+                    <button mdSuffix [mdDatepickerToggle]="eventStartDate"></button>
+                </md-input-container>
+                <md-datepicker #eventStartDate></md-datepicker>
+            </div>
+            <div class="flex-grow-1 margin-left-6" *ngIf="duration">
+                <md-input-container [style.display]="(duration) ? 'block' : 'none'">
+                    <input mdInput 
+                        [mdDatepicker]="eventEndDate"
+                        [mdDatepickerFilter]="filterAfterNow"
+                        [(ngModel)]="endDate"
+                        required placeholder="End event date">
+                    <button mdSuffix [mdDatepickerToggle]="eventEndDate"></button>
+                </md-input-container>
+                <md-datepicker #eventEndDate></md-datepicker>
+            </div>
+        </div>
+
+        <md-checkbox #eventDuration [(ngModel)]="duration">The event takes more than a day</md-checkbox>    
+
+        <md-input-container class="full-width">
+            <input #eventDescription mdInput required [(ngModel)]="description"
+                placeholder="Write a brief description">
+        </md-input-container>
+
+        <md-input-container class="full-width">
+            <input #eventLoc mdInput [(ngModel)]="urlMaps" placeholder="Insert the Google Maps URL">
+        </md-input-container>
+        
+        <p class="text-color-red" *ngIf="errorMessage"><em>{{ errorMessage }}</em></p>
+    </div>
+
+
+    <!-- Buttons -->
+    <div class="flexibox-row padding-top-18">
+        <div style="padding:0 3px;"></div> 
+        <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="closeDialog()">
+            Cancel
+        </button>
+        <div style="padding:0 3px;"></div> 
+        <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="createEvent()">
+            Create!
+        </button>
+    </div>
+</div>

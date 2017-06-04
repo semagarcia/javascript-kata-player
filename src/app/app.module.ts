@@ -33,7 +33,7 @@ import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
 import {
     AuthenticationService, AuthenticationGuard, ChallengeService, EventService, HttpService, IndividualService,
-    KataService, LoginService, SocketService, TestExecutorService, TrainingService, UserService
+    KataService, LoginService, SocketService, TestExecutorService, TrainingService, UserService, UsersService
 } from './core';
 
 // 3rd party libraries
@@ -95,7 +95,8 @@ export function httpRequestInterceptor(backend, opts, authSrv, router) {
         SocketService,
         TestExecutorService,
         TrainingService,
-        UserService
+        UserService,
+        UsersService
     ],
     entryComponents: [
         CreateChallengeDialog,

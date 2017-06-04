@@ -16,6 +16,7 @@ export * from './services/socket.service';
 export * from './services/test-executor.service'
 export * from './services/training.service';
 export * from './services/user.service';
+export * from './services/users.service';
 
 // Models
 export * from './models/Challenge';
