@@ -62,9 +62,10 @@ export class ChallengeService {
      * @param challengeId {string} the challenge identifier.
      * @param socketId {SocketIO.client} the client-side socket.
      */
-    joinToChallengeRoom(challengeId: string, socketId: string) {
+    joinToChallengeRoom(challengeId: string, username: string, socketId: string) {
         return this.httpSrv.post('/api/challenges/join', {
                 challengeId: challengeId,
+                username: username,
                 playerId: socketId
             })
             .map((res:Response) => res.json())
