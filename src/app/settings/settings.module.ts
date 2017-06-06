@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -13,6 +14,7 @@ import { LpDialogComponent } from './learning-path/lp-dialog/lp-dialog.component
 import { KataComponent } from './kata/kata.component';
 import { KataDialogComponent } from './kata/kata-dialog/kata-dialog.component';
 import { UsersComponent } from './users/users.component';
+import { UserDialogComponent } from './users/user-dialog/user-dialog.component';
 import { EventsComponent } from './events/events.component';
 import { EventDialogComponent } from './events/event-dialog/event-dialog.component';
 import { NumberOfKatasPipe } from './kata/number-of-katas.pipe';
@@ -24,6 +26,7 @@ import { AgGridModule } from 'ag-grid-angular/main';
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
         MaterialModule,
         AgGridModule.withComponents([]),
@@ -37,6 +40,7 @@ import { AgGridModule } from 'ag-grid-angular/main';
         KataDialogComponent,
         NumberOfKatasPipe,
         UsersComponent,
+        UserDialogComponent,
         EventsComponent,
         EventDialogComponent,
         LanguagesComponent
@@ -45,7 +49,8 @@ import { AgGridModule } from 'ag-grid-angular/main';
     entryComponents: [
         LpDialogComponent,
         KataDialogComponent,
-        EventDialogComponent
+        EventDialogComponent,
+        UserDialogComponent
     ]
 })
 export class SettingsModule { }
