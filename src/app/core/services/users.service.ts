@@ -13,4 +13,16 @@ export class UsersService {
             .catch((err) => err.json());
     }
 
+    createUser(formDataObject): Observable<any> {
+        return this.httpSrv.post('/api/users', {
+            name: formDataObject.name,
+            username: formDataObject.username,
+            password: formDataObject.password,
+            email: formDataObject.email,
+            rol: formDataObject.rol
+        })
+            .map((res: Response) => res.json())
+            .catch((err) => Observable.throw(err));
+    }
+
 }
