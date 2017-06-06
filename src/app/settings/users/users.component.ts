@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
+import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { User, UsersService } from './../../core';
 import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
 
@@ -96,6 +98,20 @@ export class UsersComponent implements OnInit {
             },
             (err) => console.log(err)
         );
+    }
+
+    createNewUser() {
+        this.dialog.open(UserDialogComponent).afterClosed().subscribe((x) => {
+            console.log('Cerrado', x);
+        });
+    }
+
+    editUser() {
+
+    }
+
+    deleteUsers() {
+
     }
 
 }

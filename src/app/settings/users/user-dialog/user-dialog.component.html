@@ -1,0 +1,56 @@
+<div style="overflow:hidden;">
+    <h1 class="text-color-red">Create a new user</h1>
+    <hr class="margin-hr" />
+
+    <form [formGroup]="createUserForm" (ngSubmit)="onSubmittedForm()" class="flexibox-column" novalidate>
+        <!-- Firstname and surname -->
+        <md-input-container class="flex-grow-1">
+            <input mdInput formControlName="name" placeholder="Write firstname &amp; surname">
+        </md-input-container>
+        <!--<p *ngIf="createUserForm.controls.name.errors">This field is required!</p>-->
+
+        <!-- Username -->
+        <md-input-container class="flex-grow-1">
+            <input mdInput formControlName="username" placeholder="Write username">
+        </md-input-container>
+
+        <!-- Password and confirmation -->
+        <md-input-container class="flex-grow-1">
+            <input mdInput type="password" 
+                #pwd maxlength="12" formControlName="password" placeholder="Write your password" />
+            <md-hint align="end">{{ pwd.value.length }} / 12</md-hint>
+        </md-input-container>
+        <md-input-container class="flex-grow-1">
+            <input mdInput type="password" 
+                #pwd2 maxlength="12" formControlName="confirmPassword" placeholder="Confirm your password" />
+            <md-hint align="end">{{ pwd2.value.length }} / 12</md-hint>
+        </md-input-container>
+        <div class="error margin-bottom-18" *ngIf="createUserForm.get('confirmPassword').touched && (pwd.value !== pwd2.value)">
+            <em class="error-field">The passwords are different!</em>
+        </div>
+
+        <!-- Email -->
+        <md-input-container class="flex-grow-1">
+            <input mdInput type="email" formControlName="email" placeholder="Write user's email">
+        </md-input-container>
+
+        <!-- Rol -->
+        <md-select class="flex-grow-1" placeholder="Write user's rol" formControlName="rol" name="rol" required>
+            <md-option value="ADMIN">ADMIN</md-option>
+            <md-option value="ADMIN">USER</md-option>
+        </md-select>
+
+        <!-- Buttons -->
+        <div class="flexibox-row padding-top-18">
+            <div style="padding:0 3px;"></div> 
+            <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="closeDialog()">
+                Cancel
+            </button>
+            <div style="padding:0 3px;"></div> 
+            <button type="submit" md-raised-button color="primary" class="flex-grow-1"
+                [disabled]="createUserForm.invalid || createUserForm.get('confirmPassword').touched && (pwd.value !== pwd2.value)">
+                Create!
+            </button>
+        </div>
+    </form>
+</div>
