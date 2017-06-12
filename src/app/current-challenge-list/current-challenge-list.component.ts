@@ -8,8 +8,7 @@ import { Challenge, ChallengeService } from './../core';
 })
 export class CurrentChallengeListComponent implements OnInit {
 
-    //private challenges: Array<Challenge>;
-    challenges;
+    private challenges: Array<Challenge>;
 
     constructor(private challengeSrv: ChallengeService) { }
 
@@ -20,13 +19,7 @@ export class CurrentChallengeListComponent implements OnInit {
     reload() {
         this.challenges = [];
         this.challengeSrv.getCurrentChallenges().subscribe(challenges => {
-
-            // Change by filter operator
-
-            challenges.forEach(c => {
-                //console.log(c[1]);
-                this.challenges.push(c[1]);
-            });
+            this.challenges = challenges;
         });
     }
 
