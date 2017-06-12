@@ -27,7 +27,7 @@ export class LoginService {
     }
 
     logout(): Observable<any> {
-        return this.httpSrv.get('/api/logout')
+        return this.httpSrv.delete('/api/login')
           .map((res: Response) => {
             this.authSrv.removeJwtToken();
           })

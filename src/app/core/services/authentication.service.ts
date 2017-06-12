@@ -13,7 +13,6 @@ export class AuthenticationService {
     setJwtToken(token: string, expirationTime: number = 0) {
         sessionStorage.setItem(STORAGE_KEY, token);
         //this.obsJwtToken$.next(token);
-        console.log('next token set: ', token);
         if(expirationTime > 0) {
             setTimeout(() => {
                 this.removeJwtToken();

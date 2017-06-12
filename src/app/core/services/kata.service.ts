@@ -11,7 +11,7 @@ export class KataService {
 
     getAllKatas(): Observable<Array<Kata>> {
         return this.httpSrv.get('/api/katas')
-            .map((res: Response) => res.json().katas )
+            .map((res: Response) => res.json() )
             .catch((err) => Observable.throw(err));
     }
 
@@ -27,7 +27,7 @@ export class KataService {
 
     getKataStats(): Observable<Array<any>> {
         return this.httpSrv.get('/api/katas/stats')
-            .map((res: Response) => res.json().stats)
+            .map((res: Response) => res.json())
             .catch((err) => Observable.throw(err));
     }
 

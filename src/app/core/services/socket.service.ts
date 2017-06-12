@@ -9,7 +9,8 @@ export class SocketService {
     socket: SocketIOClient.Socket;
     
     constructor() {
-        this.url = `${window.location.protocol}//${window.location.hostname}:5000`;
+        this.url = `${window.location.protocol}//${window.location.hostname}:3000`;
+        console.log('Connecting socket to ', this.url);
 
         /*this.socket = io.connect(this.url);
         this.socket.on("connect", () => console.log('connect: '+this.socket.id));

@@ -9,8 +9,8 @@ export class TestExecutorService {
 
     checkExerciseCode(exerciseImpl: string, title: string): Observable<object> {
         return this.httpSrv.post('/api/katas/execute', { function: exerciseImpl, name: title })
-            .map((res:Response) => res.json().result)
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .map((res:Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
 }

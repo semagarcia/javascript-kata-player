@@ -22,15 +22,15 @@ export class UserService {
                         this.user = user; 
                         resolve(user); 
                     }),
-                    (err => reject(err) )
+                    (err => reject('Error: ' + err) )
                 );
         });
     }
 
     getUserInfo() {
-        return this.httpSrv.get('/api/user')
+        return this.httpSrv.get('/api/users')
             .map(res => res.json())
-            .catch(err => err);
+            .catch(err => err.json());
     }
 
 }

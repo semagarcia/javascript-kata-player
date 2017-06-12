@@ -13,9 +13,9 @@ export class ChallengeService {
      * Get all the current challenges
      * @retuns {Observable<Array<Challenge>} challenges.
      */
-    getCurrentChallenges(): Observable<Array<Object>> {
+    getCurrentChallenges(): Observable<Array<Challenge>> {
         return this.httpSrv.get('/api/challenges')
-            .map((res:Response) => res.json().challenges)
+            .map((res:Response) => res.json())
             .catch((res:Response) => res.json().error);
     }
 
@@ -31,8 +31,8 @@ export class ChallengeService {
                 duration: duration,
                 mode: mode
             })
-            .map((res:Response) => res.json().uuid)
-            .catch((res:Response) => res.json().error);
+            .map((res:Response) => res.json())
+            .catch((res:Response) => res.json());
     }
 
     /**
@@ -42,8 +42,8 @@ export class ChallengeService {
      */
     getChallengeInfo(challengeId: string): Observable<Challenge> {
         return this.httpSrv.get('/api/challenges/challenge/' + challengeId)
-            .map((res:Response) => res.json().challenge)
-            .catch((res:Response) => res.json().error);
+            .map((res:Response) => res.json())
+            .catch((res:Response) => res.json());
     }
 
     /**
@@ -53,8 +53,8 @@ export class ChallengeService {
      */
     checkIfChallengeIdExists(challengeId: string): Observable<boolean> {
         return this.httpSrv.get('/api/challenges/check-challenge-id/' + challengeId)
-            .map((res:Response) => res.json().exists)
-            .catch((res:Response) => res.json().error);
+            .map((res:Response) => res.json())
+            .catch((res:Response) => res.json());
     }
 
     /**
@@ -69,7 +69,7 @@ export class ChallengeService {
                 playerId: socketId
             })
             .map((res:Response) => res.json())
-            .catch((res:Response) => res.json().error);
+            .catch((res:Response) => res.json());
     }
 
 }
