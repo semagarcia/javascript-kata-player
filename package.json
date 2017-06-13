@@ -26,6 +26,7 @@
     "@angular/material": "^2.0.0-beta.6",
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/platform-server": "^4.0.0",
     "@angular/router": "^4.0.0",
     "ag-grid": "^9.0.0",
     "ag-grid-angular": "^9.0.0",
