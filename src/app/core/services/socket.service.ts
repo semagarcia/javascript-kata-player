@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
 
@@ -9,9 +10,6 @@ export class SocketService {
     socket: SocketIOClient.Socket;
     
     constructor() {
-        this.url = `${window.location.protocol}//${window.location.hostname}:3000`;
-        console.log('Connecting socket to ', this.url);
-
         /*this.socket = io.connect(this.url);
         this.socket.on("connect", () => console.log('connect: '+this.socket.id));
         this.socket.on("disconnect", () => console.log('d'));
@@ -19,7 +17,15 @@ export class SocketService {
             console.log(`ERROR: "${error}" (${this.url})`);
         });*/
 
-        this.socket = io.connect(this.url);
+        if(environment.production) {
+            this.socket = io();
+        } else {
+            this.url = `${window.location.protocol}//${window.location.hostname}:3000`;
+            console.log('Connecting socket to ', this.url);
+            this.socket = io.connect(this.url);
+            this.sendMessage('message', 'hello');
+        }
+        
         let listener = Observable.fromEvent(this.socket, 'msg')
             .subscribe((payload) => { console.log('MSG: ', payload); });
         /*let listener2 = Observable.fromEvent(this.socket, 'code')
