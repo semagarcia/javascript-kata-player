@@ -7,6 +7,8 @@ npm-debug.log*
 aot
 src/**/*.ngfactory.ts
 src/**/*.ngsummary.json
+src/**/*.ngstyle.ts
+e2e/app.po.ngsummary.json
 
 # JS y .map inside src folder
 src/**/*.js
