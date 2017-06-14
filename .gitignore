@@ -6,6 +6,10 @@ npm-debug.log*
 # AoT
 aot
 
+# JS y .map inside src folder
+src/**/*.js
+src/**/*.map
+
 # Runtime data
 pids
 *.pid
