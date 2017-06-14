@@ -23,7 +23,7 @@ export class SocketService {
             this.url = `${window.location.protocol}//${window.location.hostname}:3000`;
             console.log('Connecting socket to ', this.url);
             this.socket = io.connect(this.url);
-            this.sendMessage('message', 'hello');
+            this.sendMessage('message', {message: 'hello'});
         }
         
         let listener = Observable.fromEvent(this.socket, 'msg')
@@ -55,7 +55,7 @@ export class SocketService {
         });
     }*/
 
-    sendMessage(type, payload) {
+    sendMessage(type: string, payload: object) {
         //this.socket.send(type, payload);
         this.socket.emit(type, payload);
     }

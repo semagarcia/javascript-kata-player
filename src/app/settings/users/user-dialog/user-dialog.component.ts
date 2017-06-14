@@ -13,7 +13,7 @@ import * as moment from 'moment';
 })
 export class UserDialogComponent implements OnInit {
 
-    private createUserForm = new FormGroup({
+    createUserForm = new FormGroup({
         name: new FormControl('', Validators.required),
         username: new FormControl('', Validators.required),
         password: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -23,9 +23,9 @@ export class UserDialogComponent implements OnInit {
     });
 
     // TODO: Implementar con ngForm en vez de con showError flag
-    private showError: boolean;
-    private showWaitingBackendCall: boolean;
-    private errorMessage: string;
+    showError: boolean;
+    showWaitingBackendCall: boolean;
+    errorMessage: string;
 
     constructor(private usersSrv: UsersService,
                 private dialogRef: MdDialogRef<UserDialogComponent>, 

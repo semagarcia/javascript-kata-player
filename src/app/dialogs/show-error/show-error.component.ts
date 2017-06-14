@@ -10,13 +10,13 @@ import { ShowErrorService } from './show-error.service';
     styleUrls: ['./show-error.component.scss']
 })
 export class ShowErrorDialog implements OnInit {
-    private dialogTitle: string;
-    private errorMessage: string;
-    private dialogAction: DIALOG_ACTIONS;
-    private textLabel: string;
+    dialogTitle: string;
+    errorMessage: string;
+    dialogAction: DIALOG_ACTIONS;
+    textLabel: string;
 
     constructor(private router: Router, 
-                private dialogRef: MdDialogRef<ShowErrorDialog>, 
+                public dialogRef: MdDialogRef<ShowErrorDialog>, 
                 private showErrorSrv: ShowErrorService) { }
 
     ngOnInit() {

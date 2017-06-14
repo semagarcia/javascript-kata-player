@@ -4,7 +4,7 @@ import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import { Event, EventService } from './../../core';
 import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
 
-import { MdDialog, MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MdDialog, MdSnackBar, MdSnackBarRef, MdSnackBarConfig, SimpleSnackBar } from '@angular/material';
 import { GridOptions } from 'ag-grid/main';
 import * as moment from 'moment';
 
@@ -14,9 +14,9 @@ import * as moment from 'moment';
     styleUrls: ['./events.component.scss']
 })
 export class EventsComponent implements OnInit {
-    private snackBarRef;
-    private auxEditRow;
-    private gridOptions: GridOptions = {};
+    snackBarRef: MdSnackBarRef<SimpleSnackBar>;
+    auxEditRow: any;
+    gridOptions: GridOptions = {};
 
     constructor(private dialog: MdDialog, private snackBar: MdSnackBar, private eventSrv: EventService) {
         // Default options
@@ -168,11 +168,11 @@ export class EventsComponent implements OnInit {
         }
     }
 
-    formatDate(params) {
+    formatDate(params: any) {
         return (params.value) ? moment(params.value).format('L') : '--';
     }
 
-    buildGoogleMapsURL(params) {
+    buildGoogleMapsURL(params: any) {
         let url: string = params.value;
         if(!url) {
             return '';

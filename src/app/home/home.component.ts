@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.userSrv.getUserContext()
-            .then(user => this.event = (user.event) ? user.event : '')
+            .then((user: {event: string}) => this.event = (user.event) ? user.event : '')
             .catch(() => this.event = '');
     }
 

@@ -31,7 +31,7 @@ export class KataService {
             .catch((err) => Observable.throw(err));
     }
 
-    getKata(kataId): Observable<Kata> {
+    getKata(kataId: string): Observable<Kata> {
         return this.httpSrv.get(`/api/katas/kata/${kataId}`)
             .map((res: Response) => res.json())
             .catch((err) => Observable.throw(err));

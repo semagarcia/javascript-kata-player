@@ -13,12 +13,12 @@ import 'codemirror/mode/javascript/javascript';
 })
 export class StreamingComponent implements OnInit {
 
-    private config;
-    private timeSpent: number;
-    private counterDownObs: Observable<number>;
-    private codePlayerA;
-    private codePlayerB;
-    private currentChallenge: Challenge;
+    config: any;
+    timeSpent: number;
+    counterDownObs: Observable<number>;
+    codePlayerA: string;
+    codePlayerB: string;
+    currentChallenge: Challenge;
 
     constructor(private route: ActivatedRoute, 
                 private challengeSrv: ChallengeService,

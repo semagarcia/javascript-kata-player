@@ -14,7 +14,7 @@ import { GridOptions } from "ag-grid/main";
 })
 export class UsersComponent implements OnInit {
     
-    private gridOptions: GridOptions = {};
+    gridOptions: GridOptions = {};
 
     constructor(private dialog: MdDialog, private usersSrv: UsersService) {
         // Default options

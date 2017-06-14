@@ -17,18 +17,18 @@ import 'codemirror/mode/javascript/javascript';
 })
 export class ChallengeComponent implements OnInit {
 
-    private showEditorPane: boolean;
-    private leftPaneWidth: number;
-    private resizingModeEnabled: boolean;
-    private code;
-    private config;
-    private timeSpent: number;
-    private testResult: Array<String>;
-    private testResultOutput: string;
-    private counterDownObs: Observable<number>;
-    private challengeId: string;
-    private kata: Kata;
-    private codeChanged: Subject<string> = new Subject<string>();
+    showEditorPane: boolean;
+    leftPaneWidth: number;
+    resizingModeEnabled: boolean;
+    code: string;
+    config: any;
+    timeSpent: number;
+    testResult: Array<String>;
+    testResultOutput: string;
+    counterDownObs: Observable<number>;
+    challengeId: string;
+    kata: Kata;
+    codeChanged: Subject<string> = new Subject<string>();
 
     constructor(private httpSrv: Http, 
                 private route: ActivatedRoute,
@@ -63,7 +63,7 @@ export class ChallengeComponent implements OnInit {
             this.challengeId = params['challengeId'];
 
             this.userSrv.getUserContext()
-                .then((user) => {
+                .then((user: { username: string }) => {
                     // When the user enter to the challenge view, send this request to register itself as a
                     // opponent; the server will return either the user is playerA or playerB
                     this.challengeSrv.joinToChallengeRoom(
@@ -120,6 +120,14 @@ export class ChallengeComponent implements OnInit {
 
     onChange() {
         this.codeChanged.next(this.code);
+    }
+
+    onSuccessKata() {
+
+    }
+
+    onFailedKataAttemp() {
+        
     }
 
 }

@@ -12,17 +12,17 @@ import * as moment from 'moment';
 })
 export class EventDialogComponent implements OnInit {
 
-    private name: string;
-    private startDate: Date;
-    private endDate: Date;
-    private duration: boolean;
-    private description: string;
-    private urlMaps: string;
+    name: string;
+    startDate: Date;
+    endDate: Date;
+    duration: boolean;
+    description: string;
+    urlMaps: string;
 
     // TODO: Implementar con ngForm en vez de con showError flag
-    private showError: boolean;
-    private showWaitingBackendCall: boolean;
-    private errorMessage: string;
+    showError: boolean;
+    showWaitingBackendCall: boolean;
+    errorMessage: string;
 
     constructor(private dialogRef: MdDialogRef<EventDialogComponent>, private eventSrv: EventService) { }
 

@@ -8,7 +8,7 @@ import { Challenge, ChallengeService } from './../core';
 })
 export class CurrentChallengeListComponent implements OnInit {
 
-    private challenges: Array<Challenge>;
+    challenges: Array<Challenge>;
 
     constructor(private challengeSrv: ChallengeService) { }
 

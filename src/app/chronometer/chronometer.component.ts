@@ -8,9 +8,9 @@ import { Observable } from "rxjs/Observable";
     styleUrls: ['./chronometer.component.scss']
 })
 export class ChronometerComponent implements OnInit {
-    private timeElapsed: number;
-    private overduedExercise: boolean;
-    private counterDownObs: Subscription;
+    timeElapsed: number;
+    overduedExercise: boolean;
+    counterDownObs: Subscription;
 
     @Input() mode: string;
     @Input() duration: number;

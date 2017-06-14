@@ -24,16 +24,16 @@ import { KataService } from './../../../core';
 })
 export class KataDialogComponent implements OnInit {
 
-    private name: string;
-    private description: string;
-    private examples: string;
-    private initialFnImpl: string;
-    private stepIndex: string;
+    name: string;
+    description: string;
+    examples: string;
+    initialFnImpl: string;
+    stepIndex: string;
 
     // TODO: Implementar con ngForm en vez de con showError flag
-    private showError: boolean;
-    private showWaitingBackendCall: boolean;
-    private errorMessage: string;
+    showError: boolean;
+    showWaitingBackendCall: boolean;
+    errorMessage: string;
 
     constructor(private dialogRef: MdDialogRef<KataDialogComponent>, private kataSrv: KataService) { }
 

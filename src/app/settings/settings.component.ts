@@ -10,8 +10,8 @@ import { TrainingService } from './../core';
 })
 export class SettingsComponent implements OnInit {
 
-    private trainingPaths: Array<any>;
-    private currentTabSelected: number;
+    trainingPaths: Array<any>;
+    currentTabSelected: number;
 
     constructor(private trainingSrv: TrainingService) { }
 

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         );
     }
 
-    onEnter(event) {
+    onEnter(event: any) {
         if(event.keyCode === 13) 
             this.standardLogin();
     }

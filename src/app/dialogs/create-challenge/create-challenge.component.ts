@@ -23,19 +23,19 @@ import { ChallengeService, SocketService } from './../../core';
 })
 export class CreateChallengeDialog implements OnInit {
 
-    private joinForm: boolean;
-    private challengeId: string;
-    private arrowDirection: string;
-    private showChallengeConfig: string;
-    private counterDirection: string;
-    private challengeTimeDuration: number;
-    private challengeMode: string;
-    private existsChallengeId: boolean;
-    private isCreatingChallenge: boolean;
-    private isWaitingResponse: boolean;
-    private joiningMessageError: string;
+    joinForm: boolean;
+    challengeId: string;
+    arrowDirection: string;
+    showChallengeConfig: string;
+    counterDirection: string;
+    challengeTimeDuration: number;
+    challengeMode: string;
+    existsChallengeId: boolean;
+    isCreatingChallenge: boolean;
+    isWaitingResponse: boolean;
+    joiningMessageError: string;
 
-    constructor(private dialogRef: MdDialogRef<CreateChallengeDialog>, 
+    constructor(public dialogRef: MdDialogRef<CreateChallengeDialog>, 
                 private router: Router,
                 private challengeSrv: ChallengeService,
                 private socketSrv: SocketService) {}

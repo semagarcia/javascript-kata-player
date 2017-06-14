@@ -15,7 +15,7 @@ export class TrainingService {
             .catch((res: Response) => res.json().error);
     }
 
-    getKatasOfTrainingPath(topic): Observable<TrainingPath> {
+    getKatasOfTrainingPath(topic: string): Observable<TrainingPath> {
         return this.httpSrv.get(`/api/training-paths/${topic}/katas`)
             .map((res: Response) => res.json().trainingPath)
             .catch((res: Response) => res.json().error);
@@ -27,7 +27,7 @@ export class TrainingService {
             .catch((res: Response) => res.json().error);
     }
 
-    createTrainingPath(topic, name, description): Observable<TrainingPath> {
+    createTrainingPath(topic: string, name: string, description: string): Observable<TrainingPath> {
         return this.httpSrv.post('/api/training-paths', { topic: topic, name: name, description: description})
             .map((res: Response) => res.json())
             .catch((res: Response) => res.json().error );

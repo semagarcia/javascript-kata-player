@@ -16,31 +16,31 @@ import 'codemirror/mode/javascript/javascript';
 })
 export class KataPlayerComponent implements OnInit, OnChanges {
 
-    private kataState: string = 'reading';
-    private leftPaneWidth: number;
-    private resizingModeEnabled: boolean;
-    private bodyFunction;
-    private config;
-    private timeSpent: number;
-    private testResult: Array<String>;
-    private testResultOutput: string;
-    private counterDownObs: Subscription;
-    private attemps;
+    kataState: string = 'reading';
+    leftPaneWidth: number;
+    resizingModeEnabled: boolean;
+    bodyFunction: string;
+    config: any;
+    timeSpent: number;
+    testResult: Array<String>;
+    testResultOutput: string;
+    counterDownObs: Subscription;
+    attemps: number;
 
-    @Input() title;
-    @Input() explanation;
-    @Input() examples;
-    @Input() inputs;
-    @Input() outputs;
-    @Input() code;
-    @Input('next-button') nextButton;
+    tests: any;
+    numberOfPassedTests: number;
+    numberOfTests: number;
+
+    @Input() title: string;
+    @Input() explanation: string;
+    @Input() examples: Array<string>;
+    @Input() inputs: Array<string>;
+    @Input() outputs: Array<string>;
+    @Input() code: string;
+    @Input('next-button') nextButton: boolean;
     @Output() success = new EventEmitter();
     @Output() fail = new EventEmitter();
     @Output() next = new EventEmitter();
-
-    private tests: any;
-    private numberOfPassedTests: number;
-    private numberOfTests: number;
 
     constructor(private kataSrv: KataService, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {
         this.kataState = 'reading';
@@ -78,8 +78,12 @@ export class KataPlayerComponent implements OnInit, OnChanges {
         this.kataState = 'writing';
     }
 
-    chronoEvent(evt) {
+    chronoEvent(evt: any) {
         //console.log('event! ', evt);
+    }
+
+    onChange(evt: any) {
+
     }
 
     testKata() {
@@ -89,7 +93,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
                 (result: any) => {
                     this.tests = result;
                     this.numberOfTests = this.tests.output.length;
-                    this.numberOfPassedTests = this.tests.output.filter((o) => { return o.result }).length;
+                    this.numberOfPassedTests = this.tests.output.filter((o: any) => { return o.result }).length;
                     if(this.tests.executionResult) {
                         this.sendKataStats(true);
                         this.success.emit(this.timeSpent);
@@ -110,7 +114,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
         });
     }
 
-    openOrCloseTestCase(currentStatus) {
+    openOrCloseTestCase(currentStatus: string) {
         if(currentStatus === 'opened') {
             return 'closed';
         } else {
@@ -127,15 +131,15 @@ export class KataPlayerComponent implements OnInit, OnChanges {
         this.next.emit();
     }
 
-    mousedown(e) {
+    mousedown(e: any) {
 
     }
 
-    mousemove(e) {
+    mousemove(e: any) {
 
     }
 
-    mouseup(e) {
+    mouseup(e: any) {
 
     }
 

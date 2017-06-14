@@ -10,12 +10,13 @@ import { TrainingService, TrainingPath } from './../../core';
 })
 export class SelectTrainingPathDialog implements OnInit {
 
-    private showError: boolean;
-    private selected: TrainingPath;
-    private selectedValue: string;
-    private trainingPaths: Array<TrainingPath>;
+    showError: boolean;
+    selected: TrainingPath;
+    selectedValue: string;
+    trainingPaths: Array<TrainingPath>;
 
-    constructor(private dialogRef: MdDialogRef<SelectTrainingPathDialog>, 
+    constructor(
+        public dialogRef: MdDialogRef<SelectTrainingPathDialog>, 
         private router: Router,
         private trainingSrv: TrainingService) {}
 
@@ -35,7 +36,7 @@ export class SelectTrainingPathDialog implements OnInit {
         }
     }
 
-    onSelectedChange(e) {
+    onSelectedChange(e: {value: string}) {
         let selected: TrainingPath = this.trainingPaths.find(
             (path: TrainingPath) => { return (path.topic === e.value); }
         );

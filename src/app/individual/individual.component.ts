@@ -13,16 +13,16 @@ import 'codemirror/mode/javascript/javascript';
 })
 export class IndividualComponent implements OnInit {
 
-    private showEditorPane: boolean;
-    private leftPaneWidth: number;
-    private resizingModeEnabled: boolean;
-    private code;
-    private config;
-    private timeSpent: number;
-    private testResult: Array<String>;
-    private testResultOutput: string;
-    private counterDownObs: Subscription;
-    private kata: Kata;
+    showEditorPane: boolean;
+    leftPaneWidth: number;
+    resizingModeEnabled: boolean;
+    code: string;
+    config: any;
+    timeSpent: number;
+    testResult: Array<String>;
+    testResultOutput: string;
+    counterDownObs: Subscription;
+    kata: Kata;
 
     constructor(private individualKataSrv: IndividualService, 
                 private testExecutorSrv: TestExecutorService, 

@@ -9,14 +9,14 @@ import { TrainingService } from './../../../core';
 })
 export class LpDialogComponent implements OnInit {
 
-    private topic: string;
-    private name: string;
-    private description: string;
-    private showWaitingBackendCall: boolean;
-    private showError: boolean;
-    private errorMessage: string;
+    topic: string;
+    name: string;
+    description: string;
+    showWaitingBackendCall: boolean;
+    showError: boolean;
+    errorMessage: string;
 
-    constructor(private dialogRef: MdDialogRef<LpDialogComponent>, private trainingSrv: TrainingService) { }
+    constructor(public dialogRef: MdDialogRef<LpDialogComponent>, private trainingSrv: TrainingService) { }
 
     ngOnInit() {
         //this.dialogRef.afterClosed().subscribe(() => {});

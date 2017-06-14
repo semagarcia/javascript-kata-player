@@ -12,12 +12,12 @@ import { ShowErrorService, DIALOG_ACTIONS } from './../dialogs/';
 })
 export class TrainingComponent implements OnInit {
 
-    private topic: string;
-    private currentExercise: Kata;
-    private currentExerciseIndex: number;
-    private trainingPath: TrainingPath;
-    private selectedValue: string;
-    private trainingPathLength: number;
+    topic: string;
+    currentExercise: Kata;
+    currentExerciseIndex: number;
+    trainingPath: TrainingPath;
+    selectedValue: string;
+    trainingPathLength: number;
 
     constructor(private router: Router, private route: ActivatedRoute, 
                 private dialog: MdDialog, 
@@ -46,7 +46,7 @@ export class TrainingComponent implements OnInit {
         });
     }
 
-    onSelectedChange(e) {
+    onSelectedChange(e: any) {
         let length = this.trainingPath.katas.length;
         for(let i=0; i<length; i++) {
             if(this.trainingPath.katas[i].name === e.value) {

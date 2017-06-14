@@ -15,7 +15,7 @@ import { GridOptions } from 'ag-grid/main';
 })
 export class LearningPathComponent implements OnInit {
 
-    private gridOptions: GridOptions = {};
+    gridOptions: GridOptions = {};
 
     constructor(private dialog: MdDialog/*, private dialogRef: MdDialogRef<LpDialogComponent>*/,
                 private trainingSrv: TrainingService, private showErrorSrv: ShowErrorService) {

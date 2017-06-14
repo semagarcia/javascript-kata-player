@@ -33,13 +33,13 @@ export class EventService {
             .catch((err: Response) => err.json().error);
     }
 
-    updateEvent(eventToModify) {
+    updateEvent(eventToModify: any) {
         return this.httpSrv.put('/api/events', { eventToModify: eventToModify })
             .map((res: Response) => res.json())
             .catch((err: Response) => err.json().error);
     }
 
-    deleteEvents(eventsToDelete): Observable<boolean> {
+    deleteEvents(eventsToDelete: any): Observable<boolean> {
         return this.httpSrv.post('/api/events/delete', { eventIds: eventsToDelete })
             .map((res: Response) => res.json())
             .catch((err: Response) => err.json().error);

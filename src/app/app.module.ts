@@ -37,11 +37,12 @@ import {
 } from './core';
 
 // 3rd party libraries
+//import { CodemirrorModule } from 'ng2-codemirror-typescript/Codemirror';  // from 'ng2-codemirror';
 import { CodemirrorModule } from 'ng2-codemirror';
 import { AgGridModule } from 'ag-grid-angular/main';
 import 'hammerjs';
 
-export function httpRequestInterceptor(backend, opts, authSrv, router) { 
+export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions, authSrv: AuthenticationService, router: Router) { 
     return new HttpService(backend, opts, authSrv, router); 
 }
 
@@ -74,8 +75,8 @@ export function httpRequestInterceptor(backend, opts, authSrv, router) {
         SettingsModule,
         CodemirrorModule,
         MaterialModule,
-        RouterModule.forRoot(ROUTES),
-        AgGridModule.withComponents([])
+        AgGridModule.withComponents([]),
+        RouterModule.forRoot(ROUTES)
     ],
     providers: [
         AuthenticationService,

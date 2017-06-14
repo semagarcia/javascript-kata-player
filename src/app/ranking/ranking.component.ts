@@ -10,8 +10,8 @@ import { GridOptions } from 'ag-grid/main';
 })
 export class RankingComponent implements OnInit {
 
-    private gridOptions: GridOptions = {};
-    private rowIndex: number;
+    gridOptions: GridOptions = {};
+    rowIndex: number;
 
     constructor(private kataSrv: KataService) {
         // Default options
@@ -32,7 +32,7 @@ export class RankingComponent implements OnInit {
         this.gridOptions.columnDefs = [
             {
                 headerName: 'Rank',
-                valueGetter: (params) => { return this.rowIndex++;  },
+                valueGetter: (params: any) => { return this.rowIndex++;  },
                 width: 90,
                 filter: 'number'
             },

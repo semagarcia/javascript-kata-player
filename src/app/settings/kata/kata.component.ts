@@ -15,7 +15,7 @@ import { GridOptions } from 'ag-grid/main';
 })
 export class KataComponent implements OnInit {
 
-    private gridOptions: GridOptions = {};
+    gridOptions: GridOptions = {};
 
     constructor(private dialog: MdDialog, private kataSrv: KataService, private showErrorSrv: ShowErrorService) { 
         // Default options

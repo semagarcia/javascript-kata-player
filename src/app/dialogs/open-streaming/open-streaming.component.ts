@@ -6,8 +6,8 @@ import { MdDialogRef } from '@angular/material';
 })
 export class OpenStreamingDialog implements OnInit {
 
-    private challengeId: string;
-    private isEmptyChallengeId: boolean;
+    challengeId: string;
+    isEmptyChallengeId: boolean;
 
     constructor(public dialogRef:MdDialogRef<OpenStreamingDialog>) {}
 
