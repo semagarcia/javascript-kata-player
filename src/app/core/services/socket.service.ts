@@ -18,7 +18,8 @@ export class SocketService {
         });*/
 
         if(environment.production) {
-            this.socket = io();
+            //this.socket = io();
+            this.socket = io.connect();
         } else {
             this.url = `${window.location.protocol}//${window.location.hostname}:3000`;
             console.log('Connecting socket to ', this.url);

@@ -6,7 +6,7 @@ import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
 
 import { MdDialog, MdSnackBar, MdSnackBarRef, MdSnackBarConfig, SimpleSnackBar } from '@angular/material';
 import { GridOptions } from 'ag-grid/main';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'app-events',

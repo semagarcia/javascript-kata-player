@@ -3,7 +3,7 @@ import { MdDialogRef } from '@angular/material';
 
 import { EventService } from './../../../core';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
     selector: 'app-event-dialog',
