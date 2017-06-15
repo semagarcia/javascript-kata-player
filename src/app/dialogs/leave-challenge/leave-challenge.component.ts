@@ -9,7 +9,7 @@ import { MdDialogRef } from '@angular/material';
 })
 export class LeaveChallengeComponent {
 
-    constructor(private router: Router, private dialogRef: MdDialogRef<LeaveChallengeComponent>) { }
+    constructor(private router: Router, public dialogRef: MdDialogRef<LeaveChallengeComponent>) { }
 
     exit() {
         this.router.navigate(['/home']);

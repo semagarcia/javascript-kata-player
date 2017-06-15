@@ -3,8 +3,6 @@ import { MdDialogRef } from '@angular/material';
 
 import { EventService } from './../../../core';
 
-import moment from 'moment';
-
 @Component({
     selector: 'app-event-dialog',
     templateUrl: './event-dialog.component.html',
@@ -33,7 +31,10 @@ export class EventDialogComponent implements OnInit {
     }
 
     filterAfterNow(d: Date) {
-        return d.getTime() >= moment().add(-1, 'days').valueOf();
+        //return d.getTime() >= moment().add(-1, 'days').valueOf();
+        let auxDate = new Date(d.valueOf());
+        auxDate.setDate(d.getDate() - 1);
+        return d.getTime() >= auxDate.getTime();
     }
 
     createEvent() {

@@ -6,7 +6,7 @@ import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
 
 import { MdDialog, MdSnackBar, MdSnackBarRef, MdSnackBarConfig, SimpleSnackBar } from '@angular/material';
 import { GridOptions } from 'ag-grid/main';
-import moment from 'moment';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-events',
@@ -168,8 +168,10 @@ export class EventsComponent implements OnInit {
         }
     }
 
-    formatDate(params: any) {
-        return (params.value) ? moment(params.value).format('L') : '--';
+    formatDate(params: {value: Date}) {
+        //return (params.value) ? moment(params.value).format('L') : '--';
+        let d = params.value;
+        return (d) ? `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}` : '--';
     }
 
     buildGoogleMapsURL(params: any) {
