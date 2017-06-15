@@ -7,7 +7,7 @@
   "scripts": {
     "aot": "node_modules/.bin/ngc -p tsconfig-aot.json",
     "ng": "ng",
-    "build": "ng build",
+    "build": "ng build --prod --env=prod",
     "clean": "node_modules/.bin/rimraf aot",
     "deploy:prod": "npm run clean && npm run aot && npm run rollup",
     "rollup": "node_modules/.bin/rollup -c rollup-config.js",
