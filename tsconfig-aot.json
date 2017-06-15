@@ -9,16 +9,15 @@
     "lib": ["es2015", "dom"],
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
     "typeRoots": [
       "./node_modules/@types/"
     ]
   },
-
   "files": [
     "src/app/app.module.ts",
-    "src/main.ts"
+    "src/main-aot.ts"
   ],
-
   "angularCompilerOptions": {
    "genDir": "aot",
    "skipMetadataEmit" : true
