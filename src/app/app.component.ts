@@ -11,7 +11,7 @@ import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.com
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    title = 'JavaScript Katas Player!';
+    title = 'Sema Kata Player!';
     isLoginPage = false;
 
     constructor(private router: Router, 
