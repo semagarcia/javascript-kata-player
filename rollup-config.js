@@ -4,9 +4,9 @@ import commonjs    from 'rollup-plugin-commonjs';
 import uglify      from 'rollup-plugin-uglify';
 
 export default {
-  entry: 'src/main.js',
+  entry: 'src/main-aot.js',
   dest: 'aot/dist/build.js', // output a single application bundle
-  sourceMap: false,
+  sourceMap: true,
   sourceMapFile: 'aot/dist/build.js.map',
   format: 'iife',
   onwarn: function(warning) {
@@ -24,7 +24,9 @@ export default {
         include: [
           'node_modules/rxjs/**',
           'node_modules/ag-grid-angular/**',
-          'node_modules/ng2-codemirror/**'
+          'node_modules/ng2-codemirror/**',
+          'node_modules/socket.io-client/**',
+          'node_modules/moment/**'
         ],
         namedExports: {
           'node_modules/ag-grid-angular/main.js': ['AgGridModule']
