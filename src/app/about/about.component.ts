@@ -31,9 +31,9 @@ export class AboutComponent implements OnInit {
                 linkedin: '' 
             },
             { 
-                name: 'Gonzalo Ruiz de Villa', 
-                contribution: 'Kata Engine Contributor', 
-                pic: 'https://avatars0.githubusercontent.com/u/9501?v=3&s=300', 
+                name: 'The next contributor', 
+                contribution: 'The next one could be you', 
+                pic: '/assets/images/female_contributor.png', 
                 bio: 'Lorem ipsum...',
                 twitter: '',
                 linkedin: '' 
