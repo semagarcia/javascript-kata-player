@@ -5,9 +5,12 @@ npm-debug.log*
 
 # AoT
 aot
+src/**/*.metadata.json
 src/**/*.ngfactory.ts
 src/**/*.ngsummary.json
 src/**/*.ngstyle.ts
+src/**/*.js
+src/**/*.map.js
 e2e/app.po.ngsummary.json
 
 # JS y .map inside src folder
