@@ -26,7 +26,6 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     testResultOutput: string;
     counterDownObs: Subscription;
     attemps: number;
-
     tests: any;
     numberOfPassedTests: number;
     numberOfTests: number;
@@ -41,6 +40,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     @Output() success = new EventEmitter();
     @Output() fail = new EventEmitter();
     @Output() next = new EventEmitter();
+    @Output() codeUpdated = new EventEmitter();
 
     constructor(private kataSrv: KataService, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {
         this.kataState = 'reading';
@@ -82,8 +82,8 @@ export class KataPlayerComponent implements OnInit, OnChanges {
         //console.log('event! ', evt);
     }
 
-    onChange(evt: any) {
-
+    onChange(evt: string) {
+        this.codeUpdated.emit(evt);
     }
 
     testKata() {
