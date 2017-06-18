@@ -1,11 +1,11 @@
 <div style="display:flex; flex-direction:column; margin:50px 0; padding:0 30%">
   <div style="display:flex; flex-direction:row; align-items:center; justify-content:center; margin:10px 0 30px 0;">
-    <img src="assets/images/logo_javascript.png" width="50%" height="50%" />
+    <img src="assets/images/logo_javascript.png" width="50%" height="100%" />
   </div>
 
   <div style="display:flex; flex-direction:column; padding-bottom:20px">
     <md-input-container class="">
-      <input mdInput placeholder="Username" [(ngModel)]="username" >
+      <input mdInput placeholder="Username" [(ngModel)]="username">
     </md-input-container>
     <md-input-container class="">
       <input type="password" mdInput placeholder="Password" [(ngModel)]="password" (keypress)="onEnter($event)">
@@ -14,32 +14,57 @@
       <md-option *ngFor="let event of events" [value]="event.name">{{ event.name }}</md-option>
     </md-select>
   </div>
-  
+
   <div class="flexibox-column">
     <span class="flex-grow-1 text-color-red margin-6"><em>{{ loginError }}</em></span>
     <button md-raised-button color="primary" (click)="standardLogin()">
       <i class="fa fa-key fa-lg" aria-hidden="true"></i> Standard login
     </button>
-    <br /><hr class="full-width" /><br />
-
-    <!-- Login with github credentials -->
-    <a md-raised-button color="accent" href="/auth/github">
+    <br />
+    <hr class="full-width" /><br />
+    <md-grid-list cols="2" rowHeight="5:1">
+      <md-grid-tile [colspan]=1 [rowspan]=4 >
+          <a md-raised-button class="login-btn" [ngStyle]="{'margin-bottom': heightPer}" color="primary" href="/auth/github">
+            <i class="material-icons" aria-hidden="true">face</i> Sing up
+          </a>
+      </md-grid-tile>
+      <md-grid-tile [colspan]=1 [rowspan]=1 >
+         <a md-raised-button class="login-btn" color="accent" href="/auth/github">
+            <i class="fa fa-github fa-lg" aria-hidden="true"></i> Github login
+        </a>
+      </md-grid-tile>
+      <md-grid-tile [colspan]=1 [rowspan]=1 >
+        <a md-raised-button class="login-btn" color="accent" href="/auth/twitter">
+          <i class="fa fa-twitter fa-lg" aria-hidden="true"></i> Twitter login
+        </a>
+      </md-grid-tile>
+      <md-grid-tile [colspan]=1 [rowspan]=1 >
+        <a md-raised-button class="login-btn" color="accent" href="/auth/facebook">
+          <i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i> Facebook login
+        </a>
+      </md-grid-tile>
+      <md-grid-tile [colspan]=1 [rowspan]=1 >
+        <a md-raised-button class="login-btn" color="accent" href="/auth/facebook">
+          <i class="fa fa-google fa-lg" aria-hidden="true"></i> Google login
+        </a>
+      </md-grid-tile>
+    </md-grid-list>
+    <!--<div class="flexibox-column">
+      <h3>Aqui va el boton para el login normal</h3>
+    </div>
+    <div class="flexibox-column">
+      <a md-raised-button color="accent" href="/auth/github">
       <i class="fa fa-github fa-lg" aria-hidden="true"></i> Github login
     </a><br />
-
-    <!-- Login with twitter credentials -->
-    <a md-raised-button color="accent" href="/auth/twitter">
+      <a md-raised-button color="accent" href="/auth/twitter">
       <i class="fa fa-twitter fa-lg" aria-hidden="true"></i> Twitter login
     </a><br />
-
-    <!-- Login with facebook credentials -->
-    <a md-raised-button color="accent" href="/auth/facebook">
+      <a md-raised-button color="accent" href="/auth/facebook">
       <i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i> Facebook login
     </a><br />
-
-    <!-- Login with google credentials -->
-    <a md-raised-button color="accent" href="/auth/facebook">
+      <a md-raised-button color="accent" href="/auth/facebook">
       <i class="fa fa-google fa-lg" aria-hidden="true"></i> Google login
     </a><br />
-  </div>
+    </div>
+  </div>-->
 </div>

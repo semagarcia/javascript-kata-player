@@ -12,6 +12,8 @@ import { MaterialModule } from './material/material.module';
 // Routes
 import { ROUTES } from './app.routes';
 
+import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
+
 // TODO: refactor to group them with spread operator
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -76,7 +78,8 @@ export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions
         CodemirrorModule,
         MaterialModule,
         AgGridModule.withComponents([]),
-        RouterModule.forRoot(ROUTES)
+        RouterModule.forRoot(ROUTES),
+        Ng2DeviceDetectorModule.forRoot()
     ],
     providers: [
         AuthenticationService,
