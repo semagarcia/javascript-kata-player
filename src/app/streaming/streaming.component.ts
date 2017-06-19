@@ -18,6 +18,7 @@ export class StreamingComponent implements OnInit {
     counterDownObs: Observable<number>;
     codePlayerA: string;
     codePlayerB: string;
+    challengeId: string;
     currentChallenge: Challenge;
 
     constructor(private route: ActivatedRoute, 
@@ -28,9 +29,6 @@ export class StreamingComponent implements OnInit {
         // Global view config
         this.timeSpent = 0;
         this.counterDownObs = Observable.interval(1000);
-        this.counterDownObs.subscribe((tick) => {
-            this.timeSpent++;
-        });
 
         // Editor's config
         this.config = {
@@ -48,30 +46,70 @@ export class StreamingComponent implements OnInit {
 
         // Send challenge signal-message and join into a challenge room
         this.route.params.subscribe(params => {
-            let challengeId = params['challengeId'];
+            this.challengeId = params['challengeId'];
+
             this.socketSrv.sendMessage('challenge', {
                 event: 'joinToChallenge',
-                challengeId: challengeId
+                challengeId: this.challengeId
             });
-            this.challengeSrv.getChallengeInfo(challengeId).subscribe(
+
+            this.challengeSrv.getChallengeInfo(this.challengeId).subscribe(
                 (challenge: Challenge) => this.currentChallenge = challenge
             );
         });
 
         // Connect to streaming
-        this.socketSrv.connectToStreaming().subscribe((data: any) => {
+        this.socketSrv.connectToStreaming('challenge').subscribe((data: any) => {
             if(data.event === 'codeUpdated') {
-                if(data.who === this.currentChallenge.playerA)
-                    this.codePlayerA = data.code;
-                else
-                    this.codePlayerB = data.code;
+                this.updateChallengeCode(data);
             } else if(data.event === 'playerReady') {
-                if(data.playerId === this.currentChallenge.playerA)
-                    this.currentChallenge.usernamePlayerA = data.playerName;
-                else
-                    this.currentChallenge.usernamePlayerB = data.playerName;
+                // If the streaming players info is empty, request it again
+                if(!this.currentChallenge.playerA && !this.currentChallenge.playerB) {
+                    this.getChallengeInfo(data);
+                } else if(this.currentChallenge.playerA && !this.currentChallenge.playerB) {
+                    this.getChallengeInfo(data);
+                } else {
+                    this.updatePlayerNames(data);
+                }
+            } else if(data.event === 'startedChallenge') {
+                this.counterDownObs.subscribe((tick) => this.timeSpent++);
             }
         });
+    }
+
+    /**
+     * Method to retrieve the most updated info about the callenge (with player IDs and usernames)
+     * @param data WebSocket message
+     */
+    getChallengeInfo(data) {
+        this.challengeSrv.getChallengeInfo(this.challengeId).subscribe(
+            (challenge: Challenge) => {
+                this.currentChallenge = challenge; 
+                this.updatePlayerNames(data);
+            }
+        );
+    }
+
+    /**
+     * Method to update the players' implementation body function
+     * @param data WebSocket message
+     */
+    updateChallengeCode(data) {
+        if(data.playerId === this.currentChallenge.playerA)
+            this.codePlayerA = data.code;
+        else if(data.playerId === this.currentChallenge.playerB)
+            this.codePlayerB = data.code;
+    }
+
+    /**
+     * Method to update the both challengees info fields
+     * @param data WebSocket message
+     */
+    updatePlayerNames(data) {
+        if(data.playerId === this.currentChallenge.playerA)
+            this.currentChallenge.usernamePlayerA = data.who;
+        else if(data.playerId === this.currentChallenge.playerB)
+            this.currentChallenge.usernamePlayerB = data.who;
     }
 
 }
