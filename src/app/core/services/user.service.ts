@@ -28,7 +28,7 @@ export class UserService {
     }
 
     getUserInfo() {
-        return this.httpSrv.get('/api/users')
+        return this.httpSrv.get('/api/users/user')
             .map(res => res.json())
             .catch(err => err.json());
     }
