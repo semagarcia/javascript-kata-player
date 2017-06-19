@@ -42,9 +42,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     @Output() next = new EventEmitter();
     @Output() codeUpdated = new EventEmitter();
 
-    constructor(private kataSrv: KataService, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {
-        this.kataState = 'reading';
-    }
+    constructor(private kataSrv: KataService, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {}
 
     ngOnInit() {
         this.tests = {};
@@ -83,7 +81,9 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     }
 
     onChange(evt: string) {
-        this.codeUpdated.emit(evt);
+        if(typeof(evt) === 'string') {
+            this.codeUpdated.emit(evt);
+        }
     }
 
     testKata() {
