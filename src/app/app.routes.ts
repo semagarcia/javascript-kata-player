@@ -22,7 +22,6 @@ export const ROUTES: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthenticationGuard] },
   { path: 'individual', component: IndividualComponent, canActivate: [AuthenticationGuard] },
   { path: 'training/:topic', component: TrainingComponent, canActivate: [AuthenticationGuard] },
-  { path: 'challenge', component: ChallengeComponent, canActivate: [AuthenticationGuard] },
   { path: 'challenge/:challengeId', component: ChallengeComponent, canActivate: [AuthenticationGuard] },
   { path: 'challenge-list', component: CurrentChallengeListComponent, canActivate: [AuthenticationGuard] },
   { path: 'streaming/:challengeId', component: StreamingComponent, canActivate: [AuthenticationGuard] },
