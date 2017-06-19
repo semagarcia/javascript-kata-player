@@ -23,6 +23,9 @@ export interface Kata {
     initialBodyFunction: string;
 
     /** */
+    tests: Array<{input: any, output: any}>;
+
+    /** */
     enabled: boolean;
 
 }
