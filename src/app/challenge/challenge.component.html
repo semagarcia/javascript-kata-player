@@ -8,5 +8,6 @@
     [code]="kata?.initialBodyFunction"
     (success)="onSuccessKata()"
     (fail)="onFailedKataAttemp()"
-    [next-button]="false">
+    [next-button]="false"
+    (codeUpdated)="onChange($event)">
 </kata-player>
