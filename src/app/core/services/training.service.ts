@@ -12,25 +12,25 @@ export class TrainingService {
     getTrainingPaths(): Observable<Array<TrainingPath>> {
         return this.httpSrv.get('/api/training-paths')
             .map((res: Response) => res.json())
-            .catch((res: Response) => res.json().error);
+            .catch((res: Response) => res.json());
     }
 
     getKatasOfTrainingPath(topic: string): Observable<TrainingPath> {
         return this.httpSrv.get(`/api/training-paths/${topic}/katas`)
-            .map((res: Response) => res.json().trainingPath)
-            .catch((res: Response) => res.json().error);
+            .map((res: Response) => res.json())
+            .catch((res: Response) => res.json());
     }
 
     getTrainingPathsForGrid(): Observable<Array<TrainingPath>> {
         return this.httpSrv.get('/api/training-paths/grid')
             .map((res: Response) => res.json())
-            .catch((res: Response) => res.json().error);
+            .catch((res: Response) => res.json());
     }
 
     createTrainingPath(topic: string, name: string, description: string): Observable<TrainingPath> {
         return this.httpSrv.post('/api/training-paths', { topic: topic, name: name, description: description})
             .map((res: Response) => res.json())
-            .catch((res: Response) => res.json().error );
+            .catch((res: Response) => res.json());
     }
 
 }
