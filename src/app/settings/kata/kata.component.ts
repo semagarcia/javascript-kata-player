@@ -109,7 +109,7 @@ export class KataComponent implements OnInit {
 
     createNewKata() {
         this.dialog.open(KataDialogComponent).afterClosed().subscribe((x) => {
-            console.log('Cerrado', x);
+            //console.log('Cerrado', x);
         });
     }
 
@@ -118,7 +118,7 @@ export class KataComponent implements OnInit {
     }
 
     deleteKatas() {
-        console.log(this.gridOptions.api.getSelectedRows());
+        //console.log(this.gridOptions.api.getSelectedRows());
     }
 
 }
