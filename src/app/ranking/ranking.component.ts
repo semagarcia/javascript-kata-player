@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { KataService } from './../core';
-
+import { KataService, EventService } from './../core';
+import { Event } from './../core/models/Event';
 import { GridOptions } from 'ag-grid/main';
+import { MdSelectChange } from '@angular/material';
 
 @Component({
     selector: 'app-ranking',
@@ -12,8 +13,11 @@ export class RankingComponent implements OnInit {
 
     gridOptions: GridOptions = {};
     rowIndex: number;
+    selectedEventName: string;
+    selectedEvent: Event;
+    events: Array<Event>;
 
-    constructor(private kataSrv: KataService) {
+    constructor(private eventSrv: EventService, private kataSrv: KataService) {
         // Default options
         this.gridOptions.defaultColDef = { 
             width: 50,
@@ -78,6 +82,9 @@ export class RankingComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.eventSrv.getCurrentEvents().subscribe(
+            (events) => this.events = events
+        );
         this.kataSrv.getKataStats().subscribe(
             (stats) => { 
                 this.gridOptions.api.addItems(stats);
@@ -85,6 +92,15 @@ export class RankingComponent implements OnInit {
             },
             (err) => { console.log(err); }
         );
+    }
+
+    onEventSelected(evt: MdSelectChange) {
+        this.selectedEvent = this.events.find((e) => e.name === evt.value);
+    }
+
+    resetFilter() {
+        this.selectedEvent = null;
+        this.selectedEventName = null;
     }
 
 }

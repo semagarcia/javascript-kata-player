@@ -1,7 +1,28 @@
 
 <div style="padding: 0 18px;">
-    <h1>Event: JSDayES 2017</h1>
-    <p>The best event of JavaScript in Spain!</p>
+
+    <div class="flexibox-row">
+        <!-- Left column -->
+        <div class="flex-grow-1">
+            <h1>{{selectedEvent?.name}}</h1>
+            <p>{{selectedEvent?.description}}</p>
+        </div>
+
+        <!-- Right column -->
+        <div class="flex-grow-1 padding-top-30">
+            <md-select 
+                name="events"
+                placeholder="Please, select an event to filter" 
+                [(ngModel)]="selectedEventName" 
+                (change)="onEventSelected($event)" >
+                <md-option *ngFor="let evt of events" [value]="evt.name">
+                    {{evt.name}}
+                </md-option>
+            </md-select>
+            <button md-button color="primary" class="padding-left-12" (click)="resetFilter()">Reset filter</button>
+        </div>
+    </div>
+    
 
     <div class="full-width padding-top-18 padding-left-6">
         <ag-grid-angular #agGrid 
