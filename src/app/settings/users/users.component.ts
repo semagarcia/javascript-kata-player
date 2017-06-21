@@ -102,7 +102,7 @@ export class UsersComponent implements OnInit {
 
     createNewUser() {
         this.dialog.open(UserDialogComponent).afterClosed().subscribe((x) => {
-            console.log('Cerrado', x);
+            //console.log('Cerrado', x);
         });
     }
 
