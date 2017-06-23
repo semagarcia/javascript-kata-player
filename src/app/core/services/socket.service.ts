@@ -11,10 +11,10 @@ export class SocketService {
     
     constructor() {
         if(environment.production) {
-            this.socket = io.connect();
+            this.socket = io.connect({ transports: ['websocket'], upgrade: false });
         } else {
             this.url = `${window.location.protocol}//${window.location.hostname}:3000`;
-            this.socket = io.connect(this.url);
+            this.socket = io.connect(this.url, { transports: ['websocket'], upgrade: false });
             this.sendMessage('message', {message: 'hello'});
         }
     }
@@ -24,7 +24,7 @@ export class SocketService {
     }
 
     connectToStreaming(socketEventName) {
-        return Observable.fromEvent(this.socket, socketEventName);
+        return Observable.fromEvent(this.socket, socketEventName).share();
     }
 
     sendMessage(type: string, payload: object) {
