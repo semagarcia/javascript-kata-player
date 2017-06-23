@@ -1,14 +1,18 @@
 import { animate, state, style, transition, trigger } from '@angular/core';
+import { KataPlayerStatus } from './../core/models/KataPlayer';
 
 export const KATA_PLAYER_ANIMATIONS = [
     trigger('startKata', [
         transition(':enter', [
             style({ opacity: 0 })
         ]),
-        state('reading', style({
+        state(KataPlayerStatus.WAITING, style({
             opacity: 0
         })),
-        state('writing', style({
+        state(KataPlayerStatus.READING, style({
+            opacity: 1
+        })),
+        state(KataPlayerStatus.WRITING, style({
             opacity: 1
         })),
         transition('* => *', animate('400ms ease-in-out'))

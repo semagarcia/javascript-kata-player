@@ -22,5 +22,6 @@ export * from './services/users.service';
 export * from './models/Challenge';
 export * from './models/Event';
 export * from './models/Kata';
+export * from './models/KataPlayer';
 export * from './models/TrainingPaths';
 export * from './models/User';

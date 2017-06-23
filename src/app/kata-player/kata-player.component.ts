@@ -1,10 +1,10 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { KATA_PLAYER_ANIMATIONS } from './kata-player.animation';
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
-import { KataService, TestExecutorService } from './../core';
+import { KataService, KataPlayerStatus, TestExecutorService } from './../core';
 
 import 'codemirror/mode/javascript/javascript';
 
@@ -16,7 +16,6 @@ import 'codemirror/mode/javascript/javascript';
 })
 export class KataPlayerComponent implements OnInit, OnChanges {
 
-    kataState: string = 'reading';
     leftPaneWidth: number;
     resizingModeEnabled: boolean;
     bodyFunction: string;
@@ -36,7 +35,9 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     @Input() inputs: Array<string>;
     @Input() outputs: Array<string>;
     @Input() code: string;
+    @Input() status: string;
     @Input('next-button') nextButton: boolean;
+
     @Output() success = new EventEmitter();
     @Output() fail = new EventEmitter();
     @Output() next = new EventEmitter();
@@ -62,25 +63,29 @@ export class KataPlayerComponent implements OnInit, OnChanges {
         };
 
         this.timeSpent = 0;
-        this.counterDownObs = Observable.timer(0, 1000).subscribe((tick) => {
-            this.timeSpent++;
-        });
+        this.status = KataPlayerStatus.WAITING;
     }
 
-    ngOnChanges() {
-        this.timeSpent = 0;
-        this.bodyFunction = this.code;
+    ngOnChanges(changes: SimpleChanges) {
+        if(changes.status && changes.status.currentValue) {
+            this.status = changes.status.currentValue;
+            if(changes.status.currentValue === KataPlayerStatus.READING) {
+                this.counterDownObs = Observable.timer(0, 1000).subscribe((tick) => {
+                    this.timeSpent++;
+                });
+            }
+        }
     }
 
     startExercise() {
-        this.kataState = 'writing';
+        this.status = KataPlayerStatus.WRITING;
     }
 
     chronoEvent(evt: any) {
         //console.log('event! ', evt);
     }
 
-    onChange(evt: string) {
+    onEditorChange(evt: string) {
         if(typeof(evt) === 'string') {
             this.codeUpdated.emit(evt);
         }
@@ -88,7 +93,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
 
     testKata() {
         this.attemps++;
-        if(this.kataState === 'writing') {
+        if(this.status === KataPlayerStatus.WRITING) {
             this.testExecutorSrv.checkExerciseCode(this.bodyFunction, this.title).subscribe(
                 (result: any) => {
                     this.tests = result;

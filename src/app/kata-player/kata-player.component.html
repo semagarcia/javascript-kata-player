@@ -20,7 +20,7 @@
 
 <div class="main-container" style="height: calc(100% - (110px));">
     <!-- Kata description -->
-    <div class="enunciado animated bounce" [style.flex-basis.%]="leftPaneWidth">
+    <div *ngIf="status !== 'WAITING'" class="enunciado animated bounce" [style.flex-basis.%]="leftPaneWidth">
         <md-card class="example-card">
             <md-card-content>
                 <h1>{{ title }}</h1>
@@ -55,12 +55,12 @@
     </div>
 
     <!-- Editor -->
-    <div class="codigo" [@startKata]="kataState" [style.hidden]="true" [style.flex-basis.%]="100 - leftPaneWidth">
+    <div class="codigo" [@startKata]="status" [style.hidden]="true" [style.flex-basis.%]="100 - leftPaneWidth">
         <div class="medio-panel-superior card-ang-mat">
             <codemirror class="editor-area" 
                 [(ngModel)]="bodyFunction" 
                 [config]="config"
-                (change)="onChange($event)">
+                (change)="onEditorChange($event)">
             </codemirror>
         </div>
         <div class="medio-panel-inferior card-ang-mat flexibox-column">
