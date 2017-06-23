@@ -5,7 +5,7 @@ import { Observable, Subject }  from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
-import { Challenge, ChallengeService, Kata, KataService, SocketService, TimeElapsedPipe, UserService } from './../core';
+import { Challenge, ChallengeService, Kata, KataPlayerStatus, KataService, SocketService, TimeElapsedPipe, UserService } from './../core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/throttleTime';
@@ -27,6 +27,7 @@ export class ChallengeComponent implements OnInit {
     counterDownObs: Observable<number>;
     challengeId: string;
     kata: Kata;
+    kataPlayerStatus: string;
     codeChanged: Subject<string> = new Subject<string>();
 
     constructor(private httpSrv: Http, 
@@ -51,7 +52,7 @@ export class ChallengeComponent implements OnInit {
 
         this.timeSpent = 0;
         this.showEditorPane = true;
-        this.counterDownObs = Observable.interval(1000);
+        this.kataPlayerStatus = KataPlayerStatus.WAITING;
 
         // Get the challengeId from the url
         this.route.params.subscribe(params => {
@@ -71,18 +72,17 @@ export class ChallengeComponent implements OnInit {
                                     (kata: Kata) => { this.kata = kata },
                                     (err) => { console.log('Error retrieving kata for challenge: ', err); }
                                 );
-
-                                this.socketSrv.sendMessage('challenge', {
-                                    event: 'playerReady',
-                                    challengeId: this.challengeId,
-                                    playerName: user.username,
-                                    playerId: this.socketSrv.getSocketId()
-                                });
                                 
                                 this.socketSrv.connectToStreaming('challenge').subscribe(
                                     (data: any) => { 
-                                        if(data && data.event === 'startedChallenge' && data.event === 'READY') {
-                                            //this.challengeStatus = data.event;
+                                        console.log('data: ', data);
+                                        if(data && data.event === 'playerReady') {
+                                            console.log('WAITING');
+                                            this.kataPlayerStatus = KataPlayerStatus.WAITING;
+                                        } else if(data && data.event === 'startedChallenge' && data.status === 'READY') {
+                                            console.log('READING');
+                                            this.kataPlayerStatus = KataPlayerStatus.READING;
+                                            this.counterDownObs = Observable.interval(1000);
                                             this.counterDownObs.subscribe((tick) => this.timeSpent++);
                                         }
                                     },
@@ -90,6 +90,13 @@ export class ChallengeComponent implements OnInit {
                                         console.log('Error connectionToStreaming(): ', err); 
                                     }
                                 );
+
+                                this.socketSrv.sendMessage('challenge', {
+                                    event: 'playerReady',
+                                    challengeId: this.challengeId,
+                                    playerName: user.username,
+                                    playerId: this.socketSrv.getSocketId()
+                                });
                             } else {
                                 console.log('Error joining');
                             }   
