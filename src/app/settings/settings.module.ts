@@ -19,6 +19,7 @@ import { EventsComponent } from './events/events.component';
 import { EventDialogComponent } from './events/event-dialog/event-dialog.component';
 import { NumberOfKatasPipe } from './kata/number-of-katas.pipe';
 import { LanguagesComponent } from './languages/languages.component';
+import { CustomValidators } from './users/user-dialog/user-dialog-validator.service';
 
 import { AgGridModule } from 'ag-grid-angular/main';
 
@@ -45,7 +46,13 @@ import { AgGridModule } from 'ag-grid-angular/main';
         EventDialogComponent,
         LanguagesComponent
     ],
-    exports: [ RouterModule ],
+    exports: [ 
+        RouterModule,
+        UserDialogComponent
+    ],
+    providers: [
+        CustomValidators
+    ],
     entryComponents: [
         LpDialogComponent,
         KataDialogComponent,

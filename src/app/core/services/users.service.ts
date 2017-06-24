@@ -13,6 +13,14 @@ export class UsersService {
             .catch((err) => err.json());
     }
 
+    getUser(userName: string): Observable<any> {
+        return this.httpSrv.get('/api/users')
+        .map((res: Response) => res.json())
+        .map((users: any[]) => {
+            return users.filter((user: any) => user.username === userName)[0];
+        });
+    }
+
     createUser(formDataObject: {name: string, username: string, password: string, email: string, rol: string}): Observable<any> {
         return this.httpSrv.post('/api/users', {
             name: formDataObject.name,

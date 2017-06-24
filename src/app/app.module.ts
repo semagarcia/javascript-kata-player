@@ -12,6 +12,8 @@ import { MaterialModule } from './material/material.module';
 // Routes
 import { ROUTES } from './app.routes';
 
+import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
+
 // TODO: refactor to group them with spread operator
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -31,9 +33,11 @@ import { AboutComponent } from './about/about.component';
 import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, ShowErrorDialog } from './dialogs';
 import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
+
 import {
     AuthenticationService, AuthenticationGuard, ChallengeService, EventService, HttpService, IndividualService,
-    KataService, LoginService, SocketService, TestExecutorService, TrainingService, UserService, UsersService
+    KataService, LoginService, SocketService, TestExecutorService, TrainingService, UserService, UsersService,
+    ValidationMsgService
 } from './core';
 
 // 3rd party libraries
@@ -76,7 +80,8 @@ export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions
         CodemirrorModule,
         MaterialModule,
         AgGridModule.withComponents([]),
-        RouterModule.forRoot(ROUTES)
+        RouterModule.forRoot(ROUTES),
+        Ng2DeviceDetectorModule.forRoot()
     ],
     providers: [
         AuthenticationService,
@@ -97,7 +102,8 @@ export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions
         TestExecutorService,
         TrainingService,
         UserService,
-        UsersService
+        UsersService,
+        ValidationMsgService
     ],
     entryComponents: [
         CreateChallengeDialog,
