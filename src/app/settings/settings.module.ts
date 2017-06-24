@@ -19,7 +19,7 @@ import { EventsComponent } from './events/events.component';
 import { EventDialogComponent } from './events/event-dialog/event-dialog.component';
 import { NumberOfKatasPipe } from './kata/number-of-katas.pipe';
 import { LanguagesComponent } from './languages/languages.component';
-import { UserNameValidator } from './users/user-dialog/user-dialog-validator.service';
+import { CustomValidators } from './users/user-dialog/user-dialog-validator.service';
 
 import { AgGridModule } from 'ag-grid-angular/main';
 
@@ -51,7 +51,7 @@ import { AgGridModule } from 'ag-grid-angular/main';
         UserDialogComponent
     ],
     providers: [
-        UserNameValidator
+        CustomValidators
     ],
     entryComponents: [
         LpDialogComponent,

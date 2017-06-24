@@ -33,10 +33,11 @@ import { AboutComponent } from './about/about.component';
 import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, ShowErrorDialog } from './dialogs';
 import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
+
 import {
     AuthenticationService, AuthenticationGuard, ChallengeService, EventService, HttpService, IndividualService,
     KataService, LoginService, SocketService, TestExecutorService, TrainingService, UserService, UsersService,
-    EmailService
+    EmailService,ValidationMsgService
 } from './core';
 
 // 3rd party libraries
@@ -102,7 +103,8 @@ export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions
         TrainingService,
         UserService,
         UsersService,
-        EmailService
+        EmailService,
+        ValidationMsgService
     ],
     entryComponents: [
         CreateChallengeDialog,
