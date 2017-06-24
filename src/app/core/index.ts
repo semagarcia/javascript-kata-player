@@ -24,3 +24,4 @@ export * from './models/Event';
 export * from './models/Kata';
 export * from './models/TrainingPaths';
 export * from './models/User';
+export * from './services/validation-messages.service';

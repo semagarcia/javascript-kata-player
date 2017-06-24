@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
+import { FormControl, ValidationErrors, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
 
 import { UsersService } from '../../../core/services/users.service';
 
@@ -11,7 +11,9 @@ function validateUserName(users: UsersService): AsyncValidatorFn {
         return users.getUser(formControl.value)
             .map((user: any) => {
                 let result = {
-                    valideUserName: false
+                    valideUserName: {
+                        userNameRepeated: true
+                    }
                 };
 
                 if (!user) {
@@ -23,12 +25,27 @@ function validateUserName(users: UsersService): AsyncValidatorFn {
     }
 }
 
-@Injectable()
-export class UserNameValidator {
+function validatePassword(): ValidatorFn {
+    return (formControl: FormControl) => {
+        let result = {
+            validatePassword: true
+        };
 
-    public validator: AsyncValidatorFn;
+        if ((formControl.parent) && (formControl.parent.value.password === formControl.value)){
+            result = null;
+        }
+        return result;
+    }
+}
+
+@Injectable()
+export class CustomValidators {
+
+    public validatorUserName: AsyncValidatorFn;
+    public validatePassword: ValidatorFn
 
     constructor(private _usersService: UsersService) {
-        this.validator = validateUserName(_usersService);
+        this.validatorUserName = validateUserName(_usersService);
+        this.validatePassword = validatePassword();
     }
 }

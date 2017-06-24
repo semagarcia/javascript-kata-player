@@ -4,7 +4,8 @@ import { MdDialogRef } from '@angular/material';
 import {MD_DIALOG_DATA} from '@angular/material';
 
 import { UsersService } from './../../../core';
-import { UserNameValidator } from './user-dialog-validator.service';
+import { ValidationMsgService } from '../../../core/services/validation-messages.service';
+import { CustomValidators } from './user-dialog-validator.service';
 
 import * as moment from 'moment';
 
@@ -17,9 +18,9 @@ export class UserDialogComponent implements OnInit {
 
     createUserForm = new FormGroup({
         name: new FormControl('', Validators.required),
-        username: new FormControl('', Validators.required, this.userNameValidator.validator),
+        username: new FormControl('', Validators.required, this.customValidators.validatorUserName),
         password: new FormControl('', [Validators.required, Validators.minLength(4)]),
-        confirmPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
+        confirmPassword: new FormControl('', [Validators.required, Validators.minLength(4), this.customValidators.validatePassword]),
         rol: new FormControl('USER'),
         email: new FormControl('', [Validators.required, Validators.email])
     });
@@ -29,11 +30,13 @@ export class UserDialogComponent implements OnInit {
     showWaitingBackendCall: boolean;
     errorMessage: string;
     chooseRole = true;
+    validateMsg: string = null;
 
     constructor(private usersSrv: UsersService,
                 private dialogRef: MdDialogRef<UserDialogComponent>, 
                 private formBuilder: FormBuilder,
-                private userNameValidator: UserNameValidator,
+                private customValidators: CustomValidators,
+                private validationMsg: ValidationMsgService,
                 @Inject(MD_DIALOG_DATA) private data: any
     ) { }
 
@@ -42,6 +45,12 @@ export class UserDialogComponent implements OnInit {
         this.showError = false;
         this.errorMessage = '';
         this.chooseRole = this.data.chooseRole;
+        
+        
+    }
+
+    checkErrorsValidators(field:string) {
+        this.validateMsg = this.validationMsg.getMessage(this.createUserForm.controls[field]);
     }
 
     onSubmittedForm() {
