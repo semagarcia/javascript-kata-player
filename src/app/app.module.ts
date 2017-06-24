@@ -37,7 +37,7 @@ import { TimeElapsedPipe } from './core';
 import {
     AuthenticationService, AuthenticationGuard, ChallengeService, EventService, HttpService, IndividualService,
     KataService, LoginService, SocketService, TestExecutorService, TrainingService, UserService, UsersService,
-    ValidationMsgService
+    EmailService,ValidationMsgService
 } from './core';
 
 // 3rd party libraries
@@ -103,6 +103,7 @@ export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions
         TrainingService,
         UserService,
         UsersService,
+        EmailService,
         ValidationMsgService
     ],
     entryComponents: [
