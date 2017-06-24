@@ -24,7 +24,7 @@
     <hr class="full-width" /><br />
     <md-grid-list cols="2" rowHeight="5:1">
       <md-grid-tile [colspan]=1 [rowspan]=4 >
-          <a md-raised-button class="login-btn" [ngStyle]="{'margin-bottom': heightPer}" color="primary" href="/auth/github">
+          <a md-raised-button class="login-btn" [ngStyle]="{'margin-bottom': heightPer}" color="primary" (click)="singUp()">
             <i class="material-icons" aria-hidden="true">face</i> Sing up
           </a>
       </md-grid-tile>

@@ -35,9 +35,9 @@
         </md-input-container>
 
         <!-- Rol -->
-        <md-select class="flex-grow-1" placeholder="Write user's rol" formControlName="rol" name="rol" required>
+        <md-select *ngIf="chooseRole"  class="flex-grow-1" placeholder="Write user's rol" formControlName="rol" name="rol" required>
             <md-option value="ADMIN">ADMIN</md-option>
-            <md-option value="ADMIN">USER</md-option>
+            <md-option value="USER">USER</md-option>
         </md-select>
 
         <!-- Buttons -->

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { MdDialogRef } from '@angular/material';
+import {MD_DIALOG_DATA} from '@angular/material';
 
 import { UsersService } from './../../../core';
+import { UserNameValidator } from './user-dialog-validator.service';
 
 import * as moment from 'moment';
 
@@ -15,10 +17,10 @@ export class UserDialogComponent implements OnInit {
 
     createUserForm = new FormGroup({
         name: new FormControl('', Validators.required),
-        username: new FormControl('', Validators.required),
+        username: new FormControl('', Validators.required, this.userNameValidator.validator),
         password: new FormControl('', [Validators.required, Validators.minLength(4)]),
         confirmPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
-        rol: new FormControl('', Validators.required),
+        rol: new FormControl('USER'),
         email: new FormControl('', [Validators.required, Validators.email])
     });
 
@@ -26,15 +28,20 @@ export class UserDialogComponent implements OnInit {
     showError: boolean;
     showWaitingBackendCall: boolean;
     errorMessage: string;
+    chooseRole = true;
 
     constructor(private usersSrv: UsersService,
                 private dialogRef: MdDialogRef<UserDialogComponent>, 
-                private formBuilder: FormBuilder) { }
+                private formBuilder: FormBuilder,
+                private userNameValidator: UserNameValidator,
+                @Inject(MD_DIALOG_DATA) private data: any
+    ) { }
 
     ngOnInit() {
         this.showWaitingBackendCall = false;
         this.showError = false;
         this.errorMessage = '';
+        this.chooseRole = this.data.chooseRole;
     }
 
     onSubmittedForm() {
@@ -43,8 +50,8 @@ export class UserDialogComponent implements OnInit {
             this.showError = false;
             this.errorMessage = '';            
             this.usersSrv.createUser(this.createUserForm.value).subscribe(
-                (result) => { console.log('user creation result: ', result); },
-                (err) => { console.log('error user creation: ', err); }
+                (result) => { this.dialogRef.close()},
+                (err) => { this.dialogRef.close(err) }
             );
         } else {
             this.showError = true;

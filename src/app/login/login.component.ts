@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EventService, LoginService } from './../core';
+import { MdDialog } from '@angular/material';
+
 import { Ng2DeviceService } from 'ng2-device-detector';
+
+import { EventService, LoginService } from './../core';
+import { UserDialogComponent } from '../settings/users/user-dialog/user-dialog.component';
 
 @Component({
     selector: 'app-login',
@@ -22,7 +26,8 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private loginSrv: LoginService,
         private eventSrv: EventService,
-        private device: Ng2DeviceService
+        private device: Ng2DeviceService,
+        private dialog: MdDialog
     ) {}
 
     ngOnInit() {
@@ -64,6 +69,16 @@ export class LoginComponent implements OnInit {
                 this.loginError = 'Login error: invalid credentials';
             }
         );
+    }
+
+    singUp() {
+        this.dialog.open(UserDialogComponent, {
+            data: {
+                chooseRole:false
+            }
+        }).afterClosed().subscribe((x) => {
+            console.log('Cerrado', x);
+        });
     }
 
 }
