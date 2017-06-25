@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { Challenge, ChallengeService, SocketService } from './../core';
+import { Challenge, ChallengeService, KataPlayerStatus, SocketService } from './../core';
 
 import 'codemirror/mode/javascript/javascript';
 
@@ -20,6 +20,11 @@ export class StreamingComponent implements OnInit {
     codePlayerB: string;
     challengeId: string;
     currentChallenge: Challenge;
+    challengeState: string;
+    challengeProgress: {
+        playerA: { tests: number, passedTests: number },
+        playerB: { tests: number, passedTests: number }
+    };
 
     constructor(private route: ActivatedRoute, 
                 private challengeSrv: ChallengeService,
@@ -38,6 +43,18 @@ export class StreamingComponent implements OnInit {
             readOnly: true,
             tabSize: 2,
             theme: 'material'
+        };
+
+        // Structure to hold the results
+        this.challengeProgress = {
+            playerA: {
+                tests: 0,
+                passedTests: 0
+            },
+            playerB: {
+                tests: 0,
+                passedTests: 0
+            }
         };
 
         // Initialitate the code editors
@@ -73,8 +90,30 @@ export class StreamingComponent implements OnInit {
                 }
             } else if(data.event === 'startedChallenge') {
                 this.counterDownObs.subscribe((tick) => this.timeSpent++);
+                this.challengeState = KataPlayerStatus.PLAYING;
+            } else if(data.event === 'challengeProgress') {
+                console.log('str: ', data);
+                if(data.playerId === this.currentChallenge.playerA) {
+                    this.challengeProgress.playerA = {
+                        tests: data.tests,
+                        passedTests: data.passedTests
+                    };
+                } else if(data.playerId === this.currentChallenge.playerB) {
+                    this.challengeProgress.playerB = {
+                        tests: data.tests,
+                        passedTests: data.passedTests
+                    };
+                }
             }
         });
+    }
+
+    /**
+     * 
+     * @param event 
+     */
+    chronoEvent(event) {
+
     }
 
     /**

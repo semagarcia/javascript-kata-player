@@ -2,46 +2,85 @@
     <span class="spacer"></span>
 
     <md-icon>watch_later</md-icon>
-    <kata-chronometer mode="SYNC" duration="5" direction="ASC" style="padding-left:6px; padding-right:6px"></kata-chronometer>
+    <kata-chronometer 
+        mode="SYNC" 
+        duration="5" 
+        direction="ASC" 
+        [state]="challengeState"
+        (chronometer)="chronoEvent($event)"
+        classstreaming-chronometer="">
+    </kata-chronometer>
     <md-icon>cast_connected</md-icon>
 
     <span class="spacer"></span>
 </md-toolbar>
 
-<div class="main-container" style="height: calc(100% - (120px));">
-    <!-- Player A -->
-    <div class="enunciado" style="flex-basis:50%">
-        <div style="padding:12px">
-            <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
-            <p>Player: {{ currentChallenge?.usernamePlayerA }}</p>
+<!--
+<div>
+    Tests: 
+    <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color:green"></i> 0
+    <i class="fa fa-thumbs-o-down" aria-hidden="true" style="color:red"></i> 3
+    |
+    <i class="fa fa-thumbs-up" aria-hidden="true" style="color:green"></i> 0
+    <i class="fa fa-thumbs-down" aria-hidden="true" style="color:red"></i> 3
+</div>
+-->
+
+<!-- style="height: calc(100% - (120px));" -->
+<div class="flexibox-row">
+    <!-- Left column: Player A -->
+    <div class="flex-basis-50 padding-12">
+        <div class="full-width">
+            <div style="display: inline; float: left">
+                <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+            </div>
+            <div class="flexibox-column" style="float: left; padding-left: 18px">
+                <div class="flex-grow-1">
+                    <strong>Opponent:</strong> {{ currentChallenge?.usernamePlayerA || 'Waiting oponent...' }}
+                </div>
+                <div class="flex-grow-1">
+                    <strong>Number of tests:</strong> {{ challengeProgress.playerA?.tests || 0 }}
+                </div>
+                <div class="flex-grow-1">
+                    <strong>Passed tests:</strong> {{ challengeProgress.playerA?.passedTests || 0 }}
+                </div>
+            </div>
         </div>
-        <div class="medio-panel-superior card-ang-mat">
-            <codemirror class="editor-area" 
-                [(ngModel)]="codePlayerA" 
-                [config]="config">
-            </codemirror>
-        </div>
-        <div>
-            Tests: 
-            <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color:green"></i> 0
-            <i class="fa fa-thumbs-o-down" aria-hidden="true" style="color:red"></i> 3
-            |
-            <i class="fa fa-thumbs-up" aria-hidden="true" style="color:green"></i> 0
-            <i class="fa fa-thumbs-down" aria-hidden="true" style="color:red"></i> 3
+        <div class="full-width" style="margin-top: 100px">
+            <div class="medio-panel-superior card-ang-mat">
+                <codemirror class="editor-area" 
+                    [(ngModel)]="codePlayerA" 
+                    [config]="config">
+                </codemirror>
+            </div>
         </div>
     </div>
 
-    <!-- Player B -->
-    <div class="enunciado" style="flex-basis:50%">
-        <div style="padding:12px">
-            <i class="fa fa-user-circle-o fa-5x" aria-hidden="true"></i>
-            <p>Player: {{ currentChallenge?.usernamePlayerB }}</p>
+    <!-- Right column: Player B -->
+    <div class="flex-basis-50 padding-12">
+        <div class="full-width">
+            <div style="display: inline; float: left">
+                <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+            </div>
+            <div class="flexibox-column" style="float: left; padding-left: 18px">
+                <div class="flex-grow-1">
+                    <strong>Opponent:</strong> {{ currentChallenge?.usernamePlayerB || 'Waiting oponent...' }}
+                </div>
+                <div class="flex-grow-1">
+                    <strong>Number of tests:</strong> {{ challengeProgress.playerB.tests || 0 }}
+                </div>
+                <div class="flex-grow-1">
+                    <strong>Passed tests:</strong> {{ challengeProgress.playerB.passedTests || 0 }}
+                </div>
+            </div>
         </div>
-        <div class="medio-panel-superior card-ang-mat">
-            <codemirror class="editor-area" 
-                [(ngModel)]="codePlayerB" 
-                [config]="config">
-            </codemirror>
+        <div class="full-width" style="margin-top: 100px">
+            <div class="medio-panel-superior card-ang-mat">
+                <codemirror class="editor-area" 
+                    [(ngModel)]="codePlayerB" 
+                    [config]="config">
+                </codemirror>
+            </div>
         </div>
     </div>
 
