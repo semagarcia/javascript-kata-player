@@ -7,5 +7,11 @@ export const KataPlayerStatus = {
     READING: 'READING',
 
     // The user can start to write code
-    WRITING: 'WRITING'
+    WRITING: 'WRITING',
+
+    // The challenge is happening!
+    PLAYING: 'PLAYING',
+
+    // The kata has been finished
+    ENDED: 'ENDED'
 };
