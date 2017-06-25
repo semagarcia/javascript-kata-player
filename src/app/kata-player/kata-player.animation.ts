@@ -10,7 +10,7 @@ export const KATA_PLAYER_ANIMATIONS = [
             opacity: 0
         })),
         state(KataPlayerStatus.READING, style({
-            opacity: 1
+            opacity: 0
         })),
         state(KataPlayerStatus.WRITING, style({
             opacity: 1

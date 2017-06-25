@@ -1,10 +1,10 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { MdDialog } from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { KATA_PLAYER_ANIMATIONS } from './kata-player.animation';
-import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
 import { KataService, KataPlayerStatus, TestExecutorService } from './../core';
+import { LeaveChallengeComponent, WaitingChallengeDialog } from './../dialogs';
 
 import 'codemirror/mode/javascript/javascript';
 
@@ -28,6 +28,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     tests: any;
     numberOfPassedTests: number;
     numberOfTests: number;
+    waitingDialogRef: MdDialogRef<WaitingChallengeDialog>;
 
     @Input() title: string;
     @Input() explanation: string;
@@ -41,11 +42,16 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     @Output() success = new EventEmitter();
     @Output() fail = new EventEmitter();
     @Output() next = new EventEmitter();
+    @Output() kataProgress = new EventEmitter();
+    @Output() kataCancelled = new EventEmitter();
     @Output() codeUpdated = new EventEmitter();
 
-    constructor(private kataSrv: KataService, private testExecutorSrv: TestExecutorService, public dialog: MdDialog) {}
+    constructor(private kataSrv: KataService, 
+                private testExecutorSrv: TestExecutorService,
+                public dialog: MdDialog) {}
 
     ngOnInit() {
+        this.timeSpent = 0;
         this.tests = {};
         this.numberOfPassedTests = 0;
         this.numberOfTests = 0;
@@ -62,19 +68,36 @@ export class KataPlayerComponent implements OnInit, OnChanges {
             theme: 'material'
         };
 
-        this.timeSpent = 0;
-        this.status = KataPlayerStatus.WAITING;
+        setTimeout(() => {
+            this.waitingDialogRef = this.dialog.open(WaitingChallengeDialog, { disableClose: true });
+            this.waitingDialogRef.afterClosed().subscribe(
+                (shouldRedirectToHome) => {
+                    if(shouldRedirectToHome) this.kataCancelled.emit();
+                }
+            );
+        }, 0);
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if(changes.status && changes.status.currentValue) {
             this.status = changes.status.currentValue;
-            if(changes.status.currentValue === KataPlayerStatus.READING) {
-                this.counterDownObs = Observable.timer(0, 1000).subscribe((tick) => {
-                    this.timeSpent++;
-                });
+            if(this.status === KataPlayerStatus.WAITING) {
+                console.log('> WAITING');
+            } else if(this.status === KataPlayerStatus.READING) {
+                console.log('> READING');
+                if(this.waitingDialogRef)
+                    this.waitingDialogRef.close(false);
+                this.startChronometer();
+            } else if(this.status === KataPlayerStatus.WRITING) {
+                console.log('> WRITING');
             }
         }
+    }
+
+    startChronometer() {
+        this.counterDownObs = Observable.timer(0, 1000).subscribe((tick) => {
+            this.timeSpent++;
+        });
     }
 
     startExercise() {
@@ -94,7 +117,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     testKata() {
         this.attemps++;
         if(this.status === KataPlayerStatus.WRITING) {
-            this.testExecutorSrv.checkExerciseCode(this.bodyFunction, this.title).subscribe(
+            this.testExecutorSrv.checkExerciseCode(this.code, this.title).subscribe(
                 (result: any) => {
                     this.tests = result;
                     this.numberOfTests = this.tests.output.length;
@@ -111,12 +134,17 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     }
 
     sendKataStats(result: boolean) {
-        this.kataSrv.sendKataStats({
+        let stats = {
             kata: this.title,
             status: result,
             attemps: this.attemps,
-            time: this.timeSpent
-        });
+            time: this.timeSpent,
+            tests: this.numberOfTests,
+            passedTests: this.numberOfPassedTests
+        };
+
+        this.kataProgress.emit(stats);
+        this.kataSrv.sendKataStats(stats);
     }
 
     openOrCloseTestCase(currentStatus: string) {

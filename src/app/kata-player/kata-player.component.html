@@ -1,6 +1,12 @@
 <md-toolbar color="second">
     <md-icon>watch_later</md-icon>
-    <kata-chronometer mode="SYNC" duration="0" direction="ASC" (chronometer)="chronoEvent($event)"></kata-chronometer>
+    <kata-chronometer 
+        mode="SYNC" 
+        duration="0" 
+        direction="ASC" 
+        [state]="status"
+        (chronometer)="chronoEvent($event)">
+    </kata-chronometer>
 
     <span class="spacer"></span>
 
@@ -58,7 +64,7 @@
     <div class="codigo" [@startKata]="status" [style.hidden]="true" [style.flex-basis.%]="100 - leftPaneWidth">
         <div class="medio-panel-superior card-ang-mat">
             <codemirror class="editor-area" 
-                [(ngModel)]="bodyFunction" 
+                [(ngModel)]="code" 
                 [config]="config"
                 (change)="onEditorChange($event)">
             </codemirror>
