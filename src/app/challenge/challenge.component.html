@@ -10,5 +10,7 @@
     (success)="onSuccessKata()"
     (fail)="onFailedKataAttemp()"
     [next-button]="false"
-    (codeUpdated)="onChange($event)">
+    (codeUpdated)="onChange($event)"
+    (kataCancelled)="onKataCancelled($event)"
+    (kataProgress)="onKataProgress($event)">
 </kata-player>

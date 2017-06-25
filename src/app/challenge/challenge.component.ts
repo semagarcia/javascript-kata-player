@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { Observable, Subject }  from 'rxjs';
 import { MdDialog } from '@angular/material';
@@ -13,7 +13,7 @@ import 'codemirror/mode/javascript/javascript';
 
 @Component({
     templateUrl: './challenge.component.html',
-    styleUrls: ['./challenge.styles.css']
+    styleUrls: ['./challenge.styles.scss']
 })
 export class ChallengeComponent implements OnInit {
 
@@ -32,6 +32,7 @@ export class ChallengeComponent implements OnInit {
 
     constructor(private httpSrv: Http, 
                 private route: ActivatedRoute,
+                private router: Router,
                 private challengeSrv: ChallengeService, 
                 private kataSrv: KataService,
                 private socketSrv: SocketService, 
@@ -74,18 +75,7 @@ export class ChallengeComponent implements OnInit {
                                 );
                                 
                                 this.socketSrv.connectToStreaming('challenge').subscribe(
-                                    (data: any) => { 
-                                        console.log('data: ', data);
-                                        if(data && data.event === 'playerReady') {
-                                            console.log('WAITING');
-                                            this.kataPlayerStatus = KataPlayerStatus.WAITING;
-                                        } else if(data && data.event === 'startedChallenge' && data.status === 'READY') {
-                                            console.log('READING');
-                                            this.kataPlayerStatus = KataPlayerStatus.READING;
-                                            this.counterDownObs = Observable.interval(1000);
-                                            this.counterDownObs.subscribe((tick) => this.timeSpent++);
-                                        }
-                                    },
+                                    (data: any) => this.processMessageReceived(data),
                                     (err) => { 
                                         console.log('Error connectionToStreaming(): ', err); 
                                     }
@@ -100,7 +90,9 @@ export class ChallengeComponent implements OnInit {
                             } else {
                                 console.log('Error joining');
                             }   
-                        }
+                        },
+                        (b) => { console.log('BBBB: ', b); },
+                        () => { console.log('CCCC: '); }
                     );
 
                     //
@@ -125,12 +117,34 @@ export class ChallengeComponent implements OnInit {
 
     }
 
+    processMessageReceived(wsMessage) {
+        console.log('data: ', wsMessage);
+        if(wsMessage && wsMessage.event === 'playerReady') {
+            this.kataPlayerStatus = KataPlayerStatus.WAITING;
+        } else if(wsMessage && wsMessage.event === 'startedChallenge' && wsMessage.status === 'READY') {
+            this.kataPlayerStatus = KataPlayerStatus.READING;
+            this.counterDownObs = Observable.interval(1000);
+            this.counterDownObs.subscribe((tick) => this.timeSpent++);
+        }
+    }
+
     stop() {
         this.dialog.open(LeaveChallengeComponent);
     }
 
     onChange(codeUpdated) {
         this.codeChanged.next(codeUpdated);
+    }
+
+    onKataProgress(progressStats) {
+        progressStats.event = 'challengeProgress';
+        progressStats.challengeId = this.challengeId;
+        this.socketSrv.sendMessage('challenge', progressStats);
+    }
+
+    onKataCancelled(evt) {
+        // TODO: Notify backend
+        this.router.navigateByUrl('/home');
     }
 
     onSuccessKata() {
