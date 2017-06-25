@@ -5,3 +5,4 @@ export * from './select-training-path/select-training-path.component';
 export * from './show-error/show-error.component';
 export * from './show-error/show-error.service';
 export * from './show-error/show-error-actions.enum';
+export * from './waiting-challenge/waiting-challenge.component';
