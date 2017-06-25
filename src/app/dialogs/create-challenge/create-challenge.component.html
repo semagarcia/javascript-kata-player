@@ -51,10 +51,26 @@
 <div *ngIf="challengeId && !joinForm" class="flexibox-row margin-top-8 margin-bottom-8">
     <md-progress-bar mode="indeterminate" *ngIf="isWaitingResponse"></md-progress-bar>
 
-    <button type="button" md-raised-button color="primary" (click)="goToChallenge()" 
-        class="flex-grow-1" style="margin-right: 6px">Go to challenge</button>
-    <button type="button" md-raised-button color="primary" (click)="closeDialog()" 
-        class="flex-grow-1" style="margin-left: 6px">Close</button>
+    <button type="button" md-raised-button color="primary" (click)="goToChallenge()" class="flex-grow-1" style="margin-right: 6px">Go to challenge</button>
+    <button type="button" md-raised-button color="primary" (click)="showInviteUserForm()" class="flex-grow-1" style="margin-right: 6px">Invite a user</button>
+    <button type="button" md-raised-button color="primary" (click)="closeDialog()" class="flex-grow-1" style="margin-left: 6px">Close</button>
+</div>
+
+<!-- Form to insert the username or email and invite a friend -->
+<div *ngIf="invitingUser" class="padding-top-18">
+    <h3 style="margin-bottom:0">Username or email</h3>
+    <md-input-container class="full-width">
+        <input mdInput placeholder="Insert the user's email or username" [(ngModel)]="invitedUserId">
+    </md-input-container>
+
+    <div class="flexibox-row" *ngIf="invitingUserError">
+        <p style="color:darkred"><em>Error: {{ invitingUserError }}</em></p>
+    </div>
+
+    <div class="flexibox-row">
+        <button type="button" md-raised-button color="primary" (click)="inviteUser()" class="flex-grow-1">Invite!</button>
+        <md-spinner *ngIf="isInvitingUserProcessing" class="flex-grow-0.25" style="margin-left: 6px; width: 40px; height: 40px"></md-spinner>
+    </div>
 </div>
 
 <!-- Form to insert the challengeId and go to challenge view -->

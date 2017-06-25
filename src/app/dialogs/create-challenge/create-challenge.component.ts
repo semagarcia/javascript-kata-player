@@ -1,7 +1,7 @@
 import { Component, OnInit, trigger, state, transition, animate, style } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdDialogRef } from '@angular/material';
-import { ChallengeService, SocketService } from './../../core';
+import { ChallengeService, SocketService , EmailService } from './../../core';
 
 @Component({
     templateUrl: './create-challenge.component.html',
@@ -34,10 +34,15 @@ export class CreateChallengeDialog implements OnInit {
     isCreatingChallenge: boolean;
     isWaitingResponse: boolean;
     joiningMessageError: string;
+    invitingUser: boolean;
+    invitedUserId: string;
+    invitingUserError: string;
+    isInvitingUserProcessing: boolean;
 
     constructor(public dialogRef: MdDialogRef<CreateChallengeDialog>, 
                 private router: Router,
                 private challengeSrv: ChallengeService,
+                private emailSrv: EmailService,
                 private socketSrv: SocketService) {}
 
     ngOnInit() {
@@ -51,6 +56,10 @@ export class CreateChallengeDialog implements OnInit {
         this.isWaitingResponse = false;
         this.joiningMessageError = '';
         this.challengeTimeDuration = 0;
+        this.invitingUser = false;
+        this.invitedUserId = "";
+        this.invitingUserError = "";
+        this.isInvitingUserProcessing = false;
     }
 
     toggleOptionalParamsChallengeMenu() {
@@ -121,6 +130,30 @@ export class CreateChallengeDialog implements OnInit {
         } else {
             this.joiningMessageError = 'Please, you have to write a challenge identifier.';
         }
+    }
+
+    showInviteUserForm() {
+        this.invitingUser = true;
+    }
+
+    inviteUser() {
+        this.isInvitingUserProcessing = true;
+        this.invitingUserError = "";
+
+        let message = `A user has invited you to join his challenge
+            Do you want to try? click on ${window.location.origin}/challenge/${this.challengeId} ;)
+        `
+
+        this.emailSrv.sendMail("admin@katas-player.com", this.invitedUserId, "You have a new challenge!", message).subscribe(
+            (correct) => {
+                this.isInvitingUserProcessing = false;
+                this.goToChallenge();
+            },
+            (error) => {
+                this.invitingUserError = error;
+                this.isInvitingUserProcessing = false;
+            }
+        )
     }
 
     private closeDialog() {
