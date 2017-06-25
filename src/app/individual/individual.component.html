@@ -6,6 +6,7 @@
     [inputs]="kata?.inputs"
     [outputs]="kata?.outputs"
     [code]="kata?.initialBodyFunction"
+    [status]="kataStatus"
     (success)="onSuccessKata()"
     (fail)="onFailedKataAttemp()"
     [next-button]="false">

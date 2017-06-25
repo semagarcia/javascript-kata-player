@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
-import { Kata, IndividualService, TimeElapsedPipe, TestExecutorService } from './../core';
+import { Kata, KataPlayerStatus, IndividualService, TimeElapsedPipe, TestExecutorService } from './../core';
 
 import 'codemirror/mode/javascript/javascript';
 
@@ -23,6 +23,7 @@ export class IndividualComponent implements OnInit {
     testResultOutput: string;
     counterDownObs: Subscription;
     kata: Kata;
+    kataStatus: string;
 
     constructor(private individualKataSrv: IndividualService, 
                 private testExecutorSrv: TestExecutorService, 
@@ -30,6 +31,7 @@ export class IndividualComponent implements OnInit {
 
     ngOnInit() {
         this.timeSpent = 0;
+        this.kataStatus = KataPlayerStatus.READING;
         this.showEditorPane = false;
         this.leftPaneWidth = 50;
         this.resizingModeEnabled = false;
