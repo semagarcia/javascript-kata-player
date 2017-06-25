@@ -28,7 +28,10 @@ import { RankingComponent } from './ranking/ranking.component';
 import { AboutComponent } from './about/about.component';
 
 // Dialogs, Pipes & Services
-import { CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, ShowErrorDialog } from './dialogs';
+import { 
+    CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, 
+    ShowErrorDialog, WaitingChallengeDialog
+} from './dialogs';
 import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
 import {
@@ -65,7 +68,8 @@ export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions
         ShowErrorDialog,
         LeaveChallengeComponent,
         RankingComponent,
-        AboutComponent
+        AboutComponent,
+        WaitingChallengeDialog
     ],
     imports: [
         BrowserModule,
@@ -103,7 +107,8 @@ export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions
         CreateChallengeDialog,
         OpenStreamingDialog,
         SelectTrainingPathDialog,
-        ShowErrorDialog
+        ShowErrorDialog,
+        WaitingChallengeDialog
     ],
     bootstrap: [AppComponent]
 })
