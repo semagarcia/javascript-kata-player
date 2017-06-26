@@ -6,6 +6,6 @@ import { MdDialogRef } from '@angular/material';
 })
 export class WaitingChallengeDialog {
 
-    constructor(private dialogRef: MdDialogRef<WaitingChallengeDialog>) {}
+    constructor(public dialogRef: MdDialogRef<WaitingChallengeDialog>) {}
 
 }
