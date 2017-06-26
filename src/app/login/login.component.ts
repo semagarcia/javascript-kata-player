@@ -74,11 +74,15 @@ export class LoginComponent implements OnInit {
     singUp() {
         this.dialog.open(UserDialogComponent, {
             data: {
-                chooseRole:false
+                chooseRole: false
             }
         }).afterClosed().subscribe((x) => {
             console.log('Cerrado', x);
         });
+    }
+
+    recoverPwd() {
+
     }
 
 }

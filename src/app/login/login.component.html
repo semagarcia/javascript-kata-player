@@ -23,48 +23,36 @@
     <br />
     <hr class="full-width" /><br />
     <md-grid-list cols="2" rowHeight="5:1">
-      <md-grid-tile [colspan]=1 [rowspan]=4 >
-          <a md-raised-button class="login-btn" [ngStyle]="{'margin-bottom': heightPer}" color="primary" (click)="singUp()">
+      <md-grid-tile [colspan]=1 [rowspan]=1>
+          <a md-raised-button class="login-btn" color="primary" (click)="singUp()">
             <i class="material-icons" aria-hidden="true">face</i> Sing up
           </a>
       </md-grid-tile>
-      <md-grid-tile [colspan]=1 [rowspan]=1 >
+      <md-grid-tile [colspan]=1 [rowspan]=1>
+         <a md-raised-button class="login-btn" color="primary" (click)="recoverPwd()">
+            <i class="fa fa-unlock-alt" aria-hidden="true"></i> Recovery pass
+        </a>
+      </md-grid-tile>
+      <md-grid-tile [colspan]=1 [rowspan]=1>
          <a md-raised-button class="login-btn" color="accent" href="/auth/github">
             <i class="fa fa-github fa-lg" aria-hidden="true"></i> Github login
         </a>
       </md-grid-tile>
-      <md-grid-tile [colspan]=1 [rowspan]=1 >
+      <md-grid-tile [colspan]=1 [rowspan]=1>
         <a md-raised-button class="login-btn" color="accent" href="/auth/twitter">
           <i class="fa fa-twitter fa-lg" aria-hidden="true"></i> Twitter login
         </a>
       </md-grid-tile>
-      <md-grid-tile [colspan]=1 [rowspan]=1 >
+      <md-grid-tile [colspan]=1 [rowspan]=1>
         <a md-raised-button class="login-btn" color="accent" href="/auth/facebook">
           <i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i> Facebook login
         </a>
       </md-grid-tile>
-      <md-grid-tile [colspan]=1 [rowspan]=1 >
+      <md-grid-tile [colspan]=1 [rowspan]=1>
         <a md-raised-button class="login-btn" color="accent" href="/auth/facebook">
           <i class="fa fa-google fa-lg" aria-hidden="true"></i> Google login
         </a>
       </md-grid-tile>
     </md-grid-list>
-    <!--<div class="flexibox-column">
-      <h3>Aqui va el boton para el login normal</h3>
-    </div>
-    <div class="flexibox-column">
-      <a md-raised-button color="accent" href="/auth/github">
-      <i class="fa fa-github fa-lg" aria-hidden="true"></i> Github login
-    </a><br />
-      <a md-raised-button color="accent" href="/auth/twitter">
-      <i class="fa fa-twitter fa-lg" aria-hidden="true"></i> Twitter login
-    </a><br />
-      <a md-raised-button color="accent" href="/auth/facebook">
-      <i class="fa fa-facebook-official fa-lg" aria-hidden="true"></i> Facebook login
-    </a><br />
-      <a md-raised-button color="accent" href="/auth/facebook">
-      <i class="fa fa-google fa-lg" aria-hidden="true"></i> Google login
-    </a><br />
-    </div>
-  </div>-->
+  </div>
 </div>
