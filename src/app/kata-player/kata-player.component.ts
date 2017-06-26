@@ -80,6 +80,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if(changes.status && changes.status.currentValue) {
+            // Status
             this.status = changes.status.currentValue;
             if(this.status === KataPlayerStatus.WAITING) {
                 console.log('> WAITING');
