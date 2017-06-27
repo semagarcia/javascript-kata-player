@@ -1,10 +1,16 @@
 <md-toolbar color="second">
+    <div class="flexibox-row">
+        <span [class.winner]="challengeProgress.playerA.state === 'WINNER'">
+            {{ challengeProgress.playerA.state }}
+        </span>
+    </div>
     <span class="spacer"></span>
 
     <md-icon>watch_later</md-icon>
     <kata-chronometer 
+        class="padding-left-6 padding-right-6"
         mode="SYNC" 
-        duration="5" 
+        duration="0" 
         direction="ASC" 
         [state]="challengeState"
         (chronometer)="chronoEvent($event)"
@@ -13,18 +19,11 @@
     <md-icon>cast_connected</md-icon>
 
     <span class="spacer"></span>
+    
+    <span [class.winner]="challengeProgress.playerB.state === 'WINNER'">
+        {{ challengeProgress.playerB.state }}
+    </span>
 </md-toolbar>
-
-<!--
-<div>
-    Tests: 
-    <i class="fa fa-thumbs-o-up" aria-hidden="true" style="color:green"></i> 0
-    <i class="fa fa-thumbs-o-down" aria-hidden="true" style="color:red"></i> 3
-    |
-    <i class="fa fa-thumbs-up" aria-hidden="true" style="color:green"></i> 0
-    <i class="fa fa-thumbs-down" aria-hidden="true" style="color:red"></i> 3
-</div>
--->
 
 <!-- style="height: calc(100% - (120px));" -->
 <div class="flexibox-row">
@@ -37,6 +36,9 @@
             <div class="flexibox-column" style="float: left; padding-left: 18px">
                 <div class="flex-grow-1">
                     <strong>Opponent:</strong> {{ currentChallenge?.usernamePlayerA || 'Waiting oponent...' }}
+                </div>
+                <div class="flex-grow-1">
+                    <strong>Implementation length:</strong> {{ codePlayerA?.length || 0 }}
                 </div>
                 <div class="flex-grow-1">
                     <strong>Number of tests:</strong> {{ challengeProgress.playerA?.tests || 0 }}
@@ -65,6 +67,9 @@
             <div class="flexibox-column" style="float: left; padding-left: 18px">
                 <div class="flex-grow-1">
                     <strong>Opponent:</strong> {{ currentChallenge?.usernamePlayerB || 'Waiting oponent...' }}
+                </div>
+                <div class="flex-grow-1">
+                    <strong>Implementation length:</strong> {{ codePlayerB?.length || 0 }}
                 </div>
                 <div class="flex-grow-1">
                     <strong>Number of tests:</strong> {{ challengeProgress.playerB.tests || 0 }}

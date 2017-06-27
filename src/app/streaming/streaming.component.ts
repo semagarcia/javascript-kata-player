@@ -22,8 +22,8 @@ export class StreamingComponent implements OnInit {
     currentChallenge: Challenge;
     challengeState: string;
     challengeProgress: {
-        playerA: { tests: number, passedTests: number },
-        playerB: { tests: number, passedTests: number }
+        playerA: { state: string, tests: number, passedTests: number },
+        playerB: { state: string, tests: number, passedTests: number }
     };
 
     constructor(private route: ActivatedRoute, 
@@ -48,10 +48,12 @@ export class StreamingComponent implements OnInit {
         // Structure to hold the results
         this.challengeProgress = {
             playerA: {
+                state: KataPlayerStatus.WAITING,
                 tests: 0,
                 passedTests: 0
             },
             playerB: {
+                state: KataPlayerStatus.WAITING,
                 tests: 0,
                 passedTests: 0
             }
@@ -89,20 +91,20 @@ export class StreamingComponent implements OnInit {
                     this.updatePlayerNames(data);
                 }
             } else if(data.event === 'startedChallenge') {
-                this.counterDownObs.subscribe((tick) => this.timeSpent++);
                 this.challengeState = KataPlayerStatus.PLAYING;
+                this.counterDownObs.subscribe((tick) => this.timeSpent++);
+                this.challengeProgress.playerA.state = KataPlayerStatus.PLAYING;
+                this.challengeProgress.playerB.state = KataPlayerStatus.PLAYING;
             } else if(data.event === 'challengeProgress') {
                 console.log('str: ', data);
                 if(data.playerId === this.currentChallenge.playerA) {
-                    this.challengeProgress.playerA = {
-                        tests: data.tests,
-                        passedTests: data.passedTests
-                    };
+                    this.challengeProgress.playerA.tests = data.tests;
+                    this.challengeProgress.playerA.passedTests = data.passedTests;
+                    this.challengeProgress.playerA.state = (data.status) ? KataPlayerStatus.WINNER : KataPlayerStatus.PLAYING;
                 } else if(data.playerId === this.currentChallenge.playerB) {
-                    this.challengeProgress.playerB = {
-                        tests: data.tests,
-                        passedTests: data.passedTests
-                    };
+                    this.challengeProgress.playerB.tests = data.tests;
+                    this.challengeProgress.playerB.passedTests = data.passedTests;
+                    this.challengeProgress.playerB.state = (data.status) ? KataPlayerStatus.WINNER : KataPlayerStatus.PLAYING;
                 }
             }
         });
