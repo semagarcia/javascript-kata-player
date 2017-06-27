@@ -12,8 +12,6 @@ import { MaterialModule } from './material/material.module';
 // Routes
 import { ROUTES } from './app.routes';
 
-import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
-
 // TODO: refactor to group them with spread operator
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -36,17 +34,17 @@ import {
 } from './dialogs';
 import { ShowErrorService } from './dialogs';
 import { TimeElapsedPipe } from './core';
-
 import {
-    AuthenticationService, AuthenticationGuard, ChallengeService, EventService, HttpService, IndividualService,
-    KataService, LoginService, SocketService, TestExecutorService, TrainingService, UserService, UsersService,
-    EmailService,ValidationMsgService
+    AuthenticationService, AuthenticationGuard, ChallengeService, EmailService, EventService, HttpService, IndividualService,
+    KataService, LoginService, NotificationService, SocketService, TestExecutorService, TrainingService, UserService, 
+    UsersService, ValidationMsgService
 } from './core';
 
 // 3rd party libraries
 //import { CodemirrorModule } from 'ng2-codemirror-typescript/Codemirror';  // from 'ng2-codemirror';
 import { CodemirrorModule } from 'ng2-codemirror';
 import { AgGridModule } from 'ag-grid-angular/main';
+import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
 import 'hammerjs';
 
 export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions, authSrv: AuthenticationService, router: Router) { 
@@ -91,6 +89,7 @@ export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions
         AuthenticationService,
         AuthenticationGuard,
         ChallengeService,
+        EmailService,
         EventService,
         HttpService,
         IndividualService,
@@ -101,13 +100,13 @@ export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions
         },
         KataService,
         LoginService,
+        NotificationService,
         ShowErrorService,
         SocketService,
         TestExecutorService,
         TrainingService,
         UserService,
         UsersService,
-        EmailService,
         ValidationMsgService
     ],
     entryComponents: [
