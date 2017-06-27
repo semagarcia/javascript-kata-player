@@ -7,7 +7,7 @@
     [outputs]="kata?.outputs"
     [code]="kata?.initialBodyFunction"
     [status]="kataStatus"
-    (success)="onSuccessKata()"
-    (fail)="onFailedKataAttemp()"
+    (success)="onSuccess()"
+    (kataCancelled)="onKataCancelled()"
     [next-button]="false">
 </kata-player>
