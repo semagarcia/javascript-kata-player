@@ -12,6 +12,9 @@ export const KataPlayerStatus = {
     // The challenge is happening!
     PLAYING: 'PLAYING',
 
+    // The player has won!
+    WINNER: 'WINNER',
+
     // The kata has been finished
     ENDED: 'ENDED'
 };
