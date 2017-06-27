@@ -40,8 +40,7 @@ export class KataPlayerComponent implements OnInit, OnChanges {
     @Input('next-button') nextButton: boolean;
 
     @Output() success = new EventEmitter();
-    @Output() fail = new EventEmitter();
-    @Output() next = new EventEmitter();
+    @Output() nextExercise = new EventEmitter();
     @Output() kataProgress = new EventEmitter();
     @Output() kataCancelled = new EventEmitter();
     @Output() codeUpdated = new EventEmitter();
@@ -67,7 +66,29 @@ export class KataPlayerComponent implements OnInit, OnChanges {
             tabSize: 2,
             theme: 'material'
         };
+    }
 
+    ngOnChanges(changes: SimpleChanges) {
+        if(changes.status && changes.status.currentValue) {
+            // Status
+            this.status = changes.status.currentValue;
+            if(this.status === KataPlayerStatus.WAITING) {
+                this.openWaitingOpponentDialog();
+            } else if(this.status === KataPlayerStatus.READING) {
+                if(this.waitingDialogRef)
+                    this.waitingDialogRef.close(false);
+                this.startChronometer();
+            } else if(this.status === KataPlayerStatus.WRITING) {
+                // WRITING status
+            }
+        }
+    }
+
+    /**
+     * Open the "waiting opponent" dialog. If the user close it manually (cancel the challenge), throws 
+     * a "kataCancelled" event to redirect to home view
+     */
+    openWaitingOpponentDialog() {
         setTimeout(() => {
             this.waitingDialogRef = this.dialog.open(WaitingChallengeDialog, { disableClose: true });
             this.waitingDialogRef.afterClosed().subscribe(
@@ -78,44 +99,46 @@ export class KataPlayerComponent implements OnInit, OnChanges {
         }, 0);
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if(changes.status && changes.status.currentValue) {
-            // Status
-            this.status = changes.status.currentValue;
-            if(this.status === KataPlayerStatus.WAITING) {
-                console.log('> WAITING');
-            } else if(this.status === KataPlayerStatus.READING) {
-                console.log('> READING');
-                if(this.waitingDialogRef)
-                    this.waitingDialogRef.close(false);
-                this.startChronometer();
-            } else if(this.status === KataPlayerStatus.WRITING) {
-                console.log('> WRITING');
-            }
-        }
-    }
-
+    /**
+     * Initialize the choronometer and starts it
+     */
     startChronometer() {
         this.counterDownObs = Observable.timer(0, 1000).subscribe((tick) => {
             this.timeSpent++;
         });
     }
 
-    startExercise() {
+    /**
+     * Shows the editor panel
+     */
+    onStartExercise() {
         this.status = KataPlayerStatus.WRITING;
     }
 
-    chronoEvent(evt: any) {
-        //console.log('event! ', evt);
+    /**
+     * Handles each tick of chronometer
+     * @param timeValue Number of seconds elapsed
+     */
+    onChronoEvent(timeValue: any) {
+        //console.log('event! ', timeValue);
     }
 
-    onEditorChange(evt: string) {
-        if(typeof(evt) === 'string') {
-            this.codeUpdated.emit(evt);
+    /**
+     * Handles each update on the body function
+     * @param functionImpl The current code implementation
+     */
+    onEditorChange(functionImpl: string) {
+        if(typeof(functionImpl) === 'string') {
+            this.codeUpdated.emit(functionImpl);
         }
     }
 
-    testKata() {
+    /**
+     * Method to test the kata. When the user clicks on test button, the name and the implementation 
+     * are sent to the server to be tested. The result received (test results and log) will be 
+     * printed on the unit test panels.
+     */
+    onTestKata() {
         this.attemps++;
         if(this.status === KataPlayerStatus.WRITING) {
             this.testExecutorSrv.checkExerciseCode(this.code, this.title).subscribe(
@@ -124,17 +147,21 @@ export class KataPlayerComponent implements OnInit, OnChanges {
                     this.numberOfTests = this.tests.output.length;
                     this.numberOfPassedTests = this.tests.output.filter((o: any) => { return o.result }).length;
                     if(this.tests.executionResult) {
-                        this.sendKataStats(true);
+                        this.sendKataStatistics(true);
                         this.success.emit(this.timeSpent);
                     } else {
-                        this.sendKataStats(false);
+                        this.sendKataStatistics(false);
                     }
                 }
             );
         }
     }
 
-    sendKataStats(result: boolean) {
+    /**
+     * Method to send the statistics to the server
+     * @param result The kata's implementation result
+     */
+    sendKataStatistics(result: boolean) {
         let stats = {
             kata: this.title,
             status: result,
@@ -144,37 +171,37 @@ export class KataPlayerComponent implements OnInit, OnChanges {
             passedTests: this.numberOfPassedTests
         };
 
+        // Throw up the stats
         this.kataProgress.emit(stats);
+
+        // Send the stats to the server
         this.kataSrv.sendKataStats(stats);
     }
 
+    /**
+     * Method to toggle (open or close) the unit test results; if currentStatus is opened, the animation will
+     * close the panel, and viceversa
+     * @param currentStatus The current status of the unit test panel
+     */
     openOrCloseTestCase(currentStatus: string) {
-        if(currentStatus === 'opened') {
-            return 'closed';
-        } else {
-            return 'opened';
-        }
+        return (currentStatus === 'opened') ? 'closed' : 'opened' ;
     }
 
-    endKata() {
+    /**
+     * When the user wants to cancel the kata and exits from individual mode
+     */
+    onEndKata() {
         //this.dialog.open(LeaveChallengeComponent);
-        this.fail.emit();
+        //this.fail.emit();
+        this.kataCancelled.emit();
     }
 
-    nextExercise() {
-        this.next.emit();
-    }
-
-    mousedown(e: any) {
-
-    }
-
-    mousemove(e: any) {
-
-    }
-
-    mouseup(e: any) {
-
+    /**
+     * When the kata-player is used inside of a training-path and the "next" button appears, this event
+     * handler captures the click action and throw an event
+     */
+    onNextExercise() {
+        this.nextExercise.emit();
     }
 
 }

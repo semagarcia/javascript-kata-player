@@ -5,23 +5,23 @@
         duration="0" 
         direction="ASC" 
         [state]="status"
-        (chronometer)="chronoEvent($event)">
+        (chronometer)="onChronoEvent($event)">
     </kata-chronometer>
 
     <span class="spacer"></span>
 
     <span mdTooltip="Test kata!" mdTooltipPosition="above">
-        <button md-mini-fab (click)="testKata()"><md-icon>play_arrow</md-icon></button>
+        <button md-mini-fab (click)="onTestKata()"><md-icon>play_arrow</md-icon></button>
     </span>
     
     <span style="margin-left:6px"></span>
     
     <span mdTooltip="Finish!" mdTooltipPosition="above">
-        <button md-mini-fab (click)="endKata()"><md-icon>stop</md-icon></button>
+        <button md-mini-fab (click)="onEndKata()"><md-icon>stop</md-icon></button>
     </span>
     
     <span style="margin-left:6px"></span>
-    <button md-mini-fab *ngIf="nextButton" (click)="nextExercise()"><md-icon>arrow_forward</md-icon></button>
+    <button md-mini-fab *ngIf="nextButton" (click)="onNextExercise()"><md-icon>arrow_forward</md-icon></button>
 </md-toolbar>
 
 <div class="main-container" style="height: calc(100% - (110px));">
@@ -55,7 +55,7 @@
                 </div>
             </md-card-content>
             <md-card-actions>
-                <a md-button (click)="startExercise()"><md-icon>play_arrow</md-icon> Start exercise!</a>
+                <a md-button (click)="onStartExercise()"><md-icon>play_arrow</md-icon> Start exercise!</a>
             </md-card-actions>
         </md-card>
     </div>
@@ -93,7 +93,6 @@
 
     <!-- Separator -->
     <div id="playerSeparator" [style.left.%]="leftPaneWidth" style="position:absolute; width:4px; z-index:-99;
-                background: #1d1d1d; top:128px; bottom:0; margin-left:-2px; height:calc(100% - 110px)"
-        (mousedown)="mousedown($event)" (mousemove)="mousemove($event)" (mouseup)="mouseup($event)">
+                background: #1d1d1d; top:128px; bottom:0; margin-left:-2px; height:calc(100% - 110px)">
     </div>
 </div>
