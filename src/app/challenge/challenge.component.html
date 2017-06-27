@@ -7,10 +7,9 @@
     [outputs]="kata?.outputs"
     [code]="kata?.initialBodyFunction"
     [status]="kataPlayerStatus"
-    (success)="onSuccessKata()"
-    (fail)="onFailedKataAttemp()"
     [next-button]="false"
+    (success)="onSuccessKata()"
     (codeUpdated)="onChange($event)"
-    (kataCancelled)="onKataCancelled($event)"
-    (kataProgress)="onKataProgress($event)">
+    (kataProgress)="onKataProgress($event)"
+    (kataCancelled)="onKataCancelled($event)">
 </kata-player>

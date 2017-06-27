@@ -5,7 +5,10 @@ import { Observable, Subject }  from 'rxjs';
 import { MdDialog } from '@angular/material';
 
 import { LeaveChallengeComponent } from './../dialogs/leave-challenge/leave-challenge.component';
-import { Challenge, ChallengeService, Kata, KataPlayerStatus, KataService, SocketService, TimeElapsedPipe, UserService } from './../core';
+import { 
+    Challenge, ChallengeService, Kata, KataPlayerStatus, KataService, NotificationService,
+    SocketService, TimeElapsedPipe, UserService 
+} from './../core';
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/throttleTime';
@@ -30,11 +33,12 @@ export class ChallengeComponent implements OnInit {
     kataPlayerStatus: string;
     codeChanged: Subject<string> = new Subject<string>();
 
-    constructor(private httpSrv: Http, 
+    constructor(private challengeSrv: ChallengeService, 
+                private httpSrv: Http, 
+                private kataSrv: KataService,
+                private notificationSrv: NotificationService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private challengeSrv: ChallengeService, 
-                private kataSrv: KataService,
                 private socketSrv: SocketService, 
                 private userSrv: UserService,
                 public dialog: MdDialog) {}
@@ -90,12 +94,10 @@ export class ChallengeComponent implements OnInit {
                             } else {
                                 console.log('Error joining');
                             }   
-                        },
-                        (b) => { console.log('BBBB: ', b); },
-                        () => { console.log('CCCC: '); }
+                        }
                     );
 
-                    //
+                    // Editor implementation code subscription
                     this.codeChanged
                         .debounceTime(750)      // wait X ms after the last event
                         .distinctUntilChanged()  // only emit if value is different from previous value
@@ -113,12 +115,11 @@ export class ChallengeComponent implements OnInit {
         });
     }
 
-    testKata() {
-
-    }
-
+    /**
+     * Method to process the websocket message received
+     * @param wsMessage WebSocket message
+     */
     processMessageReceived(wsMessage) {
-        console.log('data: ', wsMessage);
         if(wsMessage && wsMessage.event === 'playerReady') {
             this.kataPlayerStatus = KataPlayerStatus.WAITING;
         } else if(wsMessage && wsMessage.event === 'startedChallenge' && wsMessage.status === 'READY') {
@@ -128,31 +129,47 @@ export class ChallengeComponent implements OnInit {
         }
     }
 
+    /**
+     * Method to open a popup dialog to ask if the user is sure to abandone the challenge
+     */
     stop() {
         this.dialog.open(LeaveChallengeComponent);
     }
 
+    /**
+     * When the user passes the challenge, show a notification
+     */
+    onSuccessKata() {
+        this.notificationSrv.sendNotification(
+            'Kata Challenge!', 
+            `Congrats! You have passed the challenge for "${this.kata.name}" kata!`);
+    }
+
+    /**
+     * 
+     * @param codeUpdated 
+     */
     onChange(codeUpdated) {
         this.codeChanged.next(codeUpdated);
     }
 
+    /**
+     * 
+     * @param progressStats 
+     */
     onKataProgress(progressStats) {
         progressStats.event = 'challengeProgress';
         progressStats.challengeId = this.challengeId;
         this.socketSrv.sendMessage('challenge', progressStats);
     }
 
+    /**
+     * 
+     * @param evt 
+     */
     onKataCancelled(evt) {
         // TODO: Notify backend
         this.router.navigateByUrl('/home');
-    }
-
-    onSuccessKata() {
-
-    }
-
-    onFailedKataAttemp() {
-        
     }
 
 }
