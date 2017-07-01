@@ -65,20 +65,16 @@ export class LoginComponent implements OnInit {
                 else
                     this.loginError = 'Error: login error';
             },
-            (err) => {
-                this.loginError = 'Login error: invalid credentials';
-            }
+            (err) => this.loginError = 'Login error: invalid credentials'
         );
     }
 
-    singUp() {
+    signUp() {
         this.dialog.open(UserDialogComponent, {
             data: {
                 chooseRole: false
             }
-        }).afterClosed().subscribe((x) => {
-            console.log('Cerrado', x);
-        });
+        }).afterClosed().subscribe((x) => {});
     }
 
     recoverPwd() {

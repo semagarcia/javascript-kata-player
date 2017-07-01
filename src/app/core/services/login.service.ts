@@ -17,8 +17,7 @@ export class LoginService {
           event: eventSelected
         })
           .map((res: Response) => {
-            let loggedUser = res.json().user;
-            console.log(loggedUser);
+            let loggedUser = res.json();
             this.userSrv.setUserContext(loggedUser);
             this.authSrv.setJwtToken(loggedUser.token);
             return loggedUser;
