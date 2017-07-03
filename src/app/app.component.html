@@ -4,13 +4,13 @@
     </a>
     <span style="margin-left:12px">{{ title }}</span>
     <md-menu #appMenu="mdMenu">
-        <button md-menu-item (click)="logout()">
-            <md-icon>fingerprint</md-icon>
-            <span>Logout</span>
-        </button>
         <button md-menu-item (click)="goHome()">
             <md-icon>home</md-icon>
             <span>Home</span>
+        </button>
+        <button md-menu-item *ngIf="userRole === 'ADMIN'" (click)="openAdmin()">
+            <md-icon>settings</md-icon>
+            <span>Administration</span>
         </button>
         <button md-menu-item (click)="openCurrentChallenges()">
             <md-icon>list</md-icon>
@@ -24,13 +24,13 @@
             <md-icon>assessment</md-icon>
             <span>Ranking</span>
         </button>
-        <button md-menu-item (click)="openSettings()">
-            <md-icon>settings</md-icon>
-            <span>Settings</span>
-        </button>
         <button md-menu-item (click)="openAbout()">
             <md-icon>info</md-icon>
-            <span>About kata-player...</span>
+            <span>About kata-player</span>
+        </button>
+        <button md-menu-item (click)="logout()">
+            <md-icon>fingerprint</md-icon>
+            <span>Logout</span>
         </button>
     </md-menu>
 

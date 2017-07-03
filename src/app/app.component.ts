@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
-import { LoginService } from './core';
+import { LoginService, User, UserService } from './core';
 import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.component';
 
 @Component({
@@ -13,12 +13,18 @@ import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.com
 export class AppComponent implements OnInit {
     title = 'Sema Kata Player!';
     isLoginPage = false;
+    userRole: string;
 
     constructor(private router: Router, 
                 private dialog: MdDialog, 
-                private loginSrv: LoginService) {}
+                private loginSrv: LoginService,
+                public userSrv: UserService) {}
 
     ngOnInit() {
+        this.userSrv.getUserContext()
+            .then((user: User) => {console.log('User: ', user); this.userRole = user.role})
+            .catch(() => {});
+
         this.router.events
             .filter(event => event instanceof NavigationEnd)
             .subscribe(
@@ -37,6 +43,10 @@ export class AppComponent implements OnInit {
         this.router.navigate(['/home']);
     }
 
+    openAdmin() {
+        this.router.navigate(['/administration']);
+    }
+
     openCurrentChallenges() {
         this.router.navigate(['/challenge-list']);
     }
@@ -52,10 +62,6 @@ export class AppComponent implements OnInit {
 
     openRanking() {
         this.router.navigate(['/ranking']);
-    }
-
-    openSettings() {
-        this.router.navigate(['/settings']);
     }
 
     openAbout() {
