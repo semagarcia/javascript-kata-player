@@ -10,6 +10,12 @@ export class LoginService {
 
     constructor(private httpSrv: Http, private authSrv: AuthenticationService, private userSrv: UserService) { }
 
+    /**
+     * Performs login action, sending the user/pass and, as optional, the event in which is participating
+     * @param username login username
+     * @param password login password
+     * @param eventSelected (optional) event associated
+     */
     login(username: string, password: string, eventSelected: string): Observable<any> {
         return this.httpSrv.post('/api/login', {
           user: username,
@@ -25,6 +31,9 @@ export class LoginService {
           .catch((err: Response) => err.json().error);
     }
 
+    /**
+     * Logout; destroy the server session and removes the JWT token
+     */
     logout(): Observable<any> {
         return this.httpSrv.delete('/api/login')
           .map((res: Response) => {
