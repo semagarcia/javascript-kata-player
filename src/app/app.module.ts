@@ -6,8 +6,9 @@ import { HttpModule, Http, RequestOptions, XHRBackend } from '@angular/http';
 import { RouterModule, Router } from '@angular/router';
 
 // Modules
-import { SettingsModule } from './settings';
+import { CoreModule } from './core/core.module';
 import { MaterialModule } from './material/material.module';
+import { SettingsModule } from './settings/settings.module';
 
 // Routes
 import { ROUTES } from './app.routes';
@@ -28,86 +29,59 @@ import { RankingComponent } from './ranking/ranking.component';
 import { AboutComponent } from './about/about.component';
 
 // Dialogs, Pipes & Services
-import { 
-    CreateChallengeDialog, OpenStreamingDialog, SelectTrainingPathDialog, 
-    ShowErrorDialog, WaitingChallengeDialog
-} from './dialogs';
+import { AuthenticationService, HttpService } from './core';
 import { ShowErrorService } from './dialogs';
-import { TimeElapsedPipe } from './core';
-import {
-    AuthenticationService, AuthenticationGuard, ChallengeService, EmailService, EventService, HttpService, IndividualService,
-    KataService, LoginService, NotificationService, SocketService, TestExecutorService, TrainingService, UserService, 
-    UsersService, ValidationMsgService
-} from './core';
+import { 
+    CreateChallengeDialog, 
+    OpenStreamingDialog, 
+    SelectTrainingPathDialog, 
+    ShowErrorDialog, 
+    WaitingChallengeDialog
+} from './dialogs';
 
 // 3rd party libraries
-//import { CodemirrorModule } from 'ng2-codemirror-typescript/Codemirror';  // from 'ng2-codemirror';
 import { CodemirrorModule } from 'ng2-codemirror';
 import { AgGridModule } from 'ag-grid-angular/main';
 import { Ng2DeviceDetectorModule } from 'ng2-device-detector';
 import 'hammerjs';
 
-export function httpRequestInterceptor(backend: XHRBackend, opts: RequestOptions, authSrv: AuthenticationService, router: Router) { 
-    return new HttpService(backend, opts, authSrv, router); 
-}
-
 @NgModule({
     declarations: [
         AppComponent,
+        AboutComponent,
+        ChallengeComponent,
+        ChronometerComponent,
+        CreateChallengeDialog,
+        CurrentChallengeListComponent,
         HomeComponent,
         IndividualComponent,
         KataPlayerComponent,
-        ChronometerComponent,
-        TrainingComponent,
-        ChallengeComponent,
         LoginComponent,
-        CurrentChallengeListComponent,
-        StreamingComponent,
-        TimeElapsedPipe,
-        CreateChallengeDialog,
+        LeaveChallengeComponent,
         OpenStreamingDialog,
+        RankingComponent,
         SelectTrainingPathDialog,
         ShowErrorDialog,
-        LeaveChallengeComponent,
-        RankingComponent,
-        AboutComponent,
+        StreamingComponent,
+        TrainingComponent,
         WaitingChallengeDialog
     ],
     imports: [
+        AgGridModule.withComponents([]),
         BrowserModule,
         BrowserAnimationsModule,
+        CodemirrorModule,
+        CoreModule,
         FormsModule,
         HttpModule,
-        SettingsModule,
-        CodemirrorModule,
         MaterialModule,
-        AgGridModule.withComponents([]),
+        Ng2DeviceDetectorModule.forRoot(),
         RouterModule.forRoot(ROUTES),
-        Ng2DeviceDetectorModule.forRoot()
+        SettingsModule
     ],
     providers: [
         AuthenticationService,
-        AuthenticationGuard,
-        ChallengeService,
-        EmailService,
-        EventService,
-        HttpService,
-        IndividualService,
-        {
-            provide: Http,
-            useFactory: httpRequestInterceptor,
-            deps: [XHRBackend, RequestOptions, AuthenticationService, Router]    
-        },
-        KataService,
-        LoginService,
-        NotificationService,
         ShowErrorService,
-        SocketService,
-        TestExecutorService,
-        TrainingService,
-        UserService,
-        UsersService,
-        ValidationMsgService
     ],
     entryComponents: [
         CreateChallengeDialog,
