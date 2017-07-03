@@ -5,7 +5,7 @@ import { MdDialog } from '@angular/material';
 import { Ng2DeviceService } from 'ng2-device-detector';
 
 import { EventService, LoginService } from './../core';
-import { UserDialogComponent } from '../settings/users/user-dialog/user-dialog.component';
+import { UserDialogComponent } from '../administration/users/user-dialog/user-dialog.component';
 
 @Component({
     selector: 'app-login',
