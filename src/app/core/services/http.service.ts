@@ -41,7 +41,7 @@ export class HttpService extends Http {
     }
 
     private setHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
-        objectToSetHeadersTo.headers.set('Authorization', `Bearer ${this.authSrv.getJwtToken()}`);
+        objectToSetHeadersTo.headers.set('Authorization', `JWT ${this.authSrv.getJwtToken()}`);
     }
 
 
