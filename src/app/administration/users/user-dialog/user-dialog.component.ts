@@ -50,7 +50,7 @@ export class UserDialogComponent implements OnInit {
         this.showError = false;
         this.errorMessage = '';
         this.validateMsg = '';
-        this.chooseRole = this.data.chooseRole;
+        this.chooseRole = (this.data) ? this.data.chooseRole : false;
     }
 
     checkErrorsValidators(field: string) {

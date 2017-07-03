@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import { Event, EventService } from './../../core';
-import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
+import { AdminAgGridMaterialCheckbox } from './../admin-ag-grid-checkbox';
 
 import { MdDialog, MdSnackBar, MdSnackBarRef, MdSnackBarConfig, SimpleSnackBar } from '@angular/material';
 import { GridOptions } from 'ag-grid/main';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'app-events',
+    selector: 'admin-events',
     templateUrl: './events.component.html',
     styleUrls: ['./events.component.scss']
 })
@@ -38,7 +38,7 @@ export class EventsComponent implements OnInit {
         this.gridOptions.sortingOrder = ['desc', 'asc', null];
         this.gridOptions.rowSelection = 'multiple';
         this.gridOptions.icons = {
-            checkboxChecked: SettingsAgGridMaterialCheckbox.CB_ICON
+            checkboxChecked: AdminAgGridMaterialCheckbox.CB_ICON
         };
 
         this.gridOptions.onRowEditingStarted = (event) => {

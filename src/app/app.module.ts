@@ -6,9 +6,9 @@ import { HttpModule, Http, RequestOptions, XHRBackend } from '@angular/http';
 import { RouterModule, Router } from '@angular/router';
 
 // Modules
+import { AdministrationModule } from './administration/admin.module';
 import { CoreModule } from './core/core.module';
 import { MaterialModule } from './material/material.module';
-import { SettingsModule } from './settings/settings.module';
 
 // Routes
 import { ROUTES } from './app.routes';
@@ -67,6 +67,7 @@ import 'hammerjs';
         WaitingChallengeDialog
     ],
     imports: [
+        AdministrationModule,
         AgGridModule.withComponents([]),
         BrowserModule,
         BrowserAnimationsModule,
@@ -76,8 +77,7 @@ import 'hammerjs';
         HttpModule,
         MaterialModule,
         Ng2DeviceDetectorModule.forRoot(),
-        RouterModule.forRoot(ROUTES),
-        SettingsModule
+        RouterModule.forRoot(ROUTES)
     ],
     providers: [
         AuthenticationService,

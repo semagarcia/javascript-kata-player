@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
-import { KataDialogComponent } from './kata-dialog/kata-dialog.component';
-import { KataService } from './../../core';
+import { LpDialogComponent } from './lp-dialog/lp-dialog.component';
+import { TrainingService } from './../../core';
 import { ShowErrorService, DIALOG_ACTIONS } from './../../dialogs';
-import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
+import { AdminAgGridMaterialCheckbox } from './../admin-ag-grid-checkbox';
 
-import { MdDialog } from '@angular/material';
 import { GridOptions } from 'ag-grid/main';
 
 @Component({
-    selector: 'settings-kata',
-    templateUrl: './kata.component.html',
-    styleUrls: ['./kata.component.scss']
+  selector: 'admin-learning-path',
+  templateUrl: './learning-path.component.html',
+  styleUrls: ['./learning-path.component.scss']
 })
-export class KataComponent implements OnInit {
+export class LearningPathComponent implements OnInit {
 
     gridOptions: GridOptions = {};
 
-    constructor(private dialog: MdDialog, private kataSrv: KataService, private showErrorSrv: ShowErrorService) { 
+    constructor(private dialog: MdDialog/*, private dialogRef: MdDialogRef<LpDialogComponent>*/,
+                private trainingSrv: TrainingService, private showErrorSrv: ShowErrorService) {
         // Default options
         this.gridOptions.defaultColDef = { 
             width: 50,
@@ -37,7 +38,7 @@ export class KataComponent implements OnInit {
         this.gridOptions.sortingOrder = ['desc', 'asc', null];
         this.gridOptions.rowSelection = 'multiple';
         this.gridOptions.icons = {
-            checkboxChecked: SettingsAgGridMaterialCheckbox.CB_ICON
+            checkboxChecked: AdminAgGridMaterialCheckbox.CB_ICON
         };
 
         //
@@ -59,6 +60,12 @@ export class KataComponent implements OnInit {
                 width: 25
             },
             {
+                headerName: 'Topic',
+                field: 'topic',
+                width: 80,
+                filter: 'text'
+            },
+            {
                 headerName: 'Name',
                 field: 'name',
                 width: 100,
@@ -67,19 +74,26 @@ export class KataComponent implements OnInit {
             {
                 headerName: 'Description',
                 field: 'description',
-                width: 250,
+                width: 200,
                 filter: 'text'
             },
             {
                 headerName: 'Enabled?',
                 field: 'enabled',
-                width: 40,
+                width: 65,
                 cellRenderer: (params) => { return (params.value) ? 'Yes' : 'No' },
                 cellEditor: 'select',
                 cellEditorParams: {
                     values: ['Yes', 'No']
                 },
                 cellClass: 'center-column-content'
+            },
+            {
+                headerName: '# Katas',
+                field: 'katas',
+                width: 60,
+                filter: 'number',
+                editable: false
             },
             {
                 headerName: 'Updated',
@@ -92,9 +106,13 @@ export class KataComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.kataSrv.getAllKatas().subscribe(
-            (katas) => { 
-                this.gridOptions.api.addItems(katas);
+        this.loadTrainingPaths();
+    }
+
+    loadTrainingPaths() {
+        this.trainingSrv.getTrainingPathsForGrid().subscribe(
+            (trainingPaths) => { 
+                this.gridOptions.api.addItems(trainingPaths);
                 this.gridOptions.api.sizeColumnsToFit();
             },
             (err) => { 
@@ -107,18 +125,34 @@ export class KataComponent implements OnInit {
         );
     }
 
-    createNewKata() {
-        this.dialog.open(KataDialogComponent).afterClosed().subscribe((x) => {
-            //console.log('Cerrado', x);
+    addNewTrainingPath() {
+        /*this.dialogRef.afterClosed().subscribe((x) => {
+            console.log('Cerrado');
+        });*/
+        this.dialog.open(LpDialogComponent).afterClosed().subscribe((x) => {
+            console.log('Cerrado', x);
         });
     }
 
-    editKata() {
-
+    startRowEditing() {
+        
     }
 
-    deleteKatas() {
-        //console.log(this.gridOptions.api.getSelectedRows());
+    deleteTrainingPath() {
+        let selectedRows = this.gridOptions.api.getSelectedRows();
+        if(selectedRows.length === 0) {
+            this.showErrorSrv.showErrorInDialog(
+            'No rows selected',
+            'Sorry, to delete a training path, you should select a row before...', 
+            DIALOG_ACTIONS.NOP,
+            'I got it!');
+        } else {
+            // Delete training paths
+        }
+    }
+
+    openKatasOfTrainingPath() {
+        
     }
 
 }

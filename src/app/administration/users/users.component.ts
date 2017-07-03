@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { User, UsersService } from './../../core';
-import { SettingsAgGridMaterialCheckbox } from './../settings-ag-grid-checkbox';
+import { AdminAgGridMaterialCheckbox } from './../admin-ag-grid-checkbox';
 
 import { MdDialog } from '@angular/material';
 import { GridOptions } from "ag-grid/main";
 
 @Component({
-    selector: 'app-users',
+    selector: 'admin-users',
     templateUrl: './users.component.html',
     styleUrls: ['./users.component.scss']
 })
@@ -36,7 +36,7 @@ export class UsersComponent implements OnInit {
         this.gridOptions.sortingOrder = ['desc', 'asc', null];
         this.gridOptions.rowSelection = 'multiple';
         this.gridOptions.icons = {
-            checkboxChecked: SettingsAgGridMaterialCheckbox.CB_ICON
+            checkboxChecked: AdminAgGridMaterialCheckbox.CB_ICON
         };
 
         this.gridOptions.onRowEditingStarted = (event) => {
@@ -101,9 +101,11 @@ export class UsersComponent implements OnInit {
     }
 
     createNewUser() {
-        this.dialog.open(UserDialogComponent).afterClosed().subscribe((x) => {
-            //console.log('Cerrado', x);
-        });
+        this.dialog.open(UserDialogComponent, {
+            data: {
+                chooseRole: true
+            }
+        }).afterClosed().subscribe((x) => {});
     }
 
     editUser() {

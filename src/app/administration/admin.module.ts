@@ -5,10 +5,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import { SettingsRoutes } from './settings.routes';
+import { AdminRoutes } from './admin.routes';
 import { MaterialModule } from './../material/material.module';
 
-import { SettingsComponent } from './settings.component';
+import { AdminComponent } from './admin.component';
 import { LearningPathComponent } from './learning-path/learning-path.component';
 import { LpDialogComponent } from './learning-path/lp-dialog/lp-dialog.component';
 import { KataComponent } from './kata/kata.component';
@@ -25,39 +25,39 @@ import { AgGridModule } from 'ag-grid-angular/main';
 
 @NgModule({
     imports: [
+        AgGridModule.withComponents([]),
         CommonModule,
         FormsModule,
-        ReactiveFormsModule,
         HttpModule,
         MaterialModule,
-        AgGridModule.withComponents([]),
-        RouterModule.forChild(SettingsRoutes)
+        ReactiveFormsModule,
+        RouterModule.forChild(AdminRoutes)
     ],
     declarations: [
-        SettingsComponent,
-        LearningPathComponent,
-        LpDialogComponent,
-        KataComponent,
-        KataDialogComponent,
-        NumberOfKatasPipe,
-        UsersComponent,
-        UserDialogComponent,
+        AdminComponent,
         EventsComponent,
         EventDialogComponent,
-        LanguagesComponent
+        KataComponent,
+        KataDialogComponent,
+        LanguagesComponent,
+        LearningPathComponent,
+        LpDialogComponent,
+        NumberOfKatasPipe,
+        UsersComponent,
+        UserDialogComponent
     ],
     exports: [ 
-        RouterModule,
-        UserDialogComponent
+        UserDialogComponent,
+        RouterModule
     ],
     providers: [
         CustomValidators
     ],
     entryComponents: [
-        LpDialogComponent,
-        KataDialogComponent,
         EventDialogComponent,
+        KataDialogComponent,
+        LpDialogComponent,
         UserDialogComponent
     ]
 })
-export class SettingsModule { }
+export class AdministrationModule { }
