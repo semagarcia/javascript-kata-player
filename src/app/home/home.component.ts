@@ -8,7 +8,8 @@ import { CreateChallengeDialog, SelectTrainingPathDialog } from './../dialogs';
     templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-    
+    event: string;
+
     constructor(private router: Router, public dialog: MdDialog) { }
 
     ngOnInit() {
