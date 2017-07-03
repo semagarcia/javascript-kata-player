@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormControl, ValidationErrors, AsyncValidatorFn, ValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 import { UsersService } from '../../../core/services/users.service';
-
-import { Observable } from 'rxjs/Observable';
 
 function validateUserName(users: UsersService): AsyncValidatorFn {
 

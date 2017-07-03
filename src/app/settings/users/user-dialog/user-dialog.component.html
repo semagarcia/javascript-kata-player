@@ -5,34 +5,52 @@
     <form [formGroup]="createUserForm" (ngSubmit)="onSubmittedForm()" class="flexibox-column" novalidate>
         <!-- Firstname and surname -->
         <md-input-container class="flex-grow-1">
-            <input mdInput formControlName="name" placeholder="Write firstname &amp; surname" (blur)="checkErrorsValidators('name')">
+            <input mdInput 
+                formControlName="name" 
+                placeholder="Write firstname &amp; surname" 
+                (blur)="checkErrorsValidators('name')">
         </md-input-container>
         <!--<p *ngIf="createUserForm.controls.name.errors">This field is required!</p>-->
 
         <!-- Username -->
         <md-input-container class="flex-grow-1">
-            <input mdInput formControlName="username" placeholder="Write username" (blur)="checkErrorsValidators('username')">
+            <input mdInput 
+                formControlName="username" 
+                placeholder="Write username" 
+                (blur)="checkErrorsValidators('username')">
         </md-input-container>
 
         <!-- Password and confirmation -->
         <md-input-container class="flex-grow-1">
             <input mdInput type="password" 
-                #pwd maxlength="12" formControlName="password" placeholder="Write your password" (blur)="checkErrorsValidators('password')"/>
+                #pwd maxlength="12" 
+                formControlName="password" 
+                placeholder="Write your password" 
+                (blur)="checkErrorsValidators('password')"/>
             <md-hint align="end">{{ pwd.value.length }} / 12</md-hint>
         </md-input-container>
         <md-input-container class="flex-grow-1">
             <input mdInput type="password" 
-                #pwd2 maxlength="12" formControlName="confirmPassword" placeholder="Confirm your password" (blur)="checkErrorsValidators('confirmPassword')"/>
+                #pwd2 maxlength="12" 
+                formControlName="confirmPassword" 
+                placeholder="Confirm your password" 
+                (blur)="checkErrorsValidators('confirmPassword')"/>
             <md-hint align="end">{{ pwd2.value.length }} / 12</md-hint>
         </md-input-container>
 
         <!-- Email -->
         <md-input-container class="flex-grow-1">
-            <input mdInput type="email" formControlName="email" placeholder="Write user's email" (blur)="checkErrorsValidators('email')">
+            <input mdInput type="email" 
+                formControlName="email" 
+                placeholder="Write user's email" 
+                (blur)="checkErrorsValidators('email')">
         </md-input-container>
 
         <!-- Rol -->
-        <md-select *ngIf="chooseRole"  class="flex-grow-1" placeholder="Write user's rol" formControlName="rol" name="rol" required (blur)="checkErrorsValidators('rol')">
+        <md-select *ngIf="chooseRole" class="flex-grow-1" name="rol" required 
+                placeholder="Write user's rol" 
+                formControlName="rol" 
+                (blur)="checkErrorsValidators('rol')">
             <md-option value="ADMIN">ADMIN</md-option>
             <md-option value="USER">USER</md-option>
         </md-select>
@@ -49,7 +67,8 @@
             </button>
             <div style="padding:0 3px;"></div> 
             <button type="submit" md-raised-button color="primary" class="flex-grow-1"
-                [disabled]="createUserForm.invalid || createUserForm.get('confirmPassword').touched && (pwd.value !== pwd2.value)">
+                [disabled]="createUserForm.invalid || 
+                    createUserForm.get('confirmPassword').touched && (pwd.value !== pwd2.value)">
                 Create!
             </button>
         </div>
