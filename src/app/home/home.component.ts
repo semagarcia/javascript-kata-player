@@ -3,20 +3,18 @@ import { Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
 import { CreateChallengeDialog, SelectTrainingPathDialog } from './../dialogs';
-import { UserService } from './../core/services/user.service';
 
 @Component({
     templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
-    event: string;
-
-    constructor(private router: Router, public dialog: MdDialog, public userSrv: UserService) { }
+    
+    constructor(private router: Router, public dialog: MdDialog) { }
 
     ngOnInit() {
-        this.userSrv.getUserContext()
+        /*this.userSrv.getUserContext()
             .then((user: {event: string}) => this.event = (user.event) ? user.event : '')
-            .catch(() => this.event = '');
+            .catch(() => this.event = '');*/
     }
 
     startIndividual() {
