@@ -8,16 +8,15 @@ const STORAGE_KEY = 'kataPlayerJwtToken';
 @Injectable()
 export class AuthenticationService {
 
-    constructor() { }
+    private jwtToken$: Subject<string>;
 
-    setJwtToken(token: string, expirationTime: number = 0) {
+    constructor() { 
+        this.jwtToken$ = new Subject();
+    }
+
+    setJwtToken(token: string) {
         sessionStorage.setItem(STORAGE_KEY, token);
-        //this.obsJwtToken$.next(token);
-        if(expirationTime > 0) {
-            setTimeout(() => {
-                this.removeJwtToken();
-            }, expirationTime);
-        }
+        this.jwtToken$.next(token);
     }
 
     getJwtToken() {
@@ -28,11 +27,12 @@ export class AuthenticationService {
         return !!this.getJwtToken();
     }
 
-    /*jwtTokenSubscription() {
-        return this.obsJwtToken$.asObservable();
-    }*/
+    jwtTokenSubscription() {
+        return this.jwtToken$;
+    }
 
     removeJwtToken() {
+        console.log('Removing token...');
         sessionStorage.removeItem(STORAGE_KEY);
     }
 

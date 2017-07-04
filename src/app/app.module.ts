@@ -77,7 +77,7 @@ import 'hammerjs';
         HttpModule,
         MaterialModule,
         Ng2DeviceDetectorModule.forRoot(),
-        RouterModule.forRoot(ROUTES)
+        RouterModule.forRoot(ROUTES, { useHash: true })
     ],
     providers: [
         AuthenticationService,

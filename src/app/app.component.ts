@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
-import { LoginService, User, UserService } from './core';
+import { AuthenticationService, LoginService, User, UserService } from './core';
 import { OpenStreamingDialog } from './dialogs/open-streaming/open-streaming.component';
 
 @Component({
@@ -17,26 +17,26 @@ export class AppComponent implements OnInit {
 
     constructor(private router: Router, 
                 private dialog: MdDialog, 
+                private authSrv: AuthenticationService,
                 private loginSrv: LoginService,
                 public userSrv: UserService) {}
 
     ngOnInit() {
-        this.userSrv.getUserContext()
-            .then((user: User) => {console.log('User: ', user); this.userRole = user.role})
-            .catch(() => {});
+        this.authSrv.jwtTokenSubscription().subscribe(
+            (newToken) => {
+                this.userSrv.getUserContext()
+                    .then((user: User) => {
+                        this.userRole = user.role;
+                    })
+                    .catch((err) => {});
+            }
+        );
 
         this.router.events
             .filter(event => event instanceof NavigationEnd)
             .subscribe(
                 (navigationEnd) => this.isLoginPage = !(this.router.url === '/' || this.router.url === '/login')
             );
-    }
-
-    logout() {
-        this.loginSrv.logout().subscribe(
-            (response) => this.router.navigate(['/']),
-            (error) => this.router.navigate(['/'])
-        );
     }
 
     goHome() {
@@ -66,6 +66,13 @@ export class AppComponent implements OnInit {
 
     openAbout() {
         this.router.navigate(['/about']);
+    }
+
+    logout() {
+        this.loginSrv.logout().subscribe(
+            (response) => this.router.navigate(['/']),
+            (error) => this.router.navigate(['/'])
+        );
     }
 
 }

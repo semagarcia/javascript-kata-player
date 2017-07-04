@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { MdDialog } from '@angular/material';
 
 import { Ng2DeviceService } from 'ng2-device-detector';
 
-import { EventService, LoginService } from './../core';
+import { AuthenticationService, EventService, LoginService, UserService } from './../core';
 import { UserDialogComponent } from '../administration/users/user-dialog/user-dialog.component';
 
 @Component({
@@ -23,9 +24,13 @@ export class LoginComponent implements OnInit {
     //languages: Array<string>;
 
     constructor(
-        private router: Router,
-        private loginSrv: LoginService,
+        private httpSrv: Http,
+        private route: ActivatedRoute,
+        private authSrv: AuthenticationService,
         private eventSrv: EventService,
+        private loginSrv: LoginService,
+        private routerSrv: Router,
+        private userSrv: UserService,
         private device: Ng2DeviceService,
         private dialog: MdDialog
     ) {}
@@ -35,11 +40,21 @@ export class LoginComponent implements OnInit {
         this.username = '';
         this.password = '';
         this.eventSelected = '';
-        this.loginSrv.logout().subscribe();
+        //this.loginSrv.logout().toPromise();
+        
         this.eventSrv.getCurrentEvents().subscribe(
             (events) => this.events = events,
             (err) => this.events = []
         );
+
+        this.route.paramMap
+            .map((params: ParamMap) => params.get('token'))
+            .filter(token => token && token.length > 0)
+            .subscribe((token) => {
+                // The new token is received (from social network auth)
+                this.authSrv.setJwtToken(token);
+                this.routerSrv.navigate(['/home']);
+            });
 
         switch (browser) {
             case 'chrome':
@@ -61,7 +76,7 @@ export class LoginComponent implements OnInit {
         this.loginSrv.login(this.username, this.password, this.eventSelected).subscribe(
             (loggedUser) => {
                 if (loggedUser)
-                    this.router.navigate(['/home']);
+                    this.routerSrv.navigate(['/home']);
                 else
                     this.loginError = 'Error: login error';
             },

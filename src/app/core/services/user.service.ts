@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { User } from './../models/User';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UserService {
     user: User;
 
-    constructor(private httpSrv: Http) { }
+    constructor(private httpSrv: Http) {}
 
     setUserContext(loggedUser: User): void {
         this.user = loggedUser;
@@ -14,23 +15,21 @@ export class UserService {
 
     getUserContext(): Promise<User> {
         return new Promise((resolve, reject) => {
-            if(this.user)
+            if(this.user) {
                 resolve(this.user);
-            else 
-                this.getUserInfo().subscribe(
-                    (user => { 
-                        this.user = user; 
-                        resolve(user); 
-                    }),
-                    (err => reject('Error: ' + err) )
-                );
+            } else {
+                this.getUserInfo()
+                    .then((user) => {
+                        this.user = user.json();
+                        resolve(this.user);
+                    })
+                    .catch((err) => reject(err));
+            }
         });
     }
 
-    getUserInfo() {
-        return this.httpSrv.get('/api/users/session')
-            .map(res => res.json())
-            .catch(err => err.json());
+    getUserInfo(): Promise<any> {
+        return this.httpSrv.get('/api/users/session').toPromise();
     }
 
 }

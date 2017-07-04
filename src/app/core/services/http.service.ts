@@ -9,12 +9,20 @@ import { BaseRequestOptions } from '@angular/http';
 @Injectable()
 export class HttpService extends Http {
 
+    private jwtToken: string;
+    private excludedRoutes = [
+        '/api/users/session'
+    ];
+
     constructor(
             backend: XHRBackend, 
             defaultOptions: RequestOptions, 
             private authSrv: AuthenticationService, 
             private router: Router) {
         super(backend, defaultOptions);
+        this.authSrv.jwtTokenSubscription().subscribe(
+            (newToken) => this.jwtToken = newToken
+        );
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
@@ -29,10 +37,15 @@ export class HttpService extends Http {
         return super.request(url, options).catch(this.catchErrors());
     }
 
+    private setHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
+        objectToSetHeadersTo.headers.set('Authorization', `JWT ${this.jwtToken}`);
+    }
+
     private catchErrors() {
         return (res: Response) => {
             if(res.status === 401 || res.status === 403) {
-                this.router.navigate(['/login']);
+                if(!this.shouldExcludeRoute(res.url))
+                    this.router.navigate(['/login']);
                 return Observable.of(res);
             } else {
                 return Observable.throw(res);
@@ -40,10 +53,9 @@ export class HttpService extends Http {
         };
     }
 
-    private setHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
-        objectToSetHeadersTo.headers.set('Authorization', `JWT ${this.authSrv.getJwtToken()}`);
+    private shouldExcludeRoute(url: string) {
+        return this.excludedRoutes.find((endpoint) => url.indexOf(endpoint) > -1).length === 1;
     }
-
 
 
     /*get(url: string, options?: RequestOptionsArgs): Observable<any> {

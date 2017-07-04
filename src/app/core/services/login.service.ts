@@ -24,8 +24,8 @@ export class LoginService {
         })
           .map((res: Response) => {
             let loggedUser = res.json();
-            this.userSrv.setUserContext(loggedUser);
             this.authSrv.setJwtToken(loggedUser.token);
+            this.userSrv.setUserContext(loggedUser);
             return loggedUser;
           })
           .catch((err: Response) => err.json().error);
