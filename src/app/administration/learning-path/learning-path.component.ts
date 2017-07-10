@@ -126,11 +126,8 @@ export class LearningPathComponent implements OnInit {
     }
 
     addNewTrainingPath() {
-        /*this.dialogRef.afterClosed().subscribe((x) => {
-            console.log('Cerrado');
-        });*/
         this.dialog.open(LpDialogComponent).afterClosed().subscribe((x) => {
-            console.log('Cerrado', x);
+            //console.log('Cerrado', x);
         });
     }
 
