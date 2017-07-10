@@ -28,6 +28,8 @@ export class RankingComponent implements OnInit {
         // Configure grid
         this.rowIndex = 1;
         this.gridOptions.rowHeight = 48;
+        //this.gridOptions.overlayNoRowsTemplate = 'No Rows';
+        //this.gridOptions.overlayLoadingTemplate = 'Loading';
         this.gridOptions.enableSorting = true;
         this.gridOptions.enableColResize = true;
         this.gridOptions.sortingOrder = ['desc', 'asc', null];
@@ -85,12 +87,20 @@ export class RankingComponent implements OnInit {
         this.eventSrv.getCurrentEvents().subscribe(
             (events) => this.events = events
         );
+
         this.kataSrv.getKataStats().subscribe(
             (stats) => { 
-                this.gridOptions.api.addItems(stats);
+                if(stats) {
+                    this.gridOptions.api.setRowData(stats);
+                    this.gridOptions.api.hideOverlay();
+                } else {
+                    this.gridOptions.api.showNoRowsOverlay();
+                }
+                    
+                // Adjust the column size
                 this.gridOptions.api.sizeColumnsToFit();
             },
-            (err) => { console.log(err); }
+            (err) => this.gridOptions.api.showNoRowsOverlay()
         );
     }
 
