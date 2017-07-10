@@ -11,7 +11,6 @@ export class SocketService {
     
     constructor() {
         if(this.socket) {
-            console.log('SS >>>> ', this.socket.connected);
             this.socket.removeAllListeners();
             this.socket.disconnect();
         }
