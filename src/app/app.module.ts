@@ -26,6 +26,7 @@ import { CurrentChallengeListComponent } from './current-challenge-list/current-
 import { StreamingComponent } from './streaming/streaming.component';
 import { LeaveChallengeComponent } from './dialogs/leave-challenge/leave-challenge.component';
 import { RankingComponent } from './ranking/ranking.component';
+import { RefresherButtonComponent } from './refresher/refresher-button.component';
 import { AboutComponent } from './about/about.component';
 
 // Dialogs, Pipes & Services
@@ -60,6 +61,7 @@ import 'hammerjs';
         LeaveChallengeComponent,
         OpenStreamingDialog,
         RankingComponent,
+        RefresherButtonComponent,
         SelectTrainingPathDialog,
         ShowErrorDialog,
         StreamingComponent,
