@@ -1,5 +1,6 @@
 .md-fav-bottom {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1em;
+    position: fixed;
+    right: 1em;
+    z-index: 999999;
 }
