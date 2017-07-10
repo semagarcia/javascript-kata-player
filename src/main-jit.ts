@@ -7,5 +7,4 @@ if (environment.production) {
   enableProdMode();
 }
 
-console.log('Running JIT compiled');
 platformBrowserDynamic().bootstrapModule(AppModule);
