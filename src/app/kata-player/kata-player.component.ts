@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { MdDialog, MdDialogRef } from '@angular/material';
 
@@ -14,7 +14,7 @@ import 'codemirror/mode/javascript/javascript';
     styleUrls: ['./kata-player.component.scss'],
     animations: KATA_PLAYER_ANIMATIONS
 })
-export class KataPlayerComponent implements OnInit, OnChanges {
+export class KataPlayerComponent implements OnInit, OnChanges, OnDestroy {
 
     leftPaneWidth: number;
     resizingModeEnabled: boolean;
@@ -202,6 +202,10 @@ export class KataPlayerComponent implements OnInit, OnChanges {
      */
     onNextExercise() {
         this.nextExercise.emit();
+    }
+
+    ngOnDestroy() {
+        this.kataCancelled.emit('exitKataComponent');
     }
 
 }
