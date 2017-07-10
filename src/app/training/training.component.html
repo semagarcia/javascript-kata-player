@@ -22,10 +22,14 @@
         [title]="currentExercise?.name"
         [explanation]="currentExercise?.description"
         [examples]="currentExercise?.examples"
+        [inputs]="currentExercise?.inputs"
+        [outputs]="currentExercise?.outputs"
         [code]="currentExercise?.initialBodyFunction"
+        [status]="READING"
         (success)="onSuccessKata()"
         [next-button]="true"
+        (success)="onSuccess()"
         (fail)="onFailedKataAttemp()"
-        (next)="onNextExercise()">
+        (nextExercise)="onNextExercise()">
     </kata-player>
 </div>

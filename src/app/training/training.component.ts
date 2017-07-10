@@ -58,29 +58,23 @@ export class TrainingComponent implements OnInit {
     }
 
     onSuccessKata() {
-
+        console.log('success');
     }
 
     onFailedKataAttemp() {
-
+        console.log('failed');
     }
 
     onNextExercise() {
-        this.nextExerciseIndex();
+        this.updateExerciseIndex();
         this.currentExercise = this.trainingPath.katas[this.currentExerciseIndex];
         this.selectedValue = this.currentExercise.name;
     }
 
-    nextExerciseIndex() {
+    updateExerciseIndex() {
         this.currentExerciseIndex = (this.currentExerciseIndex !== this.trainingPath.katas.length-1) 
             ? ++this.currentExerciseIndex 
             : 0;
-            
-    }
-
-    updateIndicators() {
-        // Current index
-
     }
 
 }
