@@ -9,17 +9,17 @@ import { AdminRoutes } from './admin.routes';
 import { MaterialModule } from './../material/material.module';
 
 import { AdminComponent } from './admin.component';
+import { CustomValidators } from './users/user-dialog/user-dialog-validator.service';
+import { EventsComponent } from './events/events.component';
+import { EventDialogComponent } from './events/event-dialog/event-dialog.component';
+import { LanguagesComponent } from './languages/languages.component';
 import { LearningPathComponent } from './learning-path/learning-path.component';
 import { LpDialogComponent } from './learning-path/lp-dialog/lp-dialog.component';
 import { KataComponent } from './kata/kata.component';
 import { KataDialogComponent } from './kata/kata-dialog/kata-dialog.component';
+import { NumberOfKatasPipe } from './kata/number-of-katas.pipe';
 import { UsersComponent } from './users/users.component';
 import { UserDialogComponent } from './users/user-dialog/user-dialog.component';
-import { EventsComponent } from './events/events.component';
-import { EventDialogComponent } from './events/event-dialog/event-dialog.component';
-import { NumberOfKatasPipe } from './kata/number-of-katas.pipe';
-import { LanguagesComponent } from './languages/languages.component';
-import { CustomValidators } from './users/user-dialog/user-dialog-validator.service';
 
 import { AgGridModule } from 'ag-grid-angular/main';
 
