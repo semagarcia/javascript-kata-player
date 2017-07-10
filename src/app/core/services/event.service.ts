@@ -18,7 +18,7 @@ export class EventService {
     getAllInfoOfEvents(): Observable<Array<Event>> {
         return this.httpSrv.get('/api/events/all')
             .map((res: Response) => res.json())
-            .catch((err: Response) => err.json().error);
+            .catch((err: Response) => err.json());
     }
 
     createEvent(name: string, startDate: Date, desc: string, urlMaps?: string, endDate?: Date): Observable<any> {
