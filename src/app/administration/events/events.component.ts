@@ -114,14 +114,7 @@ export class EventsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.eventSrv.getAllInfoOfEvents()
-            .subscribe(
-                (events: Array<Event>) => { 
-                    this.gridOptions.api.addItems(events);
-                    this.gridOptions.api.sizeColumnsToFit();
-                },
-                (err) => console.log(err)
-            );
+        this.reload();
     }
 
     createNewEvent() {
@@ -189,6 +182,23 @@ export class EventsComponent implements OnInit {
             modelA.name === modelB.name && modelA.description === modelB.description &&
             modelA.date.start === modelB.date.start && modelA.date.end === modelB.date.end &&
             modelA.urlLoc === modelB.urlLoc && modelA.enabled && modelB.enabled
+        );
+    }
+
+    reload() {
+        this.eventSrv.getAllInfoOfEvents().subscribe(
+            (events: Array<Event>) => { 
+                if(events) {
+                    this.gridOptions.api.setRowData(events);
+                    this.gridOptions.api.hideOverlay();
+                } else {
+                    this.gridOptions.api.showNoRowsOverlay();
+                }
+
+                // Adjust the column size
+                this.gridOptions.api.sizeColumnsToFit();
+            },
+            (err) => this.gridOptions.api.showNoRowsOverlay()
         );
     }
 
