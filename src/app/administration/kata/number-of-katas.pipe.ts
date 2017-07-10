@@ -8,7 +8,6 @@ export class NumberOfKatasPipe implements PipeTransform {
     transform(value: string | number, singular: string, plural: string): string {
         let quantity = 0;
         if(typeof(value) === 'number') {
-            console.log('number');
             quantity = value;
         } else if(typeof(value) === 'string') {
             let quantity = (Number(value)) ? Number(value) : 0;
