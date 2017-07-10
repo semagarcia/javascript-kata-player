@@ -54,7 +54,7 @@ export class HttpService extends Http {
     }
 
     private shouldExcludeRoute(url: string) {
-        return this.excludedRoutes.find((endpoint) => url.indexOf(endpoint) > -1).length === 1;
+        return this.excludedRoutes.find((endpoint) => url.indexOf(endpoint) > -1).length > 0;
     }
 
 
