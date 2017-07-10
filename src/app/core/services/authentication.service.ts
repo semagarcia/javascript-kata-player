@@ -32,7 +32,6 @@ export class AuthenticationService {
     }
 
     removeJwtToken() {
-        console.log('Removing token...');
         sessionStorage.removeItem(STORAGE_KEY);
     }
 
