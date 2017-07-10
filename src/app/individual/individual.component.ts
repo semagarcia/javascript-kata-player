@@ -55,12 +55,13 @@ export class IndividualComponent implements OnInit {
     }
 
     onSuccess() {
-        console.log('kata successful');
         this.notificationSrv.sendNotification('Individual kata', 'Congrats! Your implementation is correct :-)');
     }
 
-    onKataCancelled() {
-        console.log('exiting kata');
+    onKataCancelled(evt) {
+        // Cancelling kata
+        // ToDo: Are you sure you want to exit?
+        console.log('Exiting from kata due to: ', evt);
     }
 
 }
