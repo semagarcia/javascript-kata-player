@@ -63,11 +63,11 @@
     <!-- Editor -->
     <div class="codigo" [@startKata]="status" [style.hidden]="true" [style.flex-basis.%]="100 - leftPaneWidth">
         <div class="medio-panel-superior card-ang-mat">
-            <codemirror class="editor-area" 
-                [(ngModel)]="code" 
-                [config]="config"
-                (change)="onEditorChange($event)">
-            </codemirror>
+            <kata-editor class="editor-area"
+                [code]="code"
+                [kataEditorConfig]="config"
+                (codeUpdated)="onEditorChange($event)">
+            </kata-editor>
         </div>
         <div class="medio-panel-inferior card-ang-mat flexibox-column">
             <div class="full-width" *ngIf="tests.output">Passed tests: {{numberOfPassedTests}} out of {{numberOfTests}}</div>

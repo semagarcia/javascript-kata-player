@@ -6,8 +6,6 @@ import { KATA_PLAYER_ANIMATIONS } from './kata-player.animation';
 import { KataService, KataPlayerStatus, TestExecutorService } from './../core';
 import { LeaveChallengeComponent, WaitingChallengeDialog } from './../dialogs';
 
-import 'codemirror/mode/javascript/javascript';
-
 @Component({
     selector: 'kata-player',
     templateUrl: './kata-player.component.html',
@@ -129,6 +127,7 @@ export class KataPlayerComponent implements OnInit, OnChanges, OnDestroy {
      */
     onEditorChange(functionImpl: string) {
         if(typeof(functionImpl) === 'string') {
+            this.code = functionImpl;
             this.codeUpdated.emit(functionImpl);
         }
     }

@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/core';
-import { KataPlayerStatus } from './../core/models/KataPlayer';
+import { KataPlayerStatus } from './../core/models/KataPlayerStatus';
 
 export const KATA_PLAYER_ANIMATIONS = [
     trigger('startKata', [
