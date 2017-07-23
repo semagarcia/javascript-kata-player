@@ -4,8 +4,6 @@ import { Observable } from 'rxjs';
 
 import { Challenge, ChallengeService, KataPlayerStatus, SocketService } from './../core';
 
-import 'codemirror/mode/javascript/javascript';
-
 @Component({
   selector: 'app-streaming',
   templateUrl: './streaming.component.html',

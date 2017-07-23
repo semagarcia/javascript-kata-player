@@ -14,7 +14,7 @@
         direction="ASC" 
         [state]="challengeState"
         (chronometer)="chronoEvent($event)"
-        classstreaming-chronometer="">
+        classstreaming-chronometer="">        <!-- revisarr -->
     </kata-chronometer>
     <md-icon>cast_connected</md-icon>
 
@@ -50,10 +50,10 @@
         </div>
         <div class="full-width" style="margin-top: 100px">
             <div class="medio-panel-superior card-ang-mat">
-                <codemirror class="editor-area" 
-                    [(ngModel)]="codePlayerA" 
-                    [config]="config">
-                </codemirror>
+                <kata-editor class="editor-area"
+                    [code]="codePlayerA"
+                    [kataEditorConfig]="config">
+                </kata-editor>
             </div>
         </div>
     </div>
@@ -81,10 +81,10 @@
         </div>
         <div class="full-width" style="margin-top: 100px">
             <div class="medio-panel-superior card-ang-mat">
-                <codemirror class="editor-area" 
-                    [(ngModel)]="codePlayerB" 
-                    [config]="config">
-                </codemirror>
+                <kata-editor class="editor-area"
+                    [code]="codePlayerA"
+                    [kataEditorConfig]="config">
+                </kata-editor>
             </div>
         </div>
     </div>
