@@ -1,3 +1,6 @@
+// Module
+export { CoreModule } from './core.module';
+
 // Pipes
 export * from './pipes/time.pipe';
 
@@ -25,6 +28,6 @@ export * from './services/validation-messages.service';
 export * from './models/Challenge';
 export * from './models/Event';
 export * from './models/Kata';
-export * from './models/KataPlayer';
+export * from './models/KataPlayerStatus';
 export * from './models/TrainingPaths';
 export * from './models/User';
