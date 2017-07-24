@@ -8,10 +8,15 @@
             #rla="routerLinkActive">
                 <i class="fa fa-users fa-3x" aria-hidden="true"></i> Users
         </a>
+        <a md-tab-link [routerLink]="['/administration/programming-languages']" 
+            routerLinkActive 
+            #rla="routerLinkActive">
+                <i class="fa fa-folder-open-o fa-3x" aria-hidden="true"></i> Programming languages
+        </a>
         <a md-tab-link [routerLink]="['/administration/learning-paths']" 
             routerLinkActive 
             #rla="routerLinkActive">
-                <i class="fa fa-folder-open-o fa-3x" aria-hidden="true"></i> Learning Paths
+                <i class="fa fa-folder-open-o fa-3x" aria-hidden="true"></i> Learning paths
         </a>
         <a md-tab-link
             [routerLink]="['/administration/katas']"
@@ -26,10 +31,10 @@
                 <i class="fa fa-flash fa-3x" aria-hidden="true"></i> Events
         </a>
         <a md-tab-link
-            [routerLink]="['/administration/languages']"
+            [routerLink]="['/administration/i18n']"
             routerLinkActive 
             #rla="routerLinkActive">
-                <i class="fa fa-language fa-3x" aria-hidden="true"></i> Languages
+                <i class="fa fa-language fa-3x" aria-hidden="true"></i> Internationalization
         </a>
     </nav>
 

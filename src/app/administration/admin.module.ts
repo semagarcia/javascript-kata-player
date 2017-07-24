@@ -12,12 +12,13 @@ import { AdminComponent } from './admin.component';
 import { CustomValidators } from './users/user-dialog/user-dialog-validator.service';
 import { EventsComponent } from './events/events.component';
 import { EventDialogComponent } from './events/event-dialog/event-dialog.component';
-import { LanguagesComponent } from './languages/languages.component';
+import { I18NComponent } from './i18n/i18n.component';
 import { LearningPathComponent } from './learning-path/learning-path.component';
 import { LpDialogComponent } from './learning-path/lp-dialog/lp-dialog.component';
 import { KataComponent } from './kata/kata.component';
 import { KataDialogComponent } from './kata/kata-dialog/kata-dialog.component';
 import { NumberOfKatasPipe } from './kata/number-of-katas.pipe';
+import { ProgrammingLanguagesComponent } from './programming-languages/programming-languages.component';
 import { UsersComponent } from './users/users.component';
 import { UserDialogComponent } from './users/user-dialog/user-dialog.component';
 
@@ -37,12 +38,13 @@ import { AgGridModule } from 'ag-grid-angular/main';
         AdminComponent,
         EventsComponent,
         EventDialogComponent,
+        I18NComponent,
         KataComponent,
         KataDialogComponent,
-        LanguagesComponent,
         LearningPathComponent,
         LpDialogComponent,
         NumberOfKatasPipe,
+        ProgrammingLanguagesComponent,
         UsersComponent,
         UserDialogComponent
     ],
