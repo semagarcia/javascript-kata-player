@@ -108,9 +108,7 @@ export class KataComponent implements OnInit {
     }
 
     createNewKata() {
-        this.dialog.open(KataDialogComponent).afterClosed().subscribe((x) => {
-            //console.log('Cerrado', x);
-        });
+        
     }
 
     editKata() {
