@@ -1,0 +1,96 @@
+<h1>Create new kata</h1>
+
+<!-- los campos comunes: nombre, descripción, código... que vayan ocupando todo el ancho; los de
+entrada/salida que ocupen solo la mitad para ponerlos en paralelo -->
+<!--
+  - write the description
+  - write the examples
+  - write the inputs / outputs
+  - write the tests
+  - select its state: enabled/disabled
+  -->
+
+<div class="step">
+    <!-- Programming language selector  -->
+    <div class="select-top-spacer">
+        <md-select class="full-width" [(ngModel)]="programmingLang" name="lang"
+                    placeholder="Select the language of the kata" 
+                    (change)="onLanguageProgrammingChange($event)">
+            <md-option *ngFor="let lang of programmingLanguages" [value]="lang">{{ lang }}</md-option>
+        </md-select>
+    </div>
+    
+    <!-- LearningPath selector -->
+    <div class="select-top-spacer2">
+        <md-select class="full-width" [(ngModel)]="learningPath" name="lp"
+                    placeholder="Select the learning path which the kata belongs to">
+            <md-option *ngFor="let lp of learningPaths" [value]="lp">{{ lp }}</md-option>
+        </md-select>
+    </div>
+    
+    <!-- Name / Function name (kata identifier) -->
+    <md-input-container class="full-width">
+        <input mdInput required [(ngModel)]="name" 
+                placeholder="Write the name (unique identifier) for the kata">
+    </md-input-container>
+    
+    <!-- Function signature -->
+    <div class="select-top-spacer">
+        <p>Write here the function signature (kata's name, params, ...)</p>
+        <p *ngIf="!showEditor" class="show-editor-warning">
+            To see the editor, please, select first a programming language!
+        </p>
+        <kata-editor class="" 
+            *ngIf="showEditor"
+            [code]="code" 
+            [kataEditorConfig]="config">
+        </kata-editor>
+    </div>
+
+    <!-- Kata description -->
+    <md-input-container class="full-width">
+        <textarea mdInput required [(ngModel)]="description" 
+            placeholder="Write a description for the purpose of this kata">
+        </textarea>
+    </md-input-container>
+    
+    <!-- Examples -->
+    <md-input-container class="full-width">
+        <input mdInput required [(ngModel)]="examples" 
+                placeholder="Also, you can write a brief description">
+    </md-input-container>
+    
+    <!-- Input/Outputs -->
+    <div class="select-top-spacer">
+        <p>Add the inputs and outputs needed for your kata, specifying</p>
+    </div>
+    
+    <!-- Tests -->
+    <div class="select-top-spacer2">
+        <p>Add all tests that you desire or consider to assert the correctness of the user's implementation</p>
+    </div>
+
+    <!-- Enabled -->
+    <div class="select-top-spacer2">
+        <p>The kata has to be enabled?</p>
+        <md-slide-toggle [(ngModel)]="enabled" color="primary" checked="true">
+            {{ (enabled) ? 'Enabled kata' : 'Disabled kata' }}
+        </md-slide-toggle>
+    </div>
+
+
+
+
+    <!-- Buttons -->
+    <div class="padding-top-18">
+        <div class="flexibox-row">
+            <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="nextStep()">
+                Add kata
+            </button>
+            <div style="padding:0 3px;"></div>
+            <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="closeDialog()">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
