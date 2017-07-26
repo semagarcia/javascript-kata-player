@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AdminRoutes } from './admin.routes';
+import { KataPlayerModule } from './../kata-player/kata-player.module';
 import { MaterialModule } from './../material/material.module';
 
 import { AdminComponent } from './admin.component';
@@ -16,6 +17,7 @@ import { I18NComponent } from './i18n/i18n.component';
 import { LearningPathComponent } from './learning-path/learning-path.component';
 import { LpDialogComponent } from './learning-path/lp-dialog/lp-dialog.component';
 import { KataComponent } from './kata/kata.component';
+import { KataFormComponent } from './kata/kata-form/kata-form.component';
 import { KataDialogComponent } from './kata/kata-dialog/kata-dialog.component';
 import { NumberOfKatasPipe } from './kata/number-of-katas.pipe';
 import { ProgrammingLanguagesComponent } from './programming-languages/programming-languages.component';
@@ -30,6 +32,7 @@ import { AgGridModule } from 'ag-grid-angular/main';
         CommonModule,
         FormsModule,
         HttpModule,
+        KataPlayerModule,
         MaterialModule,
         ReactiveFormsModule,
         RouterModule.forChild(AdminRoutes)
@@ -40,6 +43,7 @@ import { AgGridModule } from 'ag-grid-angular/main';
         EventDialogComponent,
         I18NComponent,
         KataComponent,
+        KataFormComponent,
         KataDialogComponent,
         LearningPathComponent,
         LpDialogComponent,
