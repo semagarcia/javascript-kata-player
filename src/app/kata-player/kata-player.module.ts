@@ -11,6 +11,8 @@ import { KataPlayerComponent } from './kata-player.component';
 
 // Third party module
 import { CodemirrorModule } from 'ng2-codemirror';
+import 'codemirror/mode/cobol/cobol';
+import 'codemirror/mode/mumps/mumps';
 
 @NgModule({
     imports: [
