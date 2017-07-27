@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-kata-form',
@@ -16,18 +17,19 @@ export class KataFormComponent implements OnInit {
     description: string;
     examples: Array<string>
     //input/outputs
-    //tests
+    tests: Array<any>;
     enabled: boolean;
 
     code: string;
     config: any;
     showEditor: boolean;
 
-    constructor() { 
+    constructor(private routerSrv: Router) { 
         // Initialize values
+        this.tests = [];
         this.enabled = true;
-        this.code = 'Your signature here...';
         this.showEditor = false;
+        this.code = 'Your signature here...';
     }
 
     ngOnInit() {
@@ -73,6 +75,34 @@ export class KataFormComponent implements OnInit {
             };
         }
         setTimeout(() => { this.showEditor = true; }, 0);
+    }
+
+    addNewTestCase() {
+        this.tests.push({ input: '', output: '' });
+    }
+
+    closeTestCase(indexTestCase) {
+        this.tests.splice(indexTestCase, 1);
+    }
+
+    addKata() {
+        // Check test cases
+        /*for(let idx=this.tests.length; idx>=0; idx--) {
+            if(this.tests[idx].input === '' || this.tests[idx].output === '') {
+                this.tests.splice(idx, 1);
+            }
+        }*/
+        for(let idx = 0; idx<this.tests.length; idx++) {
+            if(this.tests[idx].input === '' || this.tests[idx].output === '') {
+                this.tests.splice(idx, 1);
+            }
+        }
+        console.log('tests: ', this.tests);
+        
+    }
+
+    cancel() {
+        this.routerSrv.navigateByUrl('/administration/katas');
     }
 
 }

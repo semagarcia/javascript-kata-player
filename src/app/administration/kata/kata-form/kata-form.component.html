@@ -68,6 +68,24 @@ entrada/salida que ocupen solo la mitad para ponerlos en paralelo -->
     <!-- Tests -->
     <div class="select-top-spacer2">
         <p>Add all tests that you desire or consider to assert the correctness of the user's implementation</p>
+        <button type="button" class="full-width" md-raised-button color="accent" (click)="addNewTestCase()">
+            Add new test case
+        </button>
+        <div class="flexibox-row padding-top-8" *ngFor="let testCase of tests; let i = index">
+            <div class="padding-right-6" style="flex-grow:1">
+                <md-input-container class="full-width">
+                    <input mdInput required [(ngModel)]="testCase.input" placeholder="Write the input">
+                </md-input-container>
+            </div>
+            <div class="padding-right-6" style="flex-grow:1">
+                <md-input-container class="full-width">
+                    <input mdInput required [(ngModel)]="testCase.output" placeholder="Write the output">
+                </md-input-container>
+            </div>
+            <div class="padding-top-8" style="flex-grow:0;">
+                <button md-mini-fab (click)="closeTestCase(i)"><md-icon>close</md-icon></button>
+            </div>
+        </div>
     </div>
 
     <!-- Enabled -->
@@ -78,17 +96,14 @@ entrada/salida que ocupen solo la mitad para ponerlos en paralelo -->
         </md-slide-toggle>
     </div>
 
-
-
-
     <!-- Buttons -->
     <div class="padding-top-18">
         <div class="flexibox-row">
-            <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="nextStep()">
+            <button type="button" md-raised-button color="primary" class="flex-grow-1" (click)="addKata()">
                 Add kata
             </button>
             <div style="padding:0 3px;"></div>
-            <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="closeDialog()">
+            <button type="button" md-raised-button color="accent" class="flex-grow-1" (click)="cancel()">
                 Cancel
             </button>
         </div>
